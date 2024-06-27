@@ -16,11 +16,9 @@ class User(SQLModel, table=True):
     password_hash: str = ""
 
     def set_password(self, password):
-        """Setting the passwords actually sets password_hash."""
         self.password_hash = pwd_context.hash(password)
 
     def verify_password(self, password):
-        """Verify given password by hashing and comparing to password_hash."""
         return pwd_context.verify(password, self.password_hash)
 
 

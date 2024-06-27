@@ -1,9 +1,3 @@
-"""
-create_user.py
--------------
-A convenience script to create a user.
-"""
-
 from getpass import getpass
 
 from sqlmodel import SQLModel, Session, create_engine
@@ -12,7 +6,7 @@ from schemas import User
 
 
 engine = create_engine(
-    "sqlite:///carsharing.db",
+    "sqlite:///bike_configurator.db",
     connect_args={"check_same_thread": False},  # Needed for SQLite
     echo=True  # Log generated SQL
 )
