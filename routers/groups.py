@@ -40,6 +40,9 @@ def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
             status_code=404, detail=f"No assembly group with id={id}."
         )
 
+# Edit assembly group
+
+
 @router.put("/{id}", response_model=AssemblyGroup, tags=["Assembly groups"])
 def edit_assembly_group(id: int, new_data: AssemblyGroupInput, session: Session = Depends(get_session)) -> AssemblyGroup:
     group = session.get(AssemblyGroup, id)
@@ -48,4 +51,5 @@ def edit_assembly_group(id: int, new_data: AssemblyGroupInput, session: Session 
         session.commit()
         return group
     else:
-        raise HTTPException(status_code=404, detail=f"No assembly group with id={id}.")
+        raise HTTPException(
+            status_code=404, detail=f"No assembly group with id={id}.")

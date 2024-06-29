@@ -21,45 +21,68 @@ class User(SQLModel, table=True):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
 
-
-class TripInput(SQLModel):
-    start: int
-    end: int
-    description: str
+# Module -----------------------------------------
 
 
-class TripOutput(TripInput):
+class ModuleInput(SQLModel):
+    name: str
+
+
+class Module(ModuleInput, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    #bikecomponent_id: int = Field(foreign_key="assemblygroup.id")
+    #bikecomponent: "AssemblyGroup" = Relationship(back_populates="trips")
+
+
+class ModuleOutput(ModuleInput):
     id: int
 
-
-class Trip(TripInput, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    car_id: int = Field(foreign_key="car.id")
-    car: "Car" = Relationship(back_populates="trips")
+# Assembly Group --------------------------------------
 
 
-class CarInput(SQLModel):
-    size: str
-    fuel: str | None = "electric"
-    doors: int
-    transmission: str | None = "auto"
+class AssemblyGroupInput(SQLModel):
+    name: str | None = "No name"
 
-    class Config:
+    class GroupConfig:
         schema_extra = {
             "example": {
-                "size": "m",
-                "doors": 5,
-                "transmission": "manual",
-                "fuel": "hybrid"
+                "name": "Cockpit"
             }
         }
 
 
-class Car(CarInput, table=True):
+class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    trips: list[Trip] = Relationship(back_populates="car")
+    #trips: list[Module] = Relationship(back_populates="module")
 
 
-class CarOutput(CarInput):
+class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    trips: list[TripOutput] = []
+    #trips: list[ModuleOutput] = []
+
+
+# Bike Component --------------------------------------
+
+class BikeComponentInput(SQLModel):
+    name: str | None = "No name"
+    source: str | None = "Unknown"
+    price: float | None = 0.00
+    group: str | None = "No group"
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "SHIMANO 105 KURBELGARNITUR FC-R7000 HOLLOWTECH II",
+                "source": "bike-components.de",
+                "price": 100.00,
+                "group": "Drivetrain"
+            }
+        }
+
+
+class BikeComponent(BikeComponentInput, table=True):
+    id: int | None = Field(primary_key=True, default=None)
+
+
+class BikeComponentOutput(BikeComponentInput):
+    id: int

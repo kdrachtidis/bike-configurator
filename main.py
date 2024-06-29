@@ -6,13 +6,14 @@ from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from db import engine
-from routers import cars, web, auth
-from routers.cars import BadTripException
+from routers import groups, components, web, auth
+from routers.components import BadTripException
 
-app = FastAPI(title="Car Sharing")
+app = FastAPI(title="Bike configurator")
 app.include_router(web.router)
-app.include_router(cars.router)
+app.include_router(components.router)
 app.include_router(auth.router)
+app.include_router(groups.router)
 
 
 origins = [
