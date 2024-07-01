@@ -22,8 +22,10 @@ def add_assembly_group(group_input: AssemblyGroupInput,
 # Get assemly groups
 
 @router.get("/", tags=["Assembly groups"])
-def get_assembly_groups(session: Session = Depends(get_session)) -> list:
+def get_assembly_groups(type: str | None = None, session: Session = Depends(get_session)) -> list:
     query = select(AssemblyGroup)
+    if type:
+        query = query.where(AssemblyGroup.biketype == type)
     return session.exec(query).all()
 
 # Delete assembly group
@@ -48,6 +50,7 @@ def edit_assembly_group(id: int, new_data: AssemblyGroupInput, session: Session 
     group = session.get(AssemblyGroup, id)
     if group:
         group.name = new_data.name
+        group.biketype = new_data.biketype
         session.commit()
         return group
     else:

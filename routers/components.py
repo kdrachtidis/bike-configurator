@@ -7,6 +7,19 @@ from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, Modu
 
 router = APIRouter(prefix="/api/bikecomponents")
 
+# Add bike components
+
+
+@router.post("/", response_model=BikeComponent, tags=["Bike components"])
+def add_bike_component(component_input: BikeComponentInput,
+                       session: Session = Depends(get_session)) -> BikeComponent:
+    # user: User = Depends(get_current_user)) -> BikeComponent:
+    new_component = BikeComponent.from_orm(component_input)
+    session.add(new_component)
+    session.commit()
+    session.refresh(new_component)
+    return new_component
+
 # Get bike components
 
 
@@ -32,18 +45,6 @@ def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> Bi
         raise HTTPException(
             status_code=404, detail=f"No bike component with id={id}.")
 
-# Add bike components
-
-
-@router.post("/", response_model=BikeComponent, tags=["Bike components"])
-def add_bike_component(component_input: BikeComponentInput,
-                       session: Session = Depends(get_session)) -> BikeComponent:
-    # user: User = Depends(get_current_user)) -> BikeComponent:
-    new_component = BikeComponent.from_orm(component_input)
-    session.add(new_component)
-    session.commit()
-    session.refresh(new_component)
-    return new_component
 
 # Delete a bike component
 

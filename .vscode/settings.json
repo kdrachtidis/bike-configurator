@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Bike Configurator",
+            "database": "${workspaceFolder:bike-configurator-api}/bike_configurator.db"
+        }
+    ]
+}

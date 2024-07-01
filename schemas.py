@@ -30,8 +30,8 @@ class ModuleInput(SQLModel):
 
 class Module(ModuleInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    #bikecomponent_id: int = Field(foreign_key="assemblygroup.id")
-    #bikecomponent: "AssemblyGroup" = Relationship(back_populates="trips")
+    # bikecomponent_id: int = Field(foreign_key="assemblygroup.id")
+    # bikecomponent: "AssemblyGroup" = Relationship(back_populates="trips")
 
 
 class ModuleOutput(ModuleInput):
@@ -42,23 +42,25 @@ class ModuleOutput(ModuleInput):
 
 class AssemblyGroupInput(SQLModel):
     name: str | None = "No name"
+    biketype: str | None = "No type"
 
     class GroupConfig:
         schema_extra = {
             "example": {
-                "name": "Cockpit"
+                "name": "Cockpit",
+                "type": "Road"
             }
         }
 
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    #trips: list[Module] = Relationship(back_populates="module")
+    # trips: list[Module] = Relationship(back_populates="module")
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    #trips: list[ModuleOutput] = []
+    # trips: list[ModuleOutput] = []
 
 
 # Bike Component --------------------------------------
