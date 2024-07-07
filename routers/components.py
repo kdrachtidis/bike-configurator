@@ -3,7 +3,7 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, Module, ModuleInput, User
+from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, GroupModule, GroupModuleInput, User
 
 router = APIRouter(prefix="/api/bikecomponents")
 
@@ -73,25 +73,5 @@ def edit_bike_component(id: int, new_data: BikeComponentInput,
         component.group = new_data.group
         session.commit()
         return component
-    else:
-        raise HTTPException(status_code=404, detail=f"No car with id={id}.")
-
-
-class BadTripException(Exception):
-    pass
-
-
-@router.post("/{car_id}/trips", response_model=Module)
-def add_trip(car_id: int, trip_input: ModuleInput,
-             session: Session = Depends(get_session)) -> Module:
-    car = session.get(BikeComponent, car_id)
-    if car:
-        new_trip = Module.from_orm(trip_input, update={'car_id': car_id})
-        if new_trip.end < new_trip.start:
-            raise BadTripException("Trip end before start")
-        car.trips.append(new_trip)
-        session.commit()
-        session.refresh(new_trip)
-        return new_trip
     else:
         raise HTTPException(status_code=404, detail=f"No car with id={id}.")

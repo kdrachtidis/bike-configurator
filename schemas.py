@@ -24,18 +24,27 @@ class User(SQLModel, table=True):
 # Module -----------------------------------------
 
 
-class ModuleInput(SQLModel):
-    name: str
+class GroupModuleInput(SQLModel):
+    modulename: str | None = "No name"
+
+    # class ModuleConfig:
+    #   schema_extra = {
+    #      "example": {
+    #         "modulename": "Cockpit"
+    #    }
+    # }
 
 
-class Module(ModuleInput, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    # bikecomponent_id: int = Field(foreign_key="assemblygroup.id")
-    # bikecomponent: "AssemblyGroup" = Relationship(back_populates="trips")
-
-
-class ModuleOutput(ModuleInput):
+class GroupModuleOutput(GroupModuleInput):
     id: int
+
+
+class GroupModule(GroupModuleInput, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    assemblygroup_id: int = Field(foreign_key="assemblygroup.id")
+    assemblygroup: "AssemblyGroup" = Relationship(
+        back_populates="groupmodules")
+
 
 # Assembly Group --------------------------------------
 
@@ -44,23 +53,24 @@ class AssemblyGroupInput(SQLModel):
     name: str | None = "No name"
     biketype: str | None = "No type"
 
-    class GroupConfig:
+    class Config:
         schema_extra = {
             "example": {
                 "name": "Cockpit",
-                "type": "Road"
+                "biketype": "Road"
             }
         }
 
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    # trips: list[Module] = Relationship(back_populates="module")
+    groupmodules: list[GroupModule] = Relationship(
+        back_populates="assemblygroup")
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    # trips: list[ModuleOutput] = []
+    groupmodules: list[GroupModuleOutput] = []
 
 
 # Bike Component --------------------------------------
