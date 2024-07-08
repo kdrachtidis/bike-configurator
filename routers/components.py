@@ -3,7 +3,7 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, GroupModule, GroupModuleInput, User
+from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, AssemblyGroupModule, AssemblyGroupModuleInput, User
 
 router = APIRouter(prefix="/api/bikecomponents")
 

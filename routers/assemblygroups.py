@@ -10,13 +10,13 @@ router = APIRouter(prefix="/api/groups")
 
 
 @router.post("/", response_model=AssemblyGroup, tags=["Assembly groups"])
-def add_assembly_group(group_input: AssemblyGroupInput,
+def add_assembly_group(input: AssemblyGroupInput,
                        session: Session = Depends(get_session)) -> AssemblyGroup:
-    new_group = AssemblyGroup.from_orm(group_input)
-    session.add(new_group)
+    new_assemblygroup = AssemblyGroup.from_orm(input)
+    session.add(new_assemblygroup)
     session.commit()
-    session.refresh(new_group)
-    return new_group
+    session.refresh(new_assemblygroup)
+    return new_assemblygroup
 
 
 # Get assemly groups
@@ -43,9 +43,9 @@ def get_assembly_groups_by_id(id: int, session: Session = Depends(get_session)) 
 
 @router.delete("/{id}", status_code=204, tags=["Assembly groups"])
 def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
-    group = session.get(AssemblyGroup, id)
-    if group:
-        session.delete(group)
+    assemblygroup = session.get(AssemblyGroup, id)
+    if assemblygroup:
+        session.delete(assemblygroup)
         session.commit()
     else:
         raise HTTPException(
@@ -56,13 +56,13 @@ def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
 
 
 @router.put("/{id}", response_model=AssemblyGroup, tags=["Assembly groups"])
-def edit_assembly_group(id: int, new_data: AssemblyGroupInput, session: Session = Depends(get_session)) -> AssemblyGroup:
-    group = session.get(AssemblyGroup, id)
-    if group:
-        group.name = new_data.name
-        group.biketype = new_data.biketype
+def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: Session = Depends(get_session)) -> AssemblyGroup:
+    assemblygroup = session.get(AssemblyGroup, id)
+    if assemblygroup:
+        assemblygroup.name = new_assemblygroup.name
+        assemblygroup.biketype = new_assemblygroup.biketype
         session.commit()
-        return group
+        return assemblygroup
     else:
         raise HTTPException(
             status_code=404, detail=f"No assembly group with id={id}.")

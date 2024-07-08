@@ -24,7 +24,7 @@ class User(SQLModel, table=True):
 # Module -----------------------------------------
 
 
-class GroupModuleInput(SQLModel):
+class AssemblyGroupModuleInput(SQLModel):
     modulename: str | None = "No name"
 
     # class ModuleConfig:
@@ -35,11 +35,11 @@ class GroupModuleInput(SQLModel):
     # }
 
 
-class GroupModuleOutput(GroupModuleInput):
+class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
     id: int
 
 
-class GroupModule(GroupModuleInput, table=True):
+class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
     assemblygroup_id: int = Field(foreign_key="assemblygroup.id")
     assemblygroup: "AssemblyGroup" = Relationship(
@@ -64,13 +64,13 @@ class AssemblyGroupInput(SQLModel):
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    groupmodules: list[GroupModule] = Relationship(
+    groupmodules: list[AssemblyGroupModule] = Relationship(
         back_populates="assemblygroup")
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    groupmodules: list[GroupModuleOutput] = []
+    groupmodules: list[AssemblyGroupModuleOutput] = []
 
 
 # Bike Component --------------------------------------
