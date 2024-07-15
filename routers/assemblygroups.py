@@ -4,7 +4,7 @@ from sqlmodel import Session, select
 from db import get_session
 from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
-router = APIRouter(prefix="/api/groups")
+router = APIRouter(prefix="/api/assemblygroups")
 
 # Add assembly group
 
