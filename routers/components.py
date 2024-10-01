@@ -7,7 +7,7 @@ from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, User
 
 router = APIRouter(prefix="/api/bikecomponents")
 
-# Add bike components
+# Add bike component
 
 
 @router.post("/", response_model=BikeComponent, tags=["Bike components"])
@@ -33,7 +33,7 @@ def get_bike_components(source: str | None = None, group: str | None = None,
         query = query.where(BikeComponent.group == group)
     return session.exec(query).all()
 
-# Get bike components by id
+# Get bike component by id
 
 
 @router.get("/{id}", response_model=BikeComponentOutput, tags=["Bike components"])
