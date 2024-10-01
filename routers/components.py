@@ -14,7 +14,7 @@ router = APIRouter(prefix="/api/bikecomponents")
 def add_bike_component(component_input: BikeComponentInput,
                        session: Session = Depends(get_session)) -> BikeComponent:
     # user: User = Depends(get_current_user)) -> BikeComponent:
-    new_component = BikeComponent.from_orm(component_input)
+    new_component = BikeComponent.model_validate(component_input)
     session.add(new_component)
     session.commit()
     session.refresh(new_component)
