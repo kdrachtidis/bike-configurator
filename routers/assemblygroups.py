@@ -32,7 +32,7 @@ def get_assembly_groups(type: str | None = None, session: Session = Depends(get_
 
 
 @router.get("/{id}", response_model=AssemblyGroupOutput, tags=["Assembly groups"])
-def get_assembly_groups_by_id(id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
+def get_assembly_group_by_id(id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         return assemblygroup
