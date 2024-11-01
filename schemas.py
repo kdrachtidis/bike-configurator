@@ -104,7 +104,19 @@ class BikeComponentOutput(BikeComponentInput):
 
 # Bike Type --------------------------------------
 
-# class BikeTypeInput(SQLModel):
- #   name: str | None = "No name"
+class BikeTypeInput(SQLModel):
+   name: str | None = "No name"
 
-  #  class Config
+   model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "name": "Rennrad"
+            }]
+        }
+    }
+   
+class BikeType(BikeTypeInput, table=True):
+    id: int | None = Field(primary_key=True, default=None)
+
+class BikeTypeOutput(BikeTypeInput):
+    id: int
