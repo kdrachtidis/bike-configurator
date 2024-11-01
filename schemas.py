@@ -27,12 +27,13 @@ class User(SQLModel, table=True):
 class AssemblyGroupModuleInput(SQLModel):
     modulename: str | None = "No name"
 
-    # class ModuleConfig:
-    #   schema_extra = {
-    #      "example": {
-    #         "modulename": "Cockpit"
-    #    }
-    # }
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "modulename": "Brake Levers"
+            }]
+        }
+    }
 
 
 class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
@@ -53,13 +54,14 @@ class AssemblyGroupInput(SQLModel):
     name: str | None = "No name"
     biketype: str | None = "No type"
 
-    class Config:
-        schema_extra = {
-            "example": {
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
                 "name": "Cockpit",
                 "biketype": "Road"
-            }
+            }]
         }
+    }
 
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
@@ -81,15 +83,16 @@ class BikeComponentInput(SQLModel):
     price: float | None = 0.00
     group: str | None = "No group"
 
-    class Config:
-        schema_extra = {
-            "example": {
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
                 "name": "SHIMANO 105 KURBELGARNITUR FC-R7000 HOLLOWTECH II",
                 "source": "bike-components.de",
                 "price": 100.00,
                 "group": "Drivetrain"
-            }
+            }]
         }
+    }
 
 
 class BikeComponent(BikeComponentInput, table=True):
@@ -98,3 +101,10 @@ class BikeComponent(BikeComponentInput, table=True):
 
 class BikeComponentOutput(BikeComponentInput):
     id: int
+
+# Bike Type --------------------------------------
+
+# class BikeTypeInput(SQLModel):
+ #   name: str | None = "No name"
+
+  #  class Config
