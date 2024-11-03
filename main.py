@@ -7,7 +7,6 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from db import engine
 from routers import assemblygroupmodules, assemblygroups, components, web, auth, biketypes
-from routers.assemblygroupmodules import BadTripException
 
 app = FastAPI(title="Bike configurator")
 app.include_router(web.router)
@@ -35,14 +34,6 @@ app.add_middleware(
 @app.on_event("startup")
 def on_startup():
     SQLModel.metadata.create_all(engine)
-
-
-@app.exception_handler(BadTripException)
-async def unicorn_exception_handler(request: Request, exc: BadTripException):
-    return JSONResponse(
-        status_code=HTTP_422_UNPROCESSABLE_ENTITY,
-        content={"message": "Bad Trip"},
-    )
 
 
 @app.middleware("http")
