@@ -7,10 +7,19 @@ from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, User
 
 router = APIRouter(prefix="/api/bikecomponents")
 
+# Reusable components
+
+custom_tags = "Bike Components"
+custom_description_post = "Add a bike component."
+custom_description_get = "Get the list of all bike components."
+custom_description_get_id = "Get a specific bike component based on its ID."
+custom_description_delete = "Remove a specific bike component based on its ID."
+custom_description_put = "Edit a specific bike component based on its ID."
+
 # Add bike component
 
 
-@router.post("/", response_model=BikeComponent, tags=["Bike components"], description="Add a bike component.")
+@router.post("/", response_model=BikeComponent, tags=[custom_tags], description=custom_description_post)
 def add_bike_component(component_input: BikeComponentInput,
                        session: Session = Depends(get_session)) -> BikeComponent:
     #user: User = Depends(get_current_user)) -> BikeComponent:
@@ -23,7 +32,7 @@ def add_bike_component(component_input: BikeComponentInput,
 # Get bike components
 
 
-@router.get("/", tags=["Bike components"])
+@router.get("/", tags=[custom_tags], description=custom_description_get)
 def get_bike_components(source: str | None = None, group: str | None = None,
                         session: Session = Depends(get_session)) -> list:
     query = select(BikeComponent)
@@ -36,7 +45,7 @@ def get_bike_components(source: str | None = None, group: str | None = None,
 # Get bike component by id
 
 
-@router.get("/{id}", response_model=BikeComponentOutput, tags=["Bike components"])
+@router.get("/{id}", response_model=BikeComponentOutput, tags=[custom_tags], description=custom_description_get_id)
 def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
@@ -49,7 +58,7 @@ def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> Bi
 # Delete a bike component
 
 
-@router.delete("/{id}", status_code=204, tags=["Bike components"])
+@router.delete("/{id}", status_code=204, tags=[custom_tags], description=custom_description_delete)
 def remove_bike_component(id: int, session: Session = Depends(get_session)) -> None:
     component = session.get(BikeComponent, id)
     if component:
@@ -62,7 +71,7 @@ def remove_bike_component(id: int, session: Session = Depends(get_session)) -> N
 # Edit a bike component
 
 
-@router.put("/{id}", response_model=BikeComponent, tags=["Bike components"])
+@router.put("/{id}", response_model=BikeComponent, tags=[custom_tags], description=custom_description_put)
 def edit_bike_component(id: int, new_data: BikeComponentInput,
                         session: Session = Depends(get_session)) -> BikeComponent:
     component = session.get(BikeComponent, id)

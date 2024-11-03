@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/assemblygroups")
 
 custom_tags = "Assembly groups"
 custom_description_post = "Add an assembly group."
-custom_description_get = "Get all assembly groups."
+custom_description_get = "Get the list of all assembly groups."
 custom_description_get_id = "Get a specific assembly group based on its ID."
 custom_description_delete = "Remove a specific assembly group based on its ID."
 custom_description_put = "Edit a specific assembly group based on its ID."
