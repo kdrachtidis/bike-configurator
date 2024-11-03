@@ -9,20 +9,24 @@ router = APIRouter(prefix="/api/bikecomponents")
 
 # Reusable components
 
-custom_tags = "Bike Components"
-custom_description_post = "Add a bike component."
-custom_description_get = "Get the list of all bike components."
-custom_description_get_id = "Get a specific bike component based on its ID."
-custom_description_delete = "Remove a specific bike component based on its ID."
-custom_description_put = "Edit a specific bike component based on its ID."
+msg_tags = "Bike Components"
+msg_description_post = "Add a bike component."
+msg_description_get = "Get the list of all bike components."
+msg_description_get_id = "Get a specific bike component based on its ID."
+msg_description_delete = "Remove a specific bike component based on its ID."
+msg_description_put = "Edit a specific bike component based on its ID."
+
+
+def msg_no_item(i):
+    return f"No bike component with id={i}."
 
 # Add bike component
 
 
-@router.post("/", response_model=BikeComponent, tags=[custom_tags], description=custom_description_post)
+@router.post("/", response_model=BikeComponent, tags=[msg_tags], description=msg_description_post)
 def add_bike_component(component_input: BikeComponentInput,
                        session: Session = Depends(get_session)) -> BikeComponent:
-    #user: User = Depends(get_current_user)) -> BikeComponent:
+    # user: User = Depends(get_current_user)) -> BikeComponent:
     new_component = BikeComponent.model_validate(component_input)
     session.add(new_component)
     session.commit()
@@ -32,7 +36,7 @@ def add_bike_component(component_input: BikeComponentInput,
 # Get bike components
 
 
-@router.get("/", tags=[custom_tags], description=custom_description_get)
+@router.get("/", tags=[msg_tags], description=msg_description_get)
 def get_bike_components(source: str | None = None, group: str | None = None,
                         session: Session = Depends(get_session)) -> list:
     query = select(BikeComponent)
@@ -45,20 +49,20 @@ def get_bike_components(source: str | None = None, group: str | None = None,
 # Get bike component by id
 
 
-@router.get("/{id}", response_model=BikeComponentOutput, tags=[custom_tags], description=custom_description_get_id)
+@router.get("/{id}", response_model=BikeComponentOutput, tags=[msg_tags], description=msg_description_get_id)
 def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
         return component
     else:
         raise HTTPException(
-            status_code=404, detail=f"No bike component with id={id}.")
+            status_code=404, detail=msg_no_item(id))
 
 
 # Delete a bike component
 
 
-@router.delete("/{id}", status_code=204, tags=[custom_tags], description=custom_description_delete)
+@router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
 def remove_bike_component(id: int, session: Session = Depends(get_session)) -> None:
     component = session.get(BikeComponent, id)
     if component:
@@ -66,12 +70,12 @@ def remove_bike_component(id: int, session: Session = Depends(get_session)) -> N
         session.commit()
     else:
         raise HTTPException(
-            status_code=404, detail=f"No bike component with id={id}.")
+            status_code=404, detail=msg_no_item(id))
 
 # Edit a bike component
 
 
-@router.put("/{id}", response_model=BikeComponent, tags=[custom_tags], description=custom_description_put)
+@router.put("/{id}", response_model=BikeComponent, tags=[msg_tags], description=msg_description_put)
 def edit_bike_component(id: int, new_data: BikeComponentInput,
                         session: Session = Depends(get_session)) -> BikeComponent:
     component = session.get(BikeComponent, id)
@@ -83,4 +87,4 @@ def edit_bike_component(id: int, new_data: BikeComponentInput,
         session.commit()
         return component
     else:
-        raise HTTPException(status_code=404, detail=f"No car with id={id}.")
+        raise HTTPException(status_code=404, detail=msg_no_item(id))
