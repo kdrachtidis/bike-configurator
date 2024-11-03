@@ -13,7 +13,7 @@ router = APIRouter(prefix="/api/assemblygroups")
 def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: Session = Depends(get_session)) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, assemblygroup_id)
     if assemblygroup:
-        new_assemblygroupmodule = AssemblyGroupModule.from_orm(
+        new_assemblygroupmodule = AssemblyGroupModule.model_validate(
             assemblygroupmodule_input, update={'assemblygroup_id': assemblygroup_id})
         assemblygroup.groupmodules.append(new_assemblygroupmodule)
         session.commit()
