@@ -6,19 +6,22 @@ from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
 router = APIRouter(prefix="/api/assemblygroups")
 
-description_post = "Add an assembly group."
-description_get = "Get all assembly groups."
-description_get_id = "Get a specific assembly group based on its ID."
-description_delete = "Remove a specific assembly group based on its ID."
-description_put = "Edit a specific assembly group based on its ID."
+# Reusable components
+
+custom_tags = "Assembly groups"
+custom_description_post = "Add an assembly group."
+custom_description_get = "Get all assembly groups."
+custom_description_get_id = "Get a specific assembly group based on its ID."
+custom_description_delete = "Remove a specific assembly group based on its ID."
+custom_description_put = "Edit a specific assembly group based on its ID."
 
 # Add assembly group
 
 
-@router.post("/", response_model=AssemblyGroup, tags=["Assembly groups"], description=description_post)
+@router.post("/", response_model=AssemblyGroup, tags=[custom_tags], description=custom_description_post)
 def add_assembly_group(input: AssemblyGroupInput,
                        session: Session = Depends(get_session)) -> AssemblyGroup:
-    new_assemblygroup = AssemblyGroup.from_orm(input)
+    new_assemblygroup = AssemblyGroup.model_validate(input)
     session.add(new_assemblygroup)
     session.commit()
     session.refresh(new_assemblygroup)
@@ -27,7 +30,7 @@ def add_assembly_group(input: AssemblyGroupInput,
 
 # Get assemly groups
 
-@router.get("/", tags=["Assembly groups"], description=description_get)
+@router.get("/", tags=[custom_tags], description=custom_description_get)
 def get_assembly_groups(type: str | None = None, session: Session = Depends(get_session)) -> list:
     query = select(AssemblyGroup)
     if type:
@@ -37,7 +40,7 @@ def get_assembly_groups(type: str | None = None, session: Session = Depends(get_
 # Get assemly groups by id
 
 
-@router.get("/{id}", response_model=AssemblyGroupOutput, tags=["Assembly groups"], description=description_get_id)
+@router.get("/{id}", response_model=AssemblyGroupOutput, tags=[custom_tags], description=custom_description_get_id)
 def get_assembly_group_by_id(id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -49,7 +52,7 @@ def get_assembly_group_by_id(id: int, session: Session = Depends(get_session)) -
 # Delete assembly group
 
 
-@router.delete("/{id}", status_code=204, tags=["Assembly groups"], description=description_delete)
+@router.delete("/{id}", status_code=204, tags=[custom_tags], description=custom_description_delete)
 def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -63,7 +66,7 @@ def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
 # Edit assembly group
 
 
-@router.put("/{id}", response_model=AssemblyGroup, tags=["Assembly groups"], description=description_put)
+@router.put("/{id}", response_model=AssemblyGroup, tags=[custom_tags], description=custom_description_put)
 def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: Session = Depends(get_session)) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:

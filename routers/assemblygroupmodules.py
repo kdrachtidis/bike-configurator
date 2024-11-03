@@ -6,6 +6,7 @@ from schemas import AssemblyGroup, AssemblyGroupModule, AssemblyGroupModuleInput
 
 router = APIRouter(prefix="/api/assemblygroups")
 
+# Reusable components
 description_post = "Add an assembly group module, providing the ID of the assembly group it belongs to."
 
 # Add module dependent on assembly group
