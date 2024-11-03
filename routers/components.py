@@ -13,7 +13,7 @@ router = APIRouter(prefix="/api/bikecomponents")
 @router.post("/", response_model=BikeComponent, tags=["Bike components"], description="Add a bike component.")
 def add_bike_component(component_input: BikeComponentInput,
                        session: Session = Depends(get_session)) -> BikeComponent:
-    # user: User = Depends(get_current_user)) -> BikeComponent:
+    #user: User = Depends(get_current_user)) -> BikeComponent:
     new_component = BikeComponent.model_validate(component_input)
     session.add(new_component)
     session.commit()
