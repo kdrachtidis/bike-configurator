@@ -6,10 +6,12 @@ from schemas import AssemblyGroup, AssemblyGroupModule, AssemblyGroupModuleInput
 
 router = APIRouter(prefix="/api/assemblygroups")
 
+description_post = "Add an assembly group module, providing the ID of the assembly group it belongs to."
+
 # Add module dependent on assembly group
 
 
-@router.post("/{assemblygroup_id}/assemblygroupmodules", response_model=AssemblyGroupModule, tags=["Group Modules"])
+@router.post("/{assemblygroup_id}/assemblygroupmodules", response_model=AssemblyGroupModule, tags=["Group Modules"], description=description_post)
 def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: Session = Depends(get_session)) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, assemblygroup_id)
     if assemblygroup:
