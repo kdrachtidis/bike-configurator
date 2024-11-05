@@ -4,25 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Carsharing Demo</title>
+    <title>Bike Configurator</title>
 </head>
 
 <body>
-    <h1>Welcome to the Car Sharing service</h1>
-    <p>Search for the car you need:
+    <h1>Bike Configurator</h1>
     <form action="search" method="post">
         <table>
             <tr>
-                <td><label for="doors">Number of doors:</label></td>
-                <td><input type="number" min="1" max="5" name="doors" required></td>
+                <td><label for="group">Assembly Group:</label></td>
+                <td><input type="text" name="group" required /></td>
             </tr>
             <tr>
-                <td><label for="size">Size:</label></td>
-                <td><select name="size" required>
-                        <option value="s" selected>Small</option>
-                        <option value="m">Medium</option>
-                        <option value="l">Large</option>
-                    </select>
+                <td><label for="source">Source:</label></td>
+                <td><input type="text" name="source" required />
                 </td>
             </tr>
         </table>

@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Carsharing: Search Results</title>
+    <title>Bike Configurator</title>
 </head>
 
 <body>
-    <p>We found the following matching cars:</p>
+    <p>We found the following matching bike components:</p>
     <ul>
-        {% for car in cars %}
+        {% for component in components %}
         <li>
-            {{car}}
+            {{component}}
         </li>
         {% endfor %}
     </ul>
