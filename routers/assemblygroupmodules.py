@@ -31,3 +31,12 @@ def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyG
     else:
         raise HTTPException(
             status_code=404, detail=msg_no_item(assemblygroup_id))
+
+# @router.get("/{assemblygroup_id}/assemblygroupmodules/{assemblygroupmodule_id}", response_model=AssemblyGroupModule, tags=[msg_tags])
+# def get_group_module(assemblygroup_id: int, assemblygroupmodule_id: int, session: Session = Depends(get_session)) -> AssemblyGroupModule:
+#    assemblygroupmodule = {"assemblygroup_id": assemblygroup_id, "assemblygroupmodule_id": assemblygroupmodule_id}
+#    if assemblygroupmodule:
+#        return assemblygroupmodule
+#    else:
+#        raise HTTPException(
+#            status_code=404, detail=msg_no_item(id))
