@@ -12,16 +12,17 @@ templates = Jinja2Templates(directory="templates")
 
 
 @router.get("/", response_class=HTMLResponse)
-def home(request: Request, cars_cookie: str | None = Cookie(None)):
-    print(cars_cookie)
+def home(request: Request, cookie: str | None = Cookie(None)):
+    print(cookie)
     return templates.TemplateResponse("home.html",
                                       {"request": request})
 
 
 @router.post("/search", response_class=HTMLResponse)
-def search(*, size: str = Form(...), doors: int = Form(...),
+def search(*, source: str = Form(...), group: str = Form(...),
            request: Request,
            session: Session = Depends(get_session)):
-    cars = get_bike_components(size=size, doors=doors, session=session)
+    components = get_bike_components(
+        source=source, group=group, session=session)
     return templates.TemplateResponse("search_results.html",
-                                      {"request": request, "cars": cars})
+                                      {"request": request, "components": components})
