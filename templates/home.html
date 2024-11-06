@@ -9,6 +9,22 @@
 
 <body>
     <h1>Bike Configurator</h1>
+    <button id="click">Validate</button>
+    <p>
+    <div id="output"></div>
+    </p>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#click').click(function () {
+                $.get("http://localhost:8000/api/bikecomponents/").done(function (data) {
+                    $('#output').text(`Succesfully received ${data.length} bike components`);
+                }).fail(function () {
+                    $('#output').text("Failed!");
+                });
+            });
+        })
+    </script>
     <form action="search" method="post">
         <table>
             <tr>
@@ -23,7 +39,6 @@
         </table>
         <button type="submit">Search</button>
     </form>
-    </p>
 </body>
 
 </html>
