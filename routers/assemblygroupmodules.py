@@ -40,11 +40,11 @@ def get_group_modules(session: Session = Depends(get_session)) -> list:
 
 # Get assembly group module based on group ID
 
-@router.get("/api/assemblygroups/{assemblygroup_id}/assemblygroupmodules/{assemblygroupmodule_id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags])
-def get_group_module_by_id(assemblygroup_id: int, assemblygroupmodule_id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
-    module = session.get(AssemblyGroupModule, assemblygroup_id, assemblygroupmodule_id)
-    if module:
-        return module
-    else:
-         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+# @router.get("/api/assemblygroups/{assemblygroup_id}/assemblygroupmodules/{assemblygroupmodule_id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags])
+# def get_group_module_by_id(assemblygroup_id: int, assemblygroupmodule_id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
+#     module = session.get(AssemblyGroupModule, assemblygroup_id, assemblygroupmodule_id)
+#     if module:
+#         return module
+#     else:
+#          raise HTTPException(
+#             status_code=404, detail=msg_no_item(id))
