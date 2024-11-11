@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, APIRouter
 from sqlmodel import Session, select
 
@@ -6,6 +8,7 @@ from db import get_session
 from schemas import AssemblyGroup, AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput, AssemblyGroupOutput
 
 router = APIRouter()
+SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 msg_tags = "Assembly Group Modules"
@@ -17,8 +20,9 @@ def msg_no_item(i):
 
 # Add module assigned to assembly group
 
+
 @router.post("/api/assemblygroups/{assemblygroup_id}/assemblygroupmodules", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_post)
-def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: Session = Depends(get_session)) -> AssemblyGroupModule:
+def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, assemblygroup_id)
     if assemblygroup:
         new_assemblygroupmodule = AssemblyGroupModule.model_validate(
@@ -33,10 +37,12 @@ def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyG
 
 # [Temporary] Get all assembly group modules
 
+
 @router.get("/api/assemblygroupmodules", tags=[msg_tags])
-def get_group_modules(session: Session = Depends(get_session)) -> list:
+def get_group_modules(session: SessionDep) -> list:
     query = select(AssemblyGroupModule)
     return session.exec(query).all()
+
 
 # Get assembly group module based on group ID
 

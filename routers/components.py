@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, APIRouter
 from sqlmodel import Session, select
 
@@ -6,6 +8,7 @@ from db import get_session
 from schemas import BikeComponent, BikeComponentOutput, BikeComponentInput, User
 
 router = APIRouter(prefix="/api/bikecomponents")
+SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
@@ -25,7 +28,7 @@ def msg_no_item(i):
 
 @router.post("/", response_model=BikeComponent, tags=[msg_tags], description=msg_description_post)
 def add_bike_component(component_input: BikeComponentInput,
-                       session: Session = Depends(get_session)) -> BikeComponent:
+                       session: SessionDep) -> BikeComponent:
     # user: User = Depends(get_current_user)) -> BikeComponent:
     new_component = BikeComponent.model_validate(component_input)
     session.add(new_component)
@@ -50,7 +53,7 @@ def get_bike_components(source: str | None = None, group: str | None = None,
 
 
 @router.get("/{id}", response_model=BikeComponentOutput, tags=[msg_tags], description=msg_description_get_id)
-def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> BikeComponent:
+def bike_component_by_id(id: int, session: SessionDep) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
         return component
@@ -63,7 +66,7 @@ def bike_component_by_id(id: int, session: Session = Depends(get_session)) -> Bi
 
 
 @router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
-def remove_bike_component(id: int, session: Session = Depends(get_session)) -> None:
+def remove_bike_component(id: int, session: SessionDep) -> None:
     component = session.get(BikeComponent, id)
     if component:
         session.delete(component)
@@ -77,7 +80,7 @@ def remove_bike_component(id: int, session: Session = Depends(get_session)) -> N
 
 @router.put("/{id}", response_model=BikeComponent, tags=[msg_tags], description=msg_description_put)
 def edit_bike_component(id: int, new_data: BikeComponentInput,
-                        session: Session = Depends(get_session)) -> BikeComponent:
+                        session: SessionDep) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
         component.name = new_data.name

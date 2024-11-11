@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, APIRouter
 from sqlmodel import Session, select
 
@@ -6,6 +8,7 @@ from db import get_session
 from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
 router = APIRouter(prefix="/api/assemblygroups")
+SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
@@ -24,8 +27,7 @@ def msg_no_item(i):
 
 
 @router.post("/", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
-def add_assembly_group(input: AssemblyGroupInput,
-                       session: Session = Depends(get_session)) -> AssemblyGroup:
+def add_assembly_group(input: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
     new_assemblygroup = AssemblyGroup.model_validate(input)
     session.add(new_assemblygroup)
     session.commit()
@@ -46,7 +48,7 @@ def get_assembly_groups(type: str | None = None, session: Session = Depends(get_
 
 
 @router.get("/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags], description=msg_description_get_id)
-def get_assembly_group_by_id(id: int, session: Session = Depends(get_session)) -> AssemblyGroup:
+def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         return assemblygroup
@@ -58,7 +60,7 @@ def get_assembly_group_by_id(id: int, session: Session = Depends(get_session)) -
 
 
 @router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
-def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
+def remove_assembly_group(id: int, session: SessionDep) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         session.delete(assemblygroup)
@@ -72,7 +74,7 @@ def remove_assembly_group(id: int, session=Depends(get_session)) -> None:
 
 
 @router.put("/{id}", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_put)
-def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: Session = Depends(get_session)) -> AssemblyGroup:
+def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         assemblygroup.name = new_assemblygroup.name

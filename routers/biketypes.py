@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, APIRouter
 from sqlmodel import Session, select
 
@@ -6,6 +8,7 @@ from db import get_session
 from schemas import BikeType, BikeTypeOutput, BikeTypeInput, User
 
 router = APIRouter(prefix="/api/biketypes")
+SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
@@ -24,7 +27,7 @@ def msg_no_item(i):
 
 
 @router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_post)
-def add_bike_type(component_input: BikeTypeInput, session: Session = Depends(get_session)) -> BikeType:
+def add_bike_type(component_input: BikeTypeInput, session: SessionDep) -> BikeType:
     new_type = BikeType.model_validate(component_input)
     session.add(new_type)
     session.commit()
@@ -35,7 +38,7 @@ def add_bike_type(component_input: BikeTypeInput, session: Session = Depends(get
 # Get bike types
 
 @router.get("/", tags=[msg_tags], description=msg_description_get)
-def get_bike_types(session: Session = Depends(get_session)) -> list:
+def get_bike_types(session: SessionDep) -> list:
     query = select(BikeType)
     return session.exec(query).all()
 
@@ -43,7 +46,7 @@ def get_bike_types(session: Session = Depends(get_session)) -> list:
 
 
 @router.get("/{id}", response_model=BikeTypeOutput, tags=[msg_tags], description=msg_description_get_id)
-def bike_type_by_id(id: int, session: Session = Depends(get_session)) -> BikeType:
+def bike_type_by_id(id: int, session: SessionDep) -> BikeType:
     bike_type = session.get(BikeType, id)
     if bike_type:
         return bike_type
@@ -55,7 +58,7 @@ def bike_type_by_id(id: int, session: Session = Depends(get_session)) -> BikeTyp
 
 
 @router.put("/{id}", response_model=BikeType, tags=[msg_tags], description=msg_description_put)
-def edit_bike_type(id: int, new_data: BikeTypeInput, session: Session = Depends(get_session)) -> BikeType:
+def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep) -> BikeType:
     biketype = session.get(BikeType, id)
 
     if biketype:
@@ -70,7 +73,7 @@ def edit_bike_type(id: int, new_data: BikeTypeInput, session: Session = Depends(
 
 
 @router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
-def remove_bike_type(id: int, session: Session = Depends(get_session)) -> None:
+def remove_bike_type(id: int, session:SessionDep) -> None:
     bike_type = session.get(BikeType, id)
     if bike_type:
         session.delete(bike_type)
