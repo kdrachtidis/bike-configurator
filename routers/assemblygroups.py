@@ -7,7 +7,7 @@ from routers.auth import get_current_user
 from db import get_session
 from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
-router = APIRouter(prefix="/api/assemblygroups")
+router = APIRouter(prefix="/assemblygroups")
 SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
