@@ -10,11 +10,11 @@ from routers import assemblygroupmodules, assemblygroups, components, web, auth,
 
 app = FastAPI(title="Bike configurator")
 app.include_router(web.router)
+app.include_router(biketypes.router)
 app.include_router(components.router)
 app.include_router(auth.router)
 app.include_router(assemblygroups.router, prefix="/api")
 app.include_router(assemblygroupmodules.router, prefix="/api")
-app.include_router(biketypes.router)
 
 
 origins = [
