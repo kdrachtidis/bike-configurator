@@ -7,12 +7,13 @@ from routers.auth import get_current_user
 from db import get_session
 from schemas import BikeType, BikeTypeOutput, BikeTypeInput, User
 
-router = APIRouter(prefix="/api/biketypes")
+router = APIRouter(prefix="/biketypes")
 SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
-msg_tags = "Bike Types"
+msg_tags = "Bike Type"
+msg_tags_id = "Bike Type (by ID)"
 msg_description_post = "Add a bike type."
 msg_description_get = "Get the list of all bike types."
 msg_description_get_id = "Get a specific bike type based on its ID."
@@ -45,7 +46,7 @@ def get_bike_types(session: SessionDep) -> list:
 # Get bike type by id
 
 
-@router.get("/{id}", response_model=BikeTypeOutput, tags=[msg_tags], description=msg_description_get_id)
+@router.get("/{id}", response_model=BikeTypeOutput, tags=[msg_tags_id], description=msg_description_get_id)
 def bike_type_by_id(id: int, session: SessionDep) -> BikeType:
     bike_type = session.get(BikeType, id)
     if bike_type:
@@ -57,7 +58,7 @@ def bike_type_by_id(id: int, session: SessionDep) -> BikeType:
 # Edit a biketype
 
 
-@router.put("/{id}", response_model=BikeType, tags=[msg_tags], description=msg_description_put)
+@router.put("/{id}", response_model=BikeType, tags=[msg_tags_id], description=msg_description_put)
 def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep) -> BikeType:
     biketype = session.get(BikeType, id)
 
@@ -72,7 +73,7 @@ def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep) -> Bik
 # Delete a bike type
 
 
-@router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
+@router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
 def remove_bike_type(id: int, session:SessionDep) -> None:
     bike_type = session.get(BikeType, id)
     if bike_type:

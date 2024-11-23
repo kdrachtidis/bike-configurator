@@ -5,14 +5,15 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
+from schemas import BikeType, AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
 router = APIRouter(prefix="/assemblygroups")
 SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
-msg_tags = "Assembly Groups"
+msg_tags = "Assembly Group"
+msg_tags_id = "Assembly Group (by ID)"
 msg_description_post = "Add an assembly group."
 msg_description_get = "Get the list of all assembly groups."
 msg_description_get_id = "Get a specific assembly group based on its ID."
@@ -47,7 +48,7 @@ def get_assembly_groups(type: str | None = None, session: Session = Depends(get_
 # Get assemly groups by id
 
 
-@router.get("/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags], description=msg_description_get_id)
+@router.get("/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags_id], description=msg_description_get_id)
 def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -59,7 +60,7 @@ def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
 # Delete assembly group
 
 
-@router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
+@router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
 def remove_assembly_group(id: int, session: SessionDep) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -73,7 +74,7 @@ def remove_assembly_group(id: int, session: SessionDep) -> None:
 # Edit assembly group
 
 
-@router.put("/{id}", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_put)
+@router.put("/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put)
 def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:

@@ -12,7 +12,8 @@ SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
 
-msg_tags = "Bike Components"
+msg_tags = "Bike Component"
+msg_tags_id = "Bike Component (by ID)"
 msg_description_post = "Add a bike component."
 msg_description_get = "Get the list of all bike components."
 msg_description_get_id = "Get a specific bike component based on its ID."
@@ -52,7 +53,7 @@ def get_bike_components(source: str | None = None, group: str | None = None,
 # Get bike component by id
 
 
-@router.get("/{id}", response_model=BikeComponentOutput, tags=[msg_tags], description=msg_description_get_id)
+@router.get("/{id}", response_model=BikeComponentOutput, tags=[msg_tags_id], description=msg_description_get_id)
 def bike_component_by_id(id: int, session: SessionDep) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
@@ -65,7 +66,7 @@ def bike_component_by_id(id: int, session: SessionDep) -> BikeComponent:
 # Delete a bike component
 
 
-@router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
+@router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
 def remove_bike_component(id: int, session: SessionDep) -> None:
     component = session.get(BikeComponent, id)
     if component:
@@ -78,7 +79,7 @@ def remove_bike_component(id: int, session: SessionDep) -> None:
 # Edit a bike component
 
 
-@router.put("/{id}", response_model=BikeComponent, tags=[msg_tags], description=msg_description_put)
+@router.put("/{id}", response_model=BikeComponent, tags=[msg_tags_id], description=msg_description_put)
 def edit_bike_component(id: int, new_data: BikeComponentInput,
                         session: SessionDep) -> BikeComponent:
     component = session.get(BikeComponent, id)
