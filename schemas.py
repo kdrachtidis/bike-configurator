@@ -58,7 +58,7 @@ class AssemblyGroupInput(SQLModel):
         "json_schema_extra": {
             "examples": [{
                 "name": "Cockpit",
-                "biketype": "Road"
+                #"biketype": "Road"
             }]
         }
     }
