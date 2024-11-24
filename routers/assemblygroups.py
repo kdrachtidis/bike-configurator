@@ -7,7 +7,7 @@ from routers.auth import get_current_user
 from db import get_session
 from schemas import BikeType, AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
 
-router = APIRouter(prefix="/assemblygroups")
+router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
 
 # Reusable components
@@ -27,7 +27,7 @@ def msg_no_item(i):
 # Add assembly group
 
 
-@router.post("/", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
+@router.post("/assemblygroups", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
 def add_assembly_group(input: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
     new_assemblygroup = AssemblyGroup.model_validate(input)
     session.add(new_assemblygroup)
@@ -38,7 +38,7 @@ def add_assembly_group(input: AssemblyGroupInput, session: SessionDep) -> Assemb
 
 # Get assemly groups
 
-@router.get("/", tags=[msg_tags], description=msg_description_get)
+@router.get("/assemblygroups", tags=[msg_tags], description=msg_description_get)
 def get_assembly_groups(type: str | None = None, session: Session = Depends(get_session)) -> list:
     query = select(AssemblyGroup)
     if type:
@@ -48,7 +48,7 @@ def get_assembly_groups(type: str | None = None, session: Session = Depends(get_
 # Get assemly groups by id
 
 
-@router.get("/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags_id], description=msg_description_get_id)
+@router.get("/assemblygroups/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags_id], description=msg_description_get_id)
 def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -60,7 +60,7 @@ def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
 # Delete assembly group
 
 
-@router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
+@router.delete("/assemblygroups/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
 def remove_assembly_group(id: int, session: SessionDep) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -74,7 +74,7 @@ def remove_assembly_group(id: int, session: SessionDep) -> None:
 # Edit assembly group
 
 
-@router.put("/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put)
+@router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put)
 def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
