@@ -1,7 +1,8 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter, status
 from sqlmodel import Session, select
+from pydantic import AfterValidator
 
 from routers.auth import get_current_user
 from db import get_session
@@ -27,7 +28,7 @@ def msg_no_item(i):
 # Add bike type
 
 
-@router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_post)
+@router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_post, status_code=status.HTTP_201_CREATED)
 def add_bike_type(component_input: BikeTypeInput, session: SessionDep) -> BikeType:
     new_type = BikeType.model_validate(component_input)
     session.add(new_type)
