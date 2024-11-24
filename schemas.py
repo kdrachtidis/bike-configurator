@@ -52,7 +52,7 @@ class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
 
 class AssemblyGroupInput(SQLModel):
     name: str | None = "No name"
-    biketype: str | None = "No type"
+    #biketype: str | None = "No type"
 
     model_config = {
         "json_schema_extra": {
@@ -102,21 +102,50 @@ class BikeComponent(BikeComponentInput, table=True):
 class BikeComponentOutput(BikeComponentInput):
     id: int
 
+# Test Object -------------------------------------------
+
+
+class TestObjectInput(SQLModel):
+    name: str | None = "No name"
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "name": "Test"
+            }]
+        }
+    }
+
+
+class TestObjectOutput(TestObjectInput):
+    id: int
+
+
+class TestObject(TestObjectInput, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    biketype_id: int = Field(foreign_key="biketype.id")
+    biketype: "BikeType" = Relationship(back_populates="groups")
+
 # Bike Type --------------------------------------
 
-class BikeTypeInput(SQLModel):
-   name: str | None = "No name"
 
-   model_config = {
+class BikeTypeInput(SQLModel):
+    name: str | None = "No name"
+
+    model_config = {
         "json_schema_extra": {
             "examples": [{
                 "name": "Rennrad"
             }]
         }
     }
-   
+
+
 class BikeType(BikeTypeInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
+    groups: list[TestObject] = Relationship(back_populates="biketype")
+
 
 class BikeTypeOutput(BikeTypeInput):
     id: int
+    groups: list[TestObjectOutput] = []
