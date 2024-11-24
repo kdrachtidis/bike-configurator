@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, APIRouter, status, Request
+from fastapi import Depends, HTTPException, APIRouter, status
 from sqlmodel import Session, select
 
 from routers.auth import get_current_user
@@ -35,6 +35,21 @@ def msg_no_match_item(groupinput, groupattr, module):
 def msg_no_module(i):
     return f"No assembly group module with id={i}."
 
+# Get an assembly group module based on group ID
+
+
+@router.get("/assemblygroups/{group_id}/assemblygroupmodules/{assemblygroupmodule_id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags_id], description=msg_description_get_group_id)
+def get_group_module_by_group_id(group_id: int, assemblygroupmodule_id: int, session: SessionDep) -> AssemblyGroupModule:
+    module = session.get(AssemblyGroupModule, assemblygroupmodule_id)
+    if module and group_id == module.assemblygroup_id:
+        return module
+    elif module and group_id != module.assemblygroup_id:
+        raise HTTPException(
+            status_code=404, detail=msg_no_match_item(group_id, module.assemblygroup_id, assemblygroupmodule_id))
+    else:
+        raise HTTPException(
+            status_code=404, detail=msg_no_module(assemblygroupmodule_id))
+
 # Add module assigned to assembly group
 
 
@@ -59,21 +74,6 @@ def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyG
 def get_group_modules(session: SessionDep) -> list:
     query = select(AssemblyGroupModule)
     return session.exec(query).all()
-
-# Get an assembly group module based on group ID
-
-
-@router.get("/assemblygroups/{group_id}/assemblygroupmodules/{assemblygroupmodule_id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags_id], description=msg_description_get_group_id)
-def get_group_module_by_group_id(group_id: int, assemblygroupmodule_id: int, session: SessionDep) -> AssemblyGroupModule:
-    module = session.get(AssemblyGroupModule, assemblygroupmodule_id)
-    if module and group_id == module.assemblygroup_id:
-        return module
-    elif module and group_id != module.assemblygroup_id:
-        raise HTTPException(
-            status_code=404, detail=msg_no_match_item(group_id, module.assemblygroup_id, assemblygroupmodule_id))
-    else:
-        raise HTTPException(
-            status_code=404, detail=msg_no_module(assemblygroupmodule_id))
 
 # Delete an assembly group module based on group ID
 
