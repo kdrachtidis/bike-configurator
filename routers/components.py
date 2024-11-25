@@ -29,8 +29,7 @@ def msg_no_item(i):
 
 @router.post("/", response_model=BikeComponent, tags=[msg_tags], description=msg_description_post)
 def add_bike_component(component_input: BikeComponentInput,
-                       session: SessionDep) -> BikeComponent:
-    # user: User = Depends(get_current_user)) -> BikeComponent:
+                       session: SessionDep, user: User = Depends(get_current_user)) -> BikeComponent:
     new_component = BikeComponent.model_validate(component_input)
     session.add(new_component)
     session.commit()
@@ -67,7 +66,7 @@ def bike_component_by_id(id: int, session: SessionDep) -> BikeComponent:
 
 
 @router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
-def remove_bike_component(id: int, session: SessionDep) -> None:
+def remove_bike_component(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     component = session.get(BikeComponent, id)
     if component:
         session.delete(component)
@@ -81,7 +80,7 @@ def remove_bike_component(id: int, session: SessionDep) -> None:
 
 @router.put("/{id}", response_model=BikeComponent, tags=[msg_tags_id], description=msg_description_put)
 def edit_bike_component(id: int, new_data: BikeComponentInput,
-                        session: SessionDep) -> BikeComponent:
+                        session: SessionDep, user: User = Depends(get_current_user)) -> BikeComponent:
     component = session.get(BikeComponent, id)
     if component:
         component.name = new_data.name

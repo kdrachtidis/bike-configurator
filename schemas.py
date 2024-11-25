@@ -3,10 +3,7 @@ from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"])
 
-
-class UserOutput(SQLModel):
-    id: int
-    username: str
+# Users -----------------------------------------------
 
 
 class User(SQLModel, table=True):
@@ -20,6 +17,11 @@ class User(SQLModel, table=True):
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
+
+
+class UserOutput(SQLModel):
+    id: int
+    username: str
 
 # Module -----------------------------------------
 

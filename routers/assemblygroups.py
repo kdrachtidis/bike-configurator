@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
+from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput, User
 
 router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -28,7 +28,7 @@ def msg_no_item(i):
 
 
 @router.post("/assemblygroups", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
-def add_assembly_group(input: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
+def add_assembly_group(input: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     new_assemblygroup = AssemblyGroup.model_validate(input)
     session.add(new_assemblygroup)
     session.commit()
@@ -61,7 +61,7 @@ def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
 
 
 @router.delete("/assemblygroups/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
-def remove_assembly_group(id: int, session: SessionDep) -> None:
+def remove_assembly_group(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         session.delete(assemblygroup)
@@ -75,7 +75,7 @@ def remove_assembly_group(id: int, session: SessionDep) -> None:
 
 
 @router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put)
-def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep) -> AssemblyGroup:
+def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         assemblygroup.name = new_assemblygroup.name
