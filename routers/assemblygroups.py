@@ -79,7 +79,6 @@ def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         assemblygroup.name = new_assemblygroup.name
-        assemblygroup.biketype = new_assemblygroup.biketype
         session.commit()
         return assemblygroup
     else:
