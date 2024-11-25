@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import AssemblyGroup, AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
+from schemas import AssemblyGroup, AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput, User
 
 router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -54,7 +54,7 @@ def get_group_module_by_group_id(group_id: int, assemblygroupmodule_id: int, ses
 
 
 @router.post("/assemblygroups/{assemblygroup_id}/assemblygroupmodules", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_post, status_code=status.HTTP_201_CREATED)
-def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
+def add_group_module(assemblygroup_id: int, assemblygroupmodule_input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, assemblygroup_id)
     if assemblygroup:
         new_assemblygroupmodule = AssemblyGroupModule.model_validate(
@@ -79,7 +79,7 @@ def get_group_modules(session: SessionDep) -> list:
 
 
 @router.delete("/assemblygroupmodules/{id}", tags=[msg_tags_id], description=msg_description_delete)
-def remove_assemby_group_module(id: int, session: SessionDep) -> None:
+def remove_assemby_group_module(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     module = session.get(AssemblyGroupModule, id)
     if module:
         session.delete(module)

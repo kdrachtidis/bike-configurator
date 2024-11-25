@@ -28,7 +28,7 @@ def msg_no_item(i):
 
 
 @router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_post, status_code=status.HTTP_201_CREATED)
-def add_bike_type(component_input: BikeTypeInput, session: SessionDep) -> BikeType:
+def add_bike_type(component_input: BikeTypeInput, session: SessionDep, user: User = Depends(get_current_user)) -> BikeType:
     new_type = BikeType.model_validate(component_input)
     session.add(new_type)
     session.commit()
@@ -59,7 +59,7 @@ def bike_type_by_id(id: int, session: SessionDep) -> BikeType:
 
 
 @router.put("/{id}", response_model=BikeType, tags=[msg_tags_id], description=msg_description_put)
-def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep) -> BikeType:
+def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep, user: User = Depends(get_current_user)) -> BikeType:
     biketype = session.get(BikeType, id)
 
     if biketype:
@@ -74,7 +74,7 @@ def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep) -> Bik
 
 
 @router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
-def remove_bike_type(id: int, session:SessionDep) -> None:
+def remove_bike_type(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     bike_type = session.get(BikeType, id)
     if bike_type:
         session.delete(bike_type)
