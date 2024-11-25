@@ -47,34 +47,6 @@ class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
         back_populates="groupmodules")
 
 
-# Assembly Group --------------------------------------
-
-
-class AssemblyGroupInput(SQLModel):
-    name: str | None = "No name"
-    #biketype: str | None = "No type"
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [{
-                "name": "Cockpit",
-                #"biketype": "Road"
-            }]
-        }
-    }
-
-
-class AssemblyGroup(AssemblyGroupInput, table=True):
-    id: int | None = Field(primary_key=True, default=None)
-    groupmodules: list[AssemblyGroupModule] = Relationship(
-        back_populates="assemblygroup")
-
-
-class AssemblyGroupOutput(AssemblyGroupInput):
-    id: int
-    groupmodules: list[AssemblyGroupModuleOutput] = []
-
-
 # Bike Component --------------------------------------
 
 class BikeComponentInput(SQLModel):
@@ -102,29 +74,30 @@ class BikeComponent(BikeComponentInput, table=True):
 class BikeComponentOutput(BikeComponentInput):
     id: int
 
-# Test Object -------------------------------------------
+# Assembly Group --------------------------------------
 
 
-class TestObjectInput(SQLModel):
+class AssemblyGroupInput(SQLModel):
     name: str | None = "No name"
 
     model_config = {
         "json_schema_extra": {
             "examples": [{
-                "name": "Test"
+                "name": "Cockpit"
             }]
         }
     }
 
 
-class TestObjectOutput(TestObjectInput):
-    id: int
-
-
-class TestObject(TestObjectInput, table=True):
+class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    biketype_id: int = Field(foreign_key="biketype.id")
-    biketype: "BikeType" = Relationship(back_populates="groups")
+    groupmodules: list[AssemblyGroupModule] = Relationship(
+        back_populates="assemblygroup")
+
+
+class AssemblyGroupOutput(AssemblyGroupInput):
+    id: int
+    groupmodules: list[AssemblyGroupModuleOutput] = []
 
 # Bike Type --------------------------------------
 
@@ -143,9 +116,7 @@ class BikeTypeInput(SQLModel):
 
 class BikeType(BikeTypeInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    groups: list[TestObject] = Relationship(back_populates="biketype")
 
 
 class BikeTypeOutput(BikeTypeInput):
     id: int
-    groups: list[TestObjectOutput] = []
