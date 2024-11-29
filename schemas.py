@@ -23,33 +23,103 @@ class UserOutput(SQLModel):
     id: int
     username: str
 
+# Links ------------------------------------------
+
+
+class GroupsToModules(SQLModel, table=True):
+    group_id: int | None = Field(
+        default=None, foreign_key="assemblygroup.id", primary_key=True)
+    modude_id: int | None = Field(
+        default=None, foreign_key="assemblygroupmodule.id", primary_key=True)
+
+
+class TypesToGroups(SQLModel, table=True):
+    type_id: int | None = Field(
+        default=None, foreign_key="biketype.id", primary_key=True)
+    group_id: int | None = Field(
+        default=None, foreign_key="assemblygroup.id", primary_key=True)
+
 # Module -----------------------------------------
 
 
 class AssemblyGroupModuleInput(SQLModel):
-    modulename: str | None = "No name"
+    name: str | None = "No Name"
 
     model_config = {
         "json_schema_extra": {
             "examples": [{
-                "modulename": "Brake Levers"
+                "name": "TestModule"
             }]
         }
     }
 
 
-class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
-    id: int
-
-
 class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    assemblygroup_id: int = Field(foreign_key="assemblygroup.id")
     assemblygroup: "AssemblyGroup" = Relationship(
-        back_populates="groupmodules")
+        back_populates="assemblygroupmodules", link_model=GroupsToModules)
+
+
+class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
+    id: int
+    assemblygroup: "AssemblyGroupOutput"
+
+# Assembly Group --------------------------------------
+
+
+class AssemblyGroupInput(SQLModel):
+    name: str | None = "No name"
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "name": "TestGroup"
+            }]
+        }
+    }
+
+
+class AssemblyGroup(AssemblyGroupInput, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    biketype: "BikeType" = Relationship(
+        back_populates="assemblygroups", link_model=TypesToGroups)
+    assemblygroupmodules: list[AssemblyGroupModule] = Relationship(
+        back_populates="assemblygroup", link_model=GroupsToModules)
+
+
+class AssemblyGroupOutput(AssemblyGroupInput):
+    id: int
+    biketype: "BikeTypeOutput"
+    assemblygroupmodules: list[AssemblyGroupModuleOutput] = []
+
+# Bike Type --------------------------------------
+
+
+class BikeTypeInput(SQLModel):
+    name: str | None = "No name"
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "name": "Rennrad"
+            }]
+        }
+    }
+
+
+class BikeType(BikeTypeInput, table=True):
+    id: int | None = Field(primary_key=True, default=None)
+    assemblygroups: list[AssemblyGroup] = Relationship(
+        back_populates="biketype", link_model=TypesToGroups)
+
+
+class BikeTypeOutput(BikeTypeInput):
+    id: int
+    assemblygroups: list[AssemblyGroupOutput] = []
 
 
 # Bike Component --------------------------------------
+
 
 class BikeComponentInput(SQLModel):
     name: str | None = "No name"
@@ -74,51 +144,4 @@ class BikeComponent(BikeComponentInput, table=True):
 
 
 class BikeComponentOutput(BikeComponentInput):
-    id: int
-
-# Assembly Group --------------------------------------
-
-
-class AssemblyGroupInput(SQLModel):
-    name: str | None = "No name"
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [{
-                "name": "Cockpit"
-            }]
-        }
-    }
-
-
-class AssemblyGroup(AssemblyGroupInput, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    groupmodules: list[AssemblyGroupModule] = Relationship(
-        back_populates="assemblygroup")
-
-
-class AssemblyGroupOutput(AssemblyGroupInput):
-    id: int
-    groupmodules: list[AssemblyGroupModuleOutput] = []
-
-# Bike Type --------------------------------------
-
-
-class BikeTypeInput(SQLModel):
-    name: str | None = "No name"
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [{
-                "name": "Rennrad"
-            }]
-        }
-    }
-
-
-class BikeType(BikeTypeInput, table=True):
-    id: int | None = Field(primary_key=True, default=None)
-
-
-class BikeTypeOutput(BikeTypeInput):
     id: int
