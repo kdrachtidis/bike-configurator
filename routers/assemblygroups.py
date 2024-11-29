@@ -14,7 +14,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 
 msg_tags = "Assembly Group"
 msg_tags_id = "Assembly Group (by ID)"
-msg_description_post = "Add an assembly group."
+msg_description_post = "Create an assembly group."
 msg_description_get = "Get the list of all assembly groups."
 msg_description_get_id = "Get a specific assembly group based on its ID."
 msg_description_delete = "Remove a specific assembly group based on its ID."
@@ -24,7 +24,7 @@ msg_description_put = "Edit a specific assembly group based on its ID."
 def msg_no_item(i):
     return f"No assembly group with id={i}."
 
-# Add assembly group
+# Create assembly group
 
 
 @router.post("/assemblygroups", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
@@ -39,10 +39,8 @@ def add_assembly_group(input: AssemblyGroupInput, session: SessionDep, user: Use
 # Get assemly groups
 
 @router.get("/assemblygroups", tags=[msg_tags], description=msg_description_get)
-def get_assembly_groups(type: str | None = None, session: Session = Depends(get_session)) -> list:
+def get_assembly_groups(session: SessionDep) -> list:
     query = select(AssemblyGroup)
-    if type:
-        query = query.where(AssemblyGroup.biketype == type)
     return session.exec(query).all()
 
 # Get assemly groups by id
