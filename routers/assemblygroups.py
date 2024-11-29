@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter, status
 from sqlmodel import Session, select
 
 from routers.auth import get_current_user
@@ -27,7 +27,7 @@ def msg_no_item(i):
 # Create assembly group
 
 
-@router.post("/assemblygroups", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post)
+@router.post("/assemblygroups", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_post, status_code=status.HTTP_201_CREATED)
 def add_assembly_group(input: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     new_assemblygroup = AssemblyGroup.model_validate(input)
     session.add(new_assemblygroup)
@@ -58,7 +58,7 @@ def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
 # Delete assembly group
 
 
-@router.delete("/assemblygroups/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
+@router.delete("/assemblygroups/{id}", tags=[msg_tags_id], description=msg_description_delete, status_code=status.HTTP_200_OK)
 def remove_assembly_group(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
@@ -72,7 +72,7 @@ def remove_assembly_group(id: int, session: SessionDep, user: User = Depends(get
 # Edit assembly group
 
 
-@router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put)
+@router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags_id], description=msg_description_put, status_code=status.HTTP_200_OK)
 def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
