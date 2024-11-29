@@ -5,7 +5,7 @@ from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
-from db import engine
+from db import create_db_and_tables
 from routers import assemblygroupmodules, assemblygroups, components, web, auth, biketypes
 
 app = FastAPI(title="Bike configurator")
@@ -33,7 +33,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    SQLModel.metadata.create_all(engine)
+    create_db_and_tables()
 
 
 @app.middleware("http")
