@@ -50,13 +50,13 @@ class AssemblyGroupInput(SQLModel):
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    biketypes: "BikeType" = Relationship(
+    biketypes: list["BikeType"] = Relationship(
         back_populates="assemblygroups", link_model=TypesToGroups)
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    biketype: "BikeTypeOutput"
+    biketypes: list
 
 # Bike Type --------------------------------------
 
@@ -81,4 +81,4 @@ class BikeType(BikeTypeInput, table=True):
 
 class BikeTypeOutput(BikeTypeInput):
     id: int
-    assemblygroups: list[AssemblyGroupOutput] = []
+    assemblygroups: list
