@@ -56,13 +56,13 @@ class AssemblyGroupModuleInput(SQLModel):
 
 class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    assemblygroup: "AssemblyGroup" = Relationship(
+    assemblygroups: list["AssemblyGroup"] = Relationship(
         back_populates="assemblygroupmodules", link_model=GroupsToModules)
 
 
 class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
     id: int
-    assemblygroup: "AssemblyGroupOutput"
+    assemblygroups: list
 
 # Assembly Group --------------------------------------
 
@@ -81,16 +81,16 @@ class AssemblyGroupInput(SQLModel):
 
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    biketypes: "BikeType" = Relationship(
+    biketypes: list["BikeType"] = Relationship(
         back_populates="assemblygroups", link_model=TypesToGroups)
     assemblygroupmodules: list[AssemblyGroupModule] = Relationship(
-        back_populates="assemblygroup", link_model=GroupsToModules)
+        back_populates="assemblygroups", link_model=GroupsToModules)
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
     id: int
-    biketype: "BikeTypeOutput"
-    assemblygroupmodules: list[AssemblyGroupModuleOutput] = []
+    biketypes: list
+    assemblygroupmodules: list
 
 # Bike Type --------------------------------------
 
@@ -115,7 +115,7 @@ class BikeType(BikeTypeInput, table=True):
 
 class BikeTypeOutput(BikeTypeInput):
     id: int
-    assemblygroups: list[AssemblyGroupOutput] = []
+    assemblygroups: list
 
 
 # Bike Component --------------------------------------
