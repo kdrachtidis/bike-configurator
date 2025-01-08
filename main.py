@@ -6,17 +6,18 @@ from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from db import create_db_and_tables
-from routers import components, web, auth
+from routers import web, auth
 from api.public.biketype import views as biketype
 from api.public.assemblygroup import views as assemblygroup
 from api.public.assemblygroupmodule import views as assemblygroupmodule
+from api.public.bikecomponent import views as bikecomponent
 
 app = FastAPI(title="Bike configurator")
 app.include_router(web.router)
 app.include_router(biketype.router, prefix="/api")
 app.include_router(assemblygroup.router, prefix="/api")
 app.include_router(assemblygroupmodule.router, prefix="/api")
-app.include_router(components.router)
+app.include_router(bikecomponent.router)
 app.include_router(auth.router)
 
 
