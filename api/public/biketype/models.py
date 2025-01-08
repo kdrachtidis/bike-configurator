@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from schemas import TypesToGroups
+from api.utils.link_models import TypesToGroups
 
 
 class BikeTypeInput(SQLModel):

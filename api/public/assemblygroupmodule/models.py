@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from schemas import GroupsToModules
+from api.utils.link_models import GroupsToModules
 
 class AssemblyGroupModuleInput(SQLModel):
     name: str | None = "No Name"
