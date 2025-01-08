@@ -6,7 +6,7 @@ from sqlmodel import Session, select
 from starlette import status
 
 from db import get_session
-from schemas import UserOutput, User
+from api.auth.models import UserOutput, User
 
 URL_PREFIX = "/auth"
 router = APIRouter(prefix=URL_PREFIX)

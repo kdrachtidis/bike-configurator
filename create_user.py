@@ -2,7 +2,7 @@ from getpass import getpass
 
 from sqlmodel import SQLModel, Session, create_engine
 
-from schemas import User
+from api.auth.models import User
 
 
 engine = create_engine(
