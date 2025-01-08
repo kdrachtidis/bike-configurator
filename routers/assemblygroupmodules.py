@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import User
+from api.auth.models import User
 from api.public.assemblygroup.models import AssemblyGroup
 from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
 
