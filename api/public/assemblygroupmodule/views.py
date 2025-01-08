@@ -31,7 +31,6 @@ def msg_no_group(i):
     return f"No assembly group with id={i}."
 
 
-
 def msg_no_module(i):
     return f"No assembly group module with id={i}."
 
