@@ -5,7 +5,8 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import BikeType, AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput, User
+from schemas import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput, User
+from api.public.biketype.models import BikeType
 
 router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
