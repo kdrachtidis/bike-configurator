@@ -39,31 +39,6 @@ class TypesToGroups(SQLModel, table=True):
     group_id: int | None = Field(
         default=None, foreign_key="assemblygroup.id", primary_key=True)
 
-# Module -----------------------------------------
-
-
-class AssemblyGroupModuleInput(SQLModel):
-    name: str | None = "No Name"
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [{
-                "name": "TestModule"
-            }]
-        }
-    }
-
-
-class AssemblyGroupModule(AssemblyGroupModuleInput, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    assemblygroups: list["AssemblyGroup"] = Relationship(
-        back_populates="assemblygroupmodules", link_model=GroupsToModules)
-
-
-class AssemblyGroupModuleOutput(AssemblyGroupModuleInput):
-    id: int
-    assemblygroups: list
-
 
 # Bike Component --------------------------------------
 

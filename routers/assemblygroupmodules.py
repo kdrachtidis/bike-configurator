@@ -5,8 +5,9 @@ from sqlmodel import Session, select
 
 from routers.auth import get_current_user
 from db import get_session
-from schemas import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput, User
+from schemas import User
 from api.public.assemblygroup.models import AssemblyGroup
+from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
 
 router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
