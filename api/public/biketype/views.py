@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, APIRouter, status
 from sqlmodel import Session, select
 
-from routers.auth import get_current_user
+from api.auth.views import get_current_user
 from db import get_session
 from api.auth.models import User
 from api.public.biketype.models import BikeType, BikeTypeOutput, BikeTypeInput
