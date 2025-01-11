@@ -24,11 +24,10 @@ def msg_no_module(i):
 # Create
 
 
-def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
+def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         assemblygroupmodule = AssemblyGroupModule.model_validate(input)
-        # session.add(module)
         assemblygroup.assemblygroupmodules.append(assemblygroupmodule)
         session.commit()
         session.refresh(assemblygroupmodule)
@@ -59,7 +58,7 @@ def read_assemblygroupmodule(id: int, session: SessionDep) -> AssemblyGroupModul
 # Update
 
 
-def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
+def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
         assemblygroupmodule.name = input.name
@@ -71,7 +70,7 @@ def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
 # Delete
 
 
-def delete_assemblygroupmodule(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
+def delete_assemblygroupmodule(id: int, session: SessionDep) -> None:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
         session.delete(assemblygroupmodule)
