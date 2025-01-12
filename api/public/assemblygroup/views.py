@@ -20,28 +20,28 @@ msg_description_read = "Get a specific assembly group based on its ID."
 msg_description_delete = "Remove a specific assembly group based on its ID."
 msg_description_update = "Edit a specific assembly group based on its ID."
 
-# Create assembly group
+# Create an assembly group
 
 
 @router.post("/biketypes/{type_id}/assemblygroups/", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
 def add_assembly_group(type_id: int, input: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     return create_assemblygroup(id=type_id, input=input, session=session)
 
-# Get all assemly groups
+# Read all assemly groups
 
 
 @router.get("/assemblygroups", tags=[msg_tags], description=msg_description_read_all)
 def get_assembly_groups(session: SessionDep) -> list:
     return read_all_assemblygroups(session=session)
 
-# Get an assemly group
+# Read an assemly group
 
 
 @router.get("/assemblygroups/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags], description=msg_description_read)
 def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
     return read_assemblygroup(id=id, session=session)
 
-# Edit an assembly group
+# Update an assembly group
 
 
 @router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_update, status_code=status.HTTP_200_OK)
