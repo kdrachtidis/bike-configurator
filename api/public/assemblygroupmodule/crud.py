@@ -5,12 +5,12 @@ from sqlmodel import Session, select
 
 from db import get_session
 from api.public.assemblygroup.models import AssemblyGroup
-from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
+from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API"
+msg_init = "Bike Configurator API" # API logs identifier
 msg_create = ": Create assembly group module."
 msg_read_all = ": Read all assemby group modules."
 msg_read = ": Read assembly group module with id ="
