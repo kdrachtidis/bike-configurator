@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from db import get_session
 from api.public.biketype.models import BikeType
-from api.public.assemblygroup.models import AssemblyGroup, AssemblyGroupInput, AssemblyGroupOutput
+from api.public.assemblygroup.models import AssemblyGroup, AssemblyGroupInput
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
