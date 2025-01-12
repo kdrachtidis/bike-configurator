@@ -25,7 +25,7 @@ msg_description_update = "Edit a specific assembly group module based on its ID.
 
 
 @router.post("/assemblygroups/{assemblygroup_id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
-def add_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
+def create_an_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
     return create_assemblygroupmodule(id=id, input=input, session=session)
 
 
@@ -33,21 +33,21 @@ def add_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionD
 
 
 @router.get("/assemblygroupmodules/", tags=[msg_tags], description=msg_description_read_all, status_code=status.HTTP_200_OK)
-def get_group_modules(session: SessionDep):
+def read_all_assembly_group_modules(session: SessionDep):
     return read_all_assemblygroupmodules(session=session)
 
 # Read an assembly group module
 
 
 @router.get("/assemblygroupmodules/{id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags], description=msg_description_get_group_id)
-def get_group_module_by_group_id(id: int, session: SessionDep) -> AssemblyGroupModule:
+def read_an_assembly_group_module(id: int, session: SessionDep) -> AssemblyGroupModule:
     return read_assemblygroupmodule(id=id, session=session)
 
 # Update assembly group module
 
 
 @router.put("/assemblygroupmodules/{id}", tags=[msg_tags], description=msg_description_update, status_code=status.HTTP_200_OK)
-def edit_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
+def update_an_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
     return update_assemblygroupmodule(id=id, input=input, session=session)
 
 
@@ -55,5 +55,5 @@ def edit_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session
 
 
 @router.delete("/assemblygroupmodules/{id}", tags=[msg_tags], description=msg_description_delete, status_code=status.HTTP_200_OK)
-def remove_assemby_group_module(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
+def delete_an_assemby_group_module(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     return delete_assemblygroupmodule(id=id, session=session)

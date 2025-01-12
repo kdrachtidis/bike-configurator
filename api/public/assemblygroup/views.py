@@ -24,28 +24,28 @@ msg_description_update = "Edit a specific assembly group based on its ID."
 
 
 @router.post("/biketypes/{type_id}/assemblygroups/", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
-def add_assembly_group(type_id: int, input: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
+def create_an_assembly_group(type_id: int, input: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     return create_assemblygroup(id=type_id, input=input, session=session)
 
 # Read all assemly groups
 
 
 @router.get("/assemblygroups", tags=[msg_tags], description=msg_description_read_all)
-def get_assembly_groups(session: SessionDep) -> list:
+def read_all_assembly_groups(session: SessionDep) -> list:
     return read_all_assemblygroups(session=session)
 
 # Read an assemly group
 
 
 @router.get("/assemblygroups/{id}", response_model=AssemblyGroupOutput, tags=[msg_tags], description=msg_description_read)
-def get_assembly_group_by_id(id: int, session: SessionDep) -> AssemblyGroup:
+def read_an_assembly_group(id: int, session: SessionDep) -> AssemblyGroup:
     return read_assemblygroup(id=id, session=session)
 
 # Update an assembly group
 
 
 @router.put("/assemblygroups/{id}", response_model=AssemblyGroup, tags=[msg_tags], description=msg_description_update, status_code=status.HTTP_200_OK)
-def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
+def update_an_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroup:
     return update_assemblygroup(id=id, input=new_assemblygroup, session=session)
 
 
@@ -53,5 +53,5 @@ def edit_assembly_group(id: int, new_assemblygroup: AssemblyGroupInput, session:
 
 
 @router.delete("/assemblygroups/{id}", tags=[msg_tags], description=msg_description_delete, status_code=status.HTTP_200_OK)
-def remove_assembly_group(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
+def delete_an_assembly_group(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
     return delete_assemblygroup(id=id, session=session)
