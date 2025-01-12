@@ -21,7 +21,7 @@ msg_description_get_group_id = "Get a specific assembly group module based on it
 msg_description_delete = "Remove a specific assembly group module based on its ID."
 msg_description_update = "Edit a specific assembly group module based on its ID."
 
-# Create assembly group module assigned to an assembly group
+# Create an assembly group module assigned to an assembly group
 
 
 @router.post("/assemblygroups/{assemblygroup_id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
@@ -29,14 +29,14 @@ def add_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionD
     return create_assemblygroupmodule(id=id, input=input, session=session)
 
 
-# Get all assembly group modules
+# Read all assembly group modules
 
 
 @router.get("/assemblygroupmodules/", tags=[msg_tags], description=msg_description_read_all, status_code=status.HTTP_200_OK)
 def get_group_modules(session: SessionDep):
     return read_all_assemblygroupmodules(session=session)
 
-# Get an assembly group module
+# Read an assembly group module
 
 
 @router.get("/assemblygroupmodules/{id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags], description=msg_description_get_group_id)
@@ -51,7 +51,7 @@ def edit_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session
     return update_assemblygroupmodule(id=id, input=input, session=session)
 
 
-# Delete an assembly group module based on group ID
+# Delete an assembly group module
 
 
 @router.delete("/assemblygroupmodules/{id}", tags=[msg_tags], description=msg_description_delete, status_code=status.HTTP_200_OK)
