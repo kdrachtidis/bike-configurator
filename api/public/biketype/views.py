@@ -1,85 +1,56 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, APIRouter, status
-from sqlmodel import Session, select
+from fastapi import Depends, APIRouter, status
+from sqlmodel import Session
 
 from api.auth.views import get_current_user
 from db import get_session
 from api.auth.models import User
+from api.public.biketype.crud import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
 from api.public.biketype.models import BikeType, BikeTypeOutput, BikeTypeInput
 
 router = APIRouter(prefix="/biketypes")
 SessionDep = Annotated[Session, Depends(get_session)]
 
-# Reusable components
-
+# Swagger UI's descriptions
 msg_tags = "Bike Type"
-msg_tags_id = "Bike Type (by ID)"
-msg_description_post = "Add a bike type."
-msg_description_get = "Get the list of all bike types."
-msg_description_get_id = "Get a specific bike type based on its ID."
+msg_description_create = "Add a bike type."
+msg_description_read_all = "Get the list of all bike types."
+msg_description_read = "Get a specific bike type based on its ID."
 msg_description_delete = "Remove a specific bike type based on its ID."
-msg_description_put = "Edit a specific bike type based on its ID."
+msg_description_update = "Edit a specific bike type based on its ID."
+
+# Create a bike type
 
 
-def msg_no_item(i):
-    return f"No bike type with id={i}."
-
-# Add bike type
-
-
-@router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_post, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=BikeType, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
 def add_bike_type(input: BikeTypeInput, session: SessionDep, user: User = Depends(get_current_user)) -> BikeType:
-    new_type = BikeType.model_validate(input)
-    session.add(new_type)
-    session.commit()
-    session.refresh(new_type)
-    return new_type
+    return create_biketype(input=input, session=session)
 
 
-# Get bike types
+# Read all bike types
 
-@router.get("/", tags=[msg_tags], description=msg_description_get)
+@router.get("/", tags=[msg_tags], description=msg_description_read_all)
 def get_bike_types(session: SessionDep) -> list:
-    query = select(BikeType)
-    return session.exec(query).all()
+    return read_all_biketypes(session=session)
 
-# Get bike type by id
+# Read a bike type
 
 
-@router.get("/{id}", response_model=BikeTypeOutput, tags=[msg_tags_id], description=msg_description_get_id)
+@router.get("/{id}", response_model=BikeTypeOutput, tags=[msg_tags], description=msg_description_read)
 def bike_type_by_id(id: int, session: SessionDep) -> BikeType:
-    biketype = session.get(BikeType, id)
-    if biketype:
-        return biketype
-    else:
-        raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+    return read_biketype(id=id, session=session)
 
 # Edit a biketype
 
 
-@router.put("/{id}", response_model=BikeType, tags=[msg_tags_id], description=msg_description_put)
+@router.put("/{id}", response_model=BikeType, tags=[msg_tags], description=msg_description_update)
 def edit_bike_type(id: int, new_data: BikeTypeInput, session: SessionDep, user: User = Depends(get_current_user)) -> BikeType:
-    biketype = session.get(BikeType, id)
-
-    if biketype:
-        biketype.name = new_data.name
-        session.commit()
-        return biketype
-    else:
-        raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+    return update_biketype(id=id, input=new_data, session=session)
 
 # Delete a bike type
 
 
-@router.delete("/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
+@router.delete("/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
 def remove_bike_type(id: int, session: SessionDep, user: User = Depends(get_current_user)) -> None:
-    biketype = session.get(BikeType, id)
-    if biketype:
-        session.delete(biketype)
-        session.commit()
-    else:
-        raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+    return delete_biketype(id=id, session=session)
