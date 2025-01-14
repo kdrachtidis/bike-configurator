@@ -18,9 +18,11 @@ class AssemblyGroupInput(SQLModel):
 class AssemblyGroup(AssemblyGroupInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
     biketypes: list["BikeType"] = Relationship(
-        back_populates="assemblygroups", link_model=TypesToGroups)
+        back_populates="assemblygroups", link_model=TypesToGroups
+    )
     assemblygroupmodules: list["AssemblyGroupModule"] = Relationship(
-        back_populates="assemblygroups", link_model=GroupsToModules)
+        back_populates="assemblygroups", link_model=GroupsToModules
+    )
 
 
 class AssemblyGroupOutput(AssemblyGroupInput):
