@@ -33,13 +33,13 @@ def msg_no_item(i):
 def create_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDependency) -> AssemblyGroup:
     biketype = session.get(BikeType, id)
     if biketype:
-        new_assemblygroup = AssemblyGroup.model_validate(input)
-        biketype.assemblygroups.append(new_assemblygroup)
+        assemblygroup = AssemblyGroup.model_validate(input)
+        biketype.assemblygroups.append(assemblygroup)
         session.commit()
-        session.refresh(new_assemblygroup)
+        session.refresh(assemblygroup)
         print(msg_init, end="")
         print(msg_create)
-        return new_assemblygroup
+        return assemblygroup
     else:
         raise HTTPException(
             status_code=404, detail=msg_no_type(id)
