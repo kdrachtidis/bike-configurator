@@ -26,13 +26,13 @@ def msg_no_item(i):
 
 
 def create_biketype(input: BikeTypeInput, session: SessionDependency) -> BikeType:
-    new_type = BikeType.model_validate(input)
-    session.add(new_type)
+    biketype = BikeType.model_validate(input)
+    session.add(biketype)
     session.commit()
-    session.refresh(new_type)
+    session.refresh(biketype)
     print(msg_init, end="")
     print(msg_create)
-    return new_type
+    return biketype
 
 # Read
 
