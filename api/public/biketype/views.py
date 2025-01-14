@@ -4,7 +4,7 @@ from fastapi import Depends, APIRouter, status
 from sqlmodel import Session
 
 from api.auth.views import get_current_user
-from db import get_session
+from api.utils.db import get_session
 from api.auth.models import User
 from api.public.biketype.crud import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
 from api.public.biketype.models import BikeType, BikeTypeOutput, BikeTypeInput

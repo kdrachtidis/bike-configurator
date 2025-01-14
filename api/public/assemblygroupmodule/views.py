@@ -4,7 +4,7 @@ from fastapi import Depends, APIRouter, status
 from sqlmodel import Session
 
 from api.auth.views import get_current_user
-from db import get_session
+from api.utils.db import get_session
 from api.auth.models import User
 from api.public.assemblygroupmodule.crud import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
 from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput

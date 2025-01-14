@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 
-from db import get_session
+from api.utils.db import get_session
 from api.public.assemblygroup.models import AssemblyGroup
 from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput
 
