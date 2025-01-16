@@ -2,7 +2,7 @@ from unittest.mock import Mock
 from fastapi.testclient import TestClient
 
 from main import app
-from api.public.bikecomponent.views import add_bike_component
+from api.public.bikecomponent.views import create_a_bike_component
 from api.public.bikecomponent.models import BikeComponentInput, BikeComponent
 from api.auth.views import User
 
@@ -28,7 +28,7 @@ def test_add_bikecomponent_with_mock_session():
     input = BikeComponentInput(
         name="test_name", source="test_source", price=100, group="test_group")
     # user = User(username="user2")
-    result = add_bike_component(component_input=input, session=mock_session)
+    result = create_a_bike_component(input=input, session=mock_session)
     # component_input=input, session=mock_session, user=user)
 
     mock_session.add.assert_called_once()
