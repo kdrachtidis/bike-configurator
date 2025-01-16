@@ -7,10 +7,10 @@ from api.utils.db import get_session
 from api.public.assemblygroup.models import AssemblyGroup
 from api.public.assemblygroupmodule.models import AssemblyGroupModule, AssemblyGroupModuleInput
 
-SessionDep = Annotated[Session, Depends(get_session)]
+SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API" # API logs identifier
+msg_init = "Bike Configurator API"  # API logs identifier
 msg_create = ": Create assembly group module."
 msg_read_all = ": Read all assemby group modules."
 msg_read = ": Read assembly group module with id ="
@@ -30,7 +30,7 @@ def msg_no_module(i):
 # Create
 
 
-def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
+def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDependency) -> AssemblyGroupModule:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
         assemblygroupmodule = AssemblyGroupModule.model_validate(input)
@@ -48,14 +48,14 @@ def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
 # Read
 
 
-def read_all_assemblygroupmodules(session: SessionDep) -> list:
+def read_all_assemblygroupmodules(session: SessionDependency) -> list:
     query = select(AssemblyGroupModule)
     print(msg_init, end="")
     print(msg_read_all)
     return session.exec(query).all()
 
 
-def read_assemblygroupmodule(id: int, session: SessionDep) -> AssemblyGroupModule:
+def read_assemblygroupmodule(id: int, session: SessionDependency) -> AssemblyGroupModule:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
         print(msg_init, end="")
@@ -68,7 +68,7 @@ def read_assemblygroupmodule(id: int, session: SessionDep) -> AssemblyGroupModul
 # Update
 
 
-def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDep) -> AssemblyGroupModule:
+def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session: SessionDependency) -> AssemblyGroupModule:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
         assemblygroupmodule.name = input.name
@@ -82,7 +82,7 @@ def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
 # Delete
 
 
-def delete_assemblygroupmodule(id: int, session: SessionDep) -> None:
+def delete_assemblygroupmodule(id: int, session: SessionDependency) -> None:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
         session.delete(assemblygroupmodule)

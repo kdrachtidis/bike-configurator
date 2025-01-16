@@ -24,7 +24,7 @@ msg_description_update = "Edit a specific assembly group module based on its ID.
 # Create an assembly group module assigned to an assembly group
 
 
-@router.post("/assemblygroups/{assemblygroup_id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
+@router.post("/assemblygroups/{id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
 def create_an_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
     return create_assemblygroupmodule(id=id, input=input, session=session)
 
