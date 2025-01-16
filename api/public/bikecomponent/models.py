@@ -1,4 +1,6 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
+
+from api.utils.link_models import ModulesToComponents
 
 
 class BikeComponentInput(SQLModel):
@@ -20,8 +22,12 @@ class BikeComponentInput(SQLModel):
 
 
 class BikeComponent(BikeComponentInput, table=True):
-    id: int | None = Field(primary_key=True, default=None)
+    id: int | None = Field(default=None, primary_key=True)
+    assemblygroupmodules: list["AssemblyGroupModule"] = Relationship(
+        back_populates="bikecomponents", link_model=ModulesToComponents
+    )
 
 
 class BikeComponentOutput(BikeComponentInput):
     id: int
+    assemblygroupmodules: list
