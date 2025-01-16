@@ -18,7 +18,7 @@ app.include_router(web.router)
 app.include_router(biketype.router, prefix="/api")
 app.include_router(assemblygroup.router, prefix="/api")
 app.include_router(assemblygroupmodule.router, prefix="/api")
-app.include_router(bikecomponent.router)
+app.include_router(bikecomponent.router, prefix="/api")
 app.include_router(auth.router)
 
 
