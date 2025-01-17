@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from api.utils.link_models import ModulesToComponents
+from app.api.utils.link_models import ModulesToComponents
 
 
 class BikeComponentInput(SQLModel):

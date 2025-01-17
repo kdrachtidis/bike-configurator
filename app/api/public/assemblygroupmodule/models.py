@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from api.utils.link_models import GroupsToModules, ModulesToComponents
+from app.api.utils.link_models import GroupsToModules, ModulesToComponents
 
 
 class AssemblyGroupModuleInput(SQLModel):
