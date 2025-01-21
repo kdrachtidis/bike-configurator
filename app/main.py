@@ -5,7 +5,7 @@ from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
-from app.api.utils.db import create_db_and_tables
+from app.api.utils.database import create_db_and_tables
 from app.api.utils import web
 from app.api.public.biketype import views as biketype
 from app.api.public.assemblygroup import views as assemblygroup
