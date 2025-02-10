@@ -1,8 +1,10 @@
+import os
+
 from sqlmodel import SQLModel, create_engine, Session
 
-sqlite_url = f"sqlite:///bike_configurator.db"
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-engine = create_engine(sqlite_url, connect_args={
+engine = create_engine(DATABASE_URL, connect_args={
                        "check_same_thread": False}, echo=True)
 
 
