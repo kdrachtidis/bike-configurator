@@ -9,6 +9,7 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from app.api.utils.database import create_db_and_tables
 from app.api.utils import web
 from app.api.public.biketype import views as biketype
+from app.api.public.biketype.content import create_biketypes
 from app.api.public.assemblygroup import views as assemblygroup
 from app.api.public.assemblygroupmodule import views as assemblygroupmodule
 from app.api.public.bikecomponent import views as bikecomponent
@@ -47,6 +48,7 @@ app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+    create_biketypes()
 
 
 @app.middleware("http")
