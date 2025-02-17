@@ -1,11 +1,10 @@
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_sqlalchemy import DBSessionMiddleware
 from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
-
-from dotenv import load_dotenv
 
 from app.api.utils.database import create_db_and_tables
 from app.api.utils import web
@@ -15,7 +14,10 @@ from app.api.public.assemblygroupmodule import views as assemblygroupmodule
 from app.api.public.bikecomponent import views as bikecomponent
 from app.api.auth import views as auth
 
-load_dotenv()
+import os
+from dotenv import load_dotenv
+
+load_dotenv('.env')
 
 app = FastAPI(title="Bike configurator")
 app.include_router(web.router)
@@ -38,6 +40,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 
 
 @app.on_event("startup")
