@@ -1,4 +1,5 @@
 import uvicorn
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware
@@ -23,45 +24,51 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-app = FastAPI(title="Bike configurator")
-app.include_router(web.router)
-app.include_router(biketype.router, prefix="/app/api")
-app.include_router(assemblygroup.router, prefix="/app/api")
-app.include_router(assemblygroupmodule.router, prefix="/app/api")
-app.include_router(bikecomponent.router, prefix="/app/api")
-app.include_router(auth.router)
-
 origins = [
     "http://localhost:8000",
     "http://localhost:8080",
 ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
-
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     create_db_and_tables()
     create_BikeTypes()
     create_AssemblyGroups()
     create_AssemblyGroupModules()
     create_BikeComponents()
+    yield
 
 
-@app.middleware("http")
-async def create_cookie(request: Request, call_next):
-    response = await call_next(request)
-    response.set_cookie(key="cookie",
-                        value="Bike_Configurator_app")
-    return response
+def get_app() -> FastAPI:
+    app = FastAPI(lifespan=lifespan, title="Bike configurator")
+    app.include_router(web.router)
+    app.include_router(biketype.router, prefix="/app/api")
+    app.include_router(assemblygroup.router, prefix="/app/api")
+    app.include_router(assemblygroupmodule.router, prefix="/app/api")
+    app.include_router(bikecomponent.router, prefix="/app/api")
+    app.include_router(auth.router)
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
+    return app
+
+
+app = get_app()
+
+# @app.middleware("http")
+# async def create_cookie(request: Request, call_next):
+#     response = await call_next(request)
+#     response.set_cookie(key="cookie",
+#                         value="Bike_Configurator_app")
+#     return response
 
 
 if __name__ == "__main__":
