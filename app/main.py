@@ -31,7 +31,6 @@ app.include_router(assemblygroupmodule.router, prefix="/app/api")
 app.include_router(bikecomponent.router, prefix="/app/api")
 app.include_router(auth.router)
 
-
 origins = [
     "http://localhost:8000",
     "http://localhost:8080",
@@ -58,10 +57,10 @@ def on_startup():
 
 
 @app.middleware("http")
-async def add_cars_cookie(request: Request, call_next):
+async def create_cookie(request: Request, call_next):
     response = await call_next(request)
-    response.set_cookie(key="cars_cookie",
-                        value="you_visited_the_carsharing_app")
+    response.set_cookie(key="cookie",
+                        value="Bike_Configurator_app")
     return response
 
 
