@@ -1,15 +1,13 @@
-from getpass import getpass
+import os
 
+from getpass import getpass
 from sqlmodel import SQLModel, Session, create_engine
 
 from app.api.auth.models import User
 
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-engine = create_engine(
-    "sqlite:///bike_configurator.db",
-    connect_args={"check_same_thread": False},  # Needed for SQLite
-    echo=True  # Log generated SQL
-)
+engine = create_engine(DATABASE_URL, echo=True)
 
 
 if __name__ == "__main__":
