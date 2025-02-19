@@ -63,12 +63,12 @@ def get_app() -> FastAPI:
 
 app = get_app()
 
-# @app.middleware("http")
-# async def create_cookie(request: Request, call_next):
-#     response = await call_next(request)
-#     response.set_cookie(key="cookie",
-#                         value="Bike_Configurator_app")
-#     return response
+@app.middleware("http")
+async def create_cookie(request: Request, call_next):
+    response = await call_next(request)
+    response.set_cookie(key="cookie",
+                        value="Bike Configurator")
+    return response
 
 
 if __name__ == "__main__":
