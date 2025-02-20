@@ -3,7 +3,7 @@ import os
 from getpass import getpass
 from sqlmodel import SQLModel, Session, create_engine
 
-from app.api.auth.models import User
+from app.models.user import User
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 

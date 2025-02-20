@@ -7,13 +7,13 @@ from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
-from app.api.utils.database import create_db_and_tables
-from app.api.utils import web
+from app.utils.database import create_db_and_tables
+from app.utils import web
 from app.views import biketype as biketype
 from app.views import assemblygroup as assemblygroup
 from app.views import assemblygroupmodule as assemblygroupmodule
 from app.views import bikecomponent as bikecomponent
-from app.api.auth import views as auth
+from app.views import user as auth
 
 import os
 from dotenv import load_dotenv

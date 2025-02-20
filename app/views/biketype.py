@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import Depends, APIRouter, status
 from sqlmodel import Session
 
-from app.api.auth.views import get_current_user
-from app.api.utils.database import get_session
-from app.api.auth.models import User
+from app.views.user import get_current_user
+from app.utils.database import get_session
+from app.models.user import User
 from app.crud.biketype import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
 from app.models.biketype import BikeType, BikeTypeOutput, BikeTypeInput
 

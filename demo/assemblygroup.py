@@ -1,7 +1,7 @@
 from sqlmodel import Session
 
 from app.models.assemblygroup import AssemblyGroup
-from app.api.utils.database import engine
+from app.utils.database import engine
 
 
 def create_AssemblyGroups():

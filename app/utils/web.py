@@ -3,7 +3,7 @@ from sqlmodel import Session
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from app.api.utils.database import get_session
+from app.utils.database import get_session
 from app.views.bikecomponent import read_all_bike_components
 
 router = APIRouter()

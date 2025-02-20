@@ -1,7 +1,7 @@
 from sqlmodel import Session
 
 from app.models.bikecomponent import BikeComponent
-from app.api.utils.database import engine
+from app.utils.database import engine
 
 
 def create_BikeComponents():

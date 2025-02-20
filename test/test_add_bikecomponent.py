@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.views.bikecomponent import create_a_bike_component
 from app.models.bikecomponent import BikeComponentInput, BikeComponent
-from app.api.auth.views import User
+from app.views.user import User
 
 client = TestClient(app)
 
