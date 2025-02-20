@@ -9,14 +9,10 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from app.api.utils.database import create_db_and_tables
 from app.api.utils import web
-from app.api.public.biketype import views as biketype
-
-from app.api.public.assemblygroup import views as assemblygroup
-
-from app.api.public.assemblygroupmodule import views as assemblygroupmodule
-
-from app.api.public.bikecomponent import views as bikecomponent
-
+from app.views import biketype as biketype
+from app.views import assemblygroup as assemblygroup
+from app.views import assemblygroupmodule as assemblygroupmodule
+from app.views import bikecomponent as bikecomponent
 from app.api.auth import views as auth
 
 import os
@@ -58,6 +54,7 @@ def get_app() -> FastAPI:
 
 
 app = get_app()
+
 
 @app.middleware("http")
 async def create_cookie(request: Request, call_next):

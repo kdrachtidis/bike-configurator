@@ -4,7 +4,7 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from app.api.utils.database import get_session
-from app.api.public.bikecomponent.views import read_all_bike_components
+from app.views.bikecomponent import read_all_bike_components
 
 router = APIRouter()
 

@@ -2,7 +2,7 @@ from unittest.mock import Mock
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.api.public.bikecomponent.views import create_a_bike_component
+from app.views.bikecomponent import create_a_bike_component
 from app.models.bikecomponent import BikeComponentInput, BikeComponent
 from app.api.auth.views import User
 
