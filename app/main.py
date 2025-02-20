@@ -10,13 +10,13 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from app.api.utils.database import create_db_and_tables
 from app.api.utils import web
 from app.api.public.biketype import views as biketype
-from demo.biketype import create_BikeTypes
+
 from app.api.public.assemblygroup import views as assemblygroup
-from demo.assemblygroup import create_AssemblyGroups
+
 from app.api.public.assemblygroupmodule import views as assemblygroupmodule
-from demo.assemblygroupmodule import create_AssemblyGroupModules
+
 from app.api.public.bikecomponent import views as bikecomponent
-from demo.bikecomponent import create_BikeComponents
+
 from app.api.auth import views as auth
 
 import os
@@ -33,10 +33,6 @@ origins = [
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db_and_tables()
-    create_BikeTypes()
-    create_AssemblyGroups()
-    create_AssemblyGroupModules()
-    create_BikeComponents()
     yield
 
 
