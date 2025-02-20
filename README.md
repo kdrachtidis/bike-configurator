@@ -7,4 +7,4 @@
 3. Create a **.env** file where you define the 'DATABASE_URL = 'postgresql://{user}:{password}@{host}:{port}/{database}''
 4. Run the 'create_user.py' file in order to create a user, just follow the instructions for setting user and password
 5. Run FastAPI: ```fastapi dev main.py```
-6. Open the http://127.0.0.1:8000/docs URL to openapi.json, use the following credentials to authorize: (user/password) User/Welcome1!
+6. Open the http://127.0.0.1:8000/docs URL to the openapi.json
