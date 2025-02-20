@@ -1,6 +1,6 @@
 from sqlmodel import Session
 
-from app.api.public.assemblygroupmodule.models import AssemblyGroupModule
+from app.models.assemblygroupmodule import AssemblyGroupModule
 from app.api.utils.database import engine
 
 

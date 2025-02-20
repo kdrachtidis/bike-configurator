@@ -7,7 +7,7 @@ from app.api.auth.views import get_current_user
 from app.api.utils.database import get_session
 from app.api.auth.models import User
 from app.api.public.biketype.crud import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
-from app.api.public.biketype.models import BikeType, BikeTypeOutput, BikeTypeInput
+from app.models.biketype import BikeType, BikeTypeOutput, BikeTypeInput
 
 router = APIRouter(prefix="/biketypes")
 SessionDep = Annotated[Session, Depends(get_session)]

@@ -4,7 +4,7 @@ from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 
 from app.api.utils.database import get_session
-from app.api.public.biketype.models import BikeType, BikeTypeInput
+from app.models.biketype import BikeType, BikeTypeInput
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 

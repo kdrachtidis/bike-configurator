@@ -1,6 +1,6 @@
 from sqlmodel import Session
 
-from app.api.public.bikecomponent.models import BikeComponent
+from app.models.bikecomponent import BikeComponent
 from app.api.utils.database import engine
 
 
