@@ -6,7 +6,7 @@ from sqlmodel import Session
 from app.api.auth.views import get_current_user
 from app.api.utils.database import get_session
 from app.api.auth.models import User
-from app.api.public.assemblygroupmodule.crud import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
+from app.crud.assemblygroupmodule import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
 from app.models.assemblygroupmodule import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
 
 router = APIRouter()
