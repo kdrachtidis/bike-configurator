@@ -14,7 +14,6 @@ SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Swagger UI's descriptions
 msg_tags = "Bike Component"
-msg_tags_id = "Bike Component (by ID)"
 msg_description_post = "Add a bike component."
 msg_description_get = "Get the list of all bike components."
 msg_description_get_id = "Get a specific bike component based on its ID."
@@ -38,14 +37,14 @@ def read_all_bike_components(source: str | None = None, group: str | None = None
 # Read a bike component
 
 
-@router.get("/bikecomponents/{id}", response_model=BikeComponentOutput, tags=[msg_tags_id], description=msg_description_get_id)
+@router.get("/bikecomponents/{id}", response_model=BikeComponentOutput, tags=[msg_tags], description=msg_description_get_id)
 def read_a_bike_component(id: int, session: SessionDependency) -> BikeComponent:
     return read_bikecomponent(id=id, session=session)
 
 # Update a bike component
 
 
-@router.put("/bikecomponents/{id}", response_model=BikeComponent, tags=[msg_tags_id], description=msg_description_put)
+@router.put("/bikecomponents/{id}", response_model=BikeComponent, tags=[msg_tags], description=msg_description_put)
 def update_a_bike_component(id: int, new_data: BikeComponentInput,
                         session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
     return update_bikecomponent(id=id, new_data=new_data, session=session)
@@ -53,6 +52,6 @@ def update_a_bike_component(id: int, new_data: BikeComponentInput,
 # Delete a bike component
 
 
-@router.delete("/bikecomponents/{id}", status_code=204, tags=[msg_tags_id], description=msg_description_delete)
+@router.delete("/bikecomponents/{id}", status_code=204, tags=[msg_tags], description=msg_description_delete)
 def delete_a_bike_component(id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
     return delete_bikecomponent(id=id, session=session)
