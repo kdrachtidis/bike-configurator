@@ -1,14 +1,12 @@
 FROM python:latest
 
-WORKDIR /bike-configurator
-
 ARG WWWGROUP
 ARG WWWUSER
-ARG USERNAME
+ARG NAME
 
-RUN mkdir bike-configurator
+WORKDIR /home/$NAME/bike-configurator
 
-COPY /app /bike-configurator/app
+COPY /app /home/$NAME/bike-configurator/app
 #COPY /demo /bike-configurator/demo
 #COPY /templates /bike-configurator/
 #COPY /test /bike-configurator/
@@ -16,12 +14,12 @@ COPY /app /bike-configurator/app
 #COPY create_content.py /bike-configurator/
 #COPY create_user.py /bike-configurator/
 
-COPY requirements.txt /bike-configurator/requirements.txt
+COPY requirements.txt /home/$NAME/bike-configurator/requirements.txt
 
-#RUN pip install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-RUN groupadd -g $WWWGROUP -o $USERNAME
-RUN useradd -m -u $WWWUSER -g $WWWGROUP -o -s /bin/bash $USERNAME
-USER $USERNAME
+RUN groupadd -g $WWWGROUP -o $NAME
+RUN useradd -m -u $WWWUSER -g $WWWGROUP -o -s /bin/bash $NAME
+USER $NAME
 
-#CMD ["fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "80"]
+CMD ["fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "80"]

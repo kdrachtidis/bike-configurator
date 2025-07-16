@@ -20,7 +20,7 @@ services:
       args:
           WWWGROUP: '${WWWGROUP:-1000}'
           WWWUSER: '${WWWUSER:-1000}' 
-          USERNAME: '${USERNAME:-kdrachtidis}' 
+          NAME: '${NAME:-kdrachtidis}' 
     restart: always
     container_name: bike-configurator_backend
     environment:
