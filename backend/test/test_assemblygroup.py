@@ -6,10 +6,10 @@ client = TestClient(app)
 
 
 def test_read_all_assemblygroups():
-    response = client.get("/app/assemblygroups/")
+    response = client.get("/api/assemblygroups/")
     assert response.status_code == 200
 
 
 def test_read_assemblygroup():
-    response = client.get("/app/assemblygroups/1")
+    response = client.get("/api/assemblygroups/1")
     assert response.status_code == 200

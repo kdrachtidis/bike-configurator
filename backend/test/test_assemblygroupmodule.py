@@ -10,12 +10,12 @@ client = TestClient(app)
 
 
 def test_read_all_assemblygroupmodules():
-    response = client.get("/app/assemblygroupmodules/")
+    response = client.get("/api/assemblygroupmodules/")
     assert response.status_code == 200
 
 
 def test_read_assemblygroupmodule():
-    response = client.get("/app/assemblygroupmodules/1")
+    response = client.get("/api/assemblygroupmodules/1")
     assert response.status_code == 200
 
 # def test_create_assemblygroupmodule_with_mock_session():

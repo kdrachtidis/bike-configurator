@@ -10,7 +10,7 @@ client = TestClient(app)
 
 
 def test_read_all_bikecomponents():
-    response = client.get("/app/bikecomponents/")
+    response = client.get("/api/bikecomponents/")
     assert response.status_code == 200
     bikecomponents = response.json()
     assert all(["source" in c for c in bikecomponents])
@@ -18,7 +18,7 @@ def test_read_all_bikecomponents():
 
 
 def test_read_bikecomponent():
-    response = client.get("/app/bikecomponents/1")
+    response = client.get("/api/bikecomponents/1")
     assert response.status_code == 200
     bikecomponent = response.json()
     assert "name" in bikecomponent

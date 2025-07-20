@@ -17,7 +17,7 @@
     <script>
         $(document).ready(function () {
             $('#click').click(function () {
-                $.get("http://localhost:8000/app/api/bikecomponents/").done(function (data) {
+                $.get("http://localhost:8000/api/bikecomponents/").done(function (data) {
                     $('#output').text(`Succesfully received ${data.length} bike components`);
                 }).fail(function () {
                     $('#output').text("Failed!");

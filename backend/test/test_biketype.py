@@ -10,7 +10,7 @@ client = TestClient(app)
 
 
 def test_read_all_biketypes():
-    response = client.get("/app/biketypes/")
+    response = client.get("/api/biketypes/")
     assert response.status_code == 200
     biketypes = response.json()
     assert all(["name" in c for c in biketypes])
@@ -18,7 +18,7 @@ def test_read_all_biketypes():
 
 
 def test_read_biketype():
-    response = client.get("/app/biketypes/1")
+    response = client.get("/api/biketypes/1")
     assert response.status_code == 200
     biketype = response.json()
     assert "name" in biketype
