@@ -1,0 +1,21 @@
+{
+  "message": {
+    "title": "Fahrrad Konfigurator",
+    "export": "Exportieren",
+    "load": "Laden",
+    "theme": "Motiv",
+    "language": "Sprache",
+    "dark": "Dunkel",
+    "light": "Hell",
+    "expand": "Erweitern und Zusammenbrechen",
+    "edit": "Bearbeiten",
+    "components": "Komponenten",
+    "accessories": "Zubehör",
+    "add": "Baugruppe hinzufügen",
+    "items": "Artikel hinzugefügt",
+    "partialsum": "Teilsumme",
+    "filter": "Filtern",
+    "productlist": "Produktliste",
+    "shop": "Shop"
+  }
+}

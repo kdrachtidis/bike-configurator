@@ -1,0 +1,21 @@
+{
+  "message": {
+    "title": "Bike Configurator",
+    "export": "Export",
+    "load": "Load",
+    "theme": "Theme",
+    "language": "Language",
+    "dark": "Dark",
+    "light": "Light",
+    "components": "Components",
+    "accessories": "Accessories",
+    "add": "Add Module",
+    "expand": "Expand and Collapse",
+    "edit": "Edit",
+    "items": "Products added",
+    "partialsum": "Partial summary",
+    "filter": "Filter",
+    "productlist": "Product list",
+    "shop": "Shop"
+  }
+}

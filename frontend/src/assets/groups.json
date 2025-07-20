@@ -1,0 +1,118 @@
+[
+  {
+    "id": 1,
+    "name": "Antrieb"
+  },
+  {
+    "id": 2,
+    "name": "Cockpit"
+  },
+  {
+    "id": 3,
+    "name": "Dämpfer"
+  },
+  {
+    "id": 4,
+    "name": "Fahrradbremsen"
+  },
+  {
+    "id": 5,
+    "name": "Fahrradgabeln"
+  },
+  {
+    "id": 6,
+    "name": "Fahrradrahmen"
+  },
+  {
+    "id": 7,
+    "name": "Fahrradreifen"
+  },
+  {
+    "id": 8,
+    "name": "Fahrradschläuche"
+  },
+  {
+    "id": 9,
+    "name": "Komplettgruppen"
+  },
+  {
+    "id": 10,
+    "name": "Laufräder"
+  },
+  {
+    "id": 11,
+    "name": "Powermeter"
+  },
+  {
+    "id": 12,
+    "name": "Sättel"
+  },
+  {
+    "id": 13,
+    "name": "Sattelstützen"
+  },
+  {
+    "id": 14,
+    "name": "Schaltung"
+  },
+  {
+    "id": 15,
+    "name": "TestGroup"
+  },
+  {
+    "id": 16,
+    "name": "Antrieb"
+  },
+  {
+    "id": 17,
+    "name": "Cockpit"
+  },
+  {
+    "id": 18,
+    "name": "Dämpfer"
+  },
+  {
+    "id": 19,
+    "name": "Fahrradbremsen"
+  },
+  {
+    "id": 20,
+    "name": "Fahrradgabeln"
+  },
+  {
+    "id": 21,
+    "name": "Fahrradrahmen"
+  },
+  {
+    "id": 22,
+    "name": "Fahrradreifen"
+  },
+  {
+    "id": 23,
+    "name": "Fahrradschläuche"
+  },
+  {
+    "id": 24,
+    "name": "Komplettgruppen"
+  },
+  {
+    "id": 25,
+    "name": "Laufräder"
+  },
+  {
+    "id": 26,
+    "name": "Powermeter"
+  },
+  {
+    "id": 27,
+    "name": "Sättel"
+  },
+  {
+    "id": 28,
+    "name": "Sattelstützen"
+  },
+  {
+    "id": 29,
+    "name": "Schaltung"
+  }
+]

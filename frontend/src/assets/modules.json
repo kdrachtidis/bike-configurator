@@ -1,0 +1,19 @@
+{
+  "name": "Cockpit",
+  "id": 2,
+  "biketypes": [],
+  "assemblygroupmodules": [
+    {
+      "name": "TestModule2",
+      "id": 41
+    },
+    {
+      "name": "TestModule3",
+      "id": 42
+    },
+    {
+      "name": "TestModule4",
+      "id": 43
+    }
+  ]
+}

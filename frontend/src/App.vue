@@ -1,47 +1,37 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import groupData from './assets/groups.json';
+import AppHeader from './components/ui/AppHeader.vue';
+import ConfiguratorHeader from './components/ui/ConfiguratorHeader.vue';
+import ConfiguratorProductList from './components/basket/ConfiguratorProductList.vue';
+import ConfiguratorModule from './components/module/ConfiguratorModule.vue';
+
+const ModuleItemCount = 10
+const ModuleSum = "150,00 €"
+const groups = groupData
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <AppHeader />
+  <main class="container-fluid">
+    <div class="row mt-3">
+      <div class="col">
+        <ConfiguratorHeader />
+        <div class="container">
+          <div class="row mt-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
+            <div v-for="group in groups">
+              <ConfiguratorModule :ModuleId="group.id" :ModuleGroup="group.name" :ModuleItemCount="ModuleItemCount"
+                :ModuleSum="ModuleSum" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <ConfiguratorProductList />
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
