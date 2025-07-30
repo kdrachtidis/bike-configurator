@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv('.env')
+print("DATABASE_URL:", os.environ.get("DATABASE_URL"))
 
 from app.utils.database import create_db_and_tables
 from app.utils import web
