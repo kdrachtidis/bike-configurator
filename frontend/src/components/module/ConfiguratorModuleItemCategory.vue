@@ -1,9 +1,10 @@
 <template>
-  <div class="d-flex justify-content-between bg-dark-subtle">
+  <div class="d-flex justify-content-between">
     <div class="fs-5 fw-light">
       {{ assemblygroupmodule.name || 'Category Empty' }}
     </div>
-    <button type="button" class="btn btn-sm btn-outline-light" aria-label="Hinzufügen">
+    <button type="button" class="btn btn-sm btn-outline-light" aria-label="Hinzufügen" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
       <i class="bi bi-plus-lg"></i>
     </button>
   </div>

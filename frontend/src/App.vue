@@ -1,4 +1,5 @@
 <template>
+  <ConfiguratorComponent />
   <AppHeader />
   <main class="container-fluid">
     <div class="row mt-3">
@@ -18,4 +19,5 @@ import AppHeader from './components/ui/AppHeader.vue';
 import ConfiguratorHeader from './components/ui/ConfiguratorHeader.vue';
 import ConfiguratorProductList from './components/basket/ConfiguratorProductList.vue';
 import ConfiguratorList from './components/module/ConfiguratorList.vue';
+import ConfiguratorComponent from './components/modal/ConfiguratorComponent.vue';
 </script>

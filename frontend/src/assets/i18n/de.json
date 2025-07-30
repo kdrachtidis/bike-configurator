@@ -16,6 +16,15 @@
     "partialsum": "Teilsumme",
     "filter": "Filtern",
     "productlist": "Produktliste",
-    "shop": "Shop"
+    "shop": "Shop",
+    "modal-title": "Komponente hinzufügen",
+    "modal-component": "Komponente",
+    "modal-product-name-label": "Produktname",
+    "modal-product-name-placeholder": "Geben Sie hier den Produktnamen ein",
+    "modal-product-price": "Preis",
+    "modal-product-source-label": "Quelle",
+    "modal-product-source-placeholder": "Kopieren Sie den Namen des E-Shops hierher",
+    "modal-close": "Schließen",
+    "modal-save": "Speichern"
   }
 }
