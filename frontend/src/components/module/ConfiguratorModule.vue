@@ -1,33 +1,35 @@
-<script setup>
-import groupmodulesData from '../../assets/groupmodules.json'
+<template>
+  <section class="card border-secondary mb-3">
+    <ConfiguratorModuleHeader :assemblygroup="assemblygroup" />
+    <ConfiguratorModuleSubHeader />
+    <div class="collapse show" :id="assemblygroup.id">
+      <div class="card-body p-0 overflow-auto" style="height: 300px;">
+        <ul class="list-group list-group-flush">
+          <li v-for="assemblygroupmodule in componentStore.assemblygroupmodules" :key="assemblygroupmodule.id" class="list-group-item">
+            <ConfiguratorModuleItemCategory :assemblygroupmodule="assemblygroupmodule" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <ConfiguratorModuleFooter :Sum="ModuleSum" />
+  </section>
+</template>
 
+<script setup>
 import ConfiguratorModuleHeader from './ConfiguratorModuleHeader.vue'
 import ConfiguratorModuleFooter from './ConfiguratorModuleFooter.vue'
 import ConfiguratorModuleSubHeader from './ConfiguratorModuleSubHeader.vue'
 import ConfiguratorModuleItemCategory from './ConfiguratorModuleItemCategory.vue'
-import ConfiguratorModuleItemProduct from './ConfiguratorModuleItemProduct.vue'
 
-const groupmodules = groupmodulesData
+import { useAssemblyGroupModuleStore } from '@/stores/assemblygroupmodule'
 
-const props = defineProps({
-    ModuleId: String,
-    ModuleGroup: String,
-    ModuleItemCount: Number,
-    ModuleSum: String
+const componentStore = useAssemblyGroupModuleStore()
+componentStore.getAssemblyGroupModules()
+
+defineProps({
+  assemblygroup: { type: Object, required: true },
+  ModuleId: String,
+  ModuleGroup: String,
+  ModuleSum: String
 })
 </script>
-
-<template>
-    <section class="card border-secondary mb-3">
-        <ConfiguratorModuleHeader :Id="'#' + ModuleId" :Group="ModuleGroup" />
-        <ConfiguratorModuleSubHeader :ItemCount="ModuleItemCount" />
-        <div class="collapse show" :id="ModuleId">
-            <div class="card-body p-0 overflow-auto" style="height: 300px;">
-                <ul v-for="groupmodule in groupmodules" class="list-group list-group-flush">
-                    <ConfiguratorModuleItemCategory :Category="groupmodule.name" />
-                </ul>
-            </div>
-        </div>
-        <ConfiguratorModuleFooter :Sum="ModuleSum" />
-    </section>
-</template>
