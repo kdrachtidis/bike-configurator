@@ -15,41 +15,63 @@ def set_content():
     BikeType_8 = BikeType(name="Triathlon")
     BikeType_9 = BikeType(name="Downhill")
 
-    AssemblyGroup_1 = AssemblyGroup(name="Antrieb", biketypes=[BikeType_1])
-    AssemblyGroup_2 = AssemblyGroup(name="Cockpit")
-    AssemblyGroup_3 = AssemblyGroup(name="Dämpfer")
-    AssemblyGroup_4 = AssemblyGroup(name="Bremsen")
-    AssemblyGroup_5 = AssemblyGroup(name="Gabeln")
-    AssemblyGroup_6 = AssemblyGroup(name="Rahmen")
-    AssemblyGroup_7 = AssemblyGroup(name="Reifen")
-    AssemblyGroup_8 = AssemblyGroup(name="Schläuche")
-    AssemblyGroup_9 = AssemblyGroup(name="Komplettgruppen")
-    AssemblyGroup_10 = AssemblyGroup(name="Laufräder")
-    AssemblyGroup_11 = AssemblyGroup(name="Powermeter")
-    AssemblyGroup_12 = AssemblyGroup(name="Sättel")
-    AssemblyGroup_13 = AssemblyGroup(name="Sattelstützen")
-    AssemblyGroup_14 = AssemblyGroup(name="Schaltung")
+    AssemblyGroup_1 = AssemblyGroup(name="Antrieb", biketypes=[BikeType_2])
+    AssemblyGroup_2 = AssemblyGroup(name="Cockpit", biketypes=[BikeType_2])
+    AssemblyGroup_3 = AssemblyGroup(name="Dämpfer", biketypes=[BikeType_3])
+    AssemblyGroup_4 = AssemblyGroup(name="Bremsen", biketypes=[BikeType_2])
+    AssemblyGroup_5 = AssemblyGroup(name="Gabeln", biketypes=[BikeType_3])
+    AssemblyGroup_6 = AssemblyGroup(name="Rahmen", biketypes=[BikeType_2])
+    AssemblyGroup_7 = AssemblyGroup(name="Reifen", biketypes=[BikeType_2])
+    AssemblyGroup_8 = AssemblyGroup(name="Schläuche", biketypes=[BikeType_2])
+    AssemblyGroup_9 = AssemblyGroup(
+        name="Komplettgruppen", biketypes=[BikeType_2])
+    AssemblyGroup_10 = AssemblyGroup(name="Laufräder", biketypes=[BikeType_2])
+    AssemblyGroup_11 = AssemblyGroup(name="Powermeter", biketypes=[BikeType_2])
+    AssemblyGroup_12 = AssemblyGroup(name="Sättel", biketypes=[BikeType_2])
+    AssemblyGroup_13 = AssemblyGroup(
+        name="Sattelstützen", biketypes=[BikeType_2])
+    AssemblyGroup_14 = AssemblyGroup(name="Schaltung", biketypes=[BikeType_2])
 
-    AssemblyGroupModule_1 = AssemblyGroupModule(name="Brake Levers")
-    AssemblyGroupModule_2 = AssemblyGroupModule(name="Aussenhüllen")
-    AssemblyGroupModule_3 = AssemblyGroupModule(name="Bremsflüssigkeit")
-    AssemblyGroupModule_4 = AssemblyGroupModule(name="Bremsgriffe")
-    AssemblyGroupModule_5 = AssemblyGroupModule(name="Bremsleitungen")
-    AssemblyGroupModule_6 = AssemblyGroupModule(name="Bremsscheiben")
-    AssemblyGroupModule_7 = AssemblyGroupModule(name="Entlüftungskits")
-    AssemblyGroupModule_8 = AssemblyGroupModule(name="Felgenbremsbeläge")
-    AssemblyGroupModule_9 = AssemblyGroupModule(name="Felgenbremsen")
-    AssemblyGroupModule_10 = AssemblyGroupModule(name="Innenzüge")
-    AssemblyGroupModule_11 = AssemblyGroupModule(name="Scheibenbremsbeläge")
-    AssemblyGroupModule_12 = AssemblyGroupModule(name="Scheibenbremsen")
-    AssemblyGroupModule_13 = AssemblyGroupModule(name="Felgen")
-    AssemblyGroupModule_14 = AssemblyGroupModule(name="Felgenbänder")
-    AssemblyGroupModule_15 = AssemblyGroupModule(name="Freiläufe")
-    AssemblyGroupModule_16 = AssemblyGroupModule(name="Naben")
-    AssemblyGroupModule_17 = AssemblyGroupModule(name="Schnellspanner")
-    AssemblyGroupModule_18 = AssemblyGroupModule(name="Speichen")
-    AssemblyGroupModule_19 = AssemblyGroupModule(name="Nippel")
-    AssemblyGroupModule_20 = AssemblyGroupModule(name="Steckachsen")
+    AssemblyGroupModule_1 = AssemblyGroupModule(
+        name="Adapter", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_2 = AssemblyGroupModule(
+        name="Aussenhüllen", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_3 = AssemblyGroupModule(
+        name="Bremsflüssigkeit", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_4 = AssemblyGroupModule(
+        name="Bremsgriffe", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_5 = AssemblyGroupModule(
+        name="Bremsleitungen", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_6 = AssemblyGroupModule(
+        name="Bremsscheiben", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_7 = AssemblyGroupModule(
+        name="Entlüftungskits", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_8 = AssemblyGroupModule(
+        name="Felgenbremsbeläge", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_9 = AssemblyGroupModule(
+        name="Felgenbremsen", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_10 = AssemblyGroupModule(
+        name="Innenzüge", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_11 = AssemblyGroupModule(
+        name="Scheibenbremsbeläge", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_12 = AssemblyGroupModule(
+        name="Scheibenbremsen", assemblygroups=[AssemblyGroup_4])
+    AssemblyGroupModule_13 = AssemblyGroupModule(
+        name="Felgen", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_14 = AssemblyGroupModule(
+        name="Felgenbänder", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_15 = AssemblyGroupModule(
+        name="Freiläufe", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_16 = AssemblyGroupModule(
+        name="Naben", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_17 = AssemblyGroupModule(
+        name="Schnellspanner", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_18 = AssemblyGroupModule(
+        name="Speichen", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_19 = AssemblyGroupModule(
+        name="Nippel", assemblygroups=[AssemblyGroup_10])
+    AssemblyGroupModule_20 = AssemblyGroupModule(
+        name="Steckachsen", assemblygroups=[AssemblyGroup_10])
 
     BikeComponent_1 = BikeComponent(
         name="SHIMANO BREMSSCHEIBE SM-RT30 CENTER LOCK", source="bike24.de", price="8.99")
