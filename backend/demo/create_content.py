@@ -1,5 +1,4 @@
 import os
-
 from dotenv import load_dotenv
 env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(env_path)
@@ -23,5 +22,11 @@ def create_demo_content():
 
 
 if __name__ == "__main__":
+    print("Creating tables (if necessary)")
+    
     SQLModel.metadata.create_all(engine)
+
+    print("--------")
+    print("Creating demo content...")
+    
     create_demo_content()
