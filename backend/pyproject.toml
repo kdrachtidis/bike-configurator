@@ -1,11 +1,13 @@
 [project]
 name = "bike-configurator"
-version = "0.1.0"
-description = ""
+version = "0.8.0"
+description = "Configurator for building custom bikes"
 authors = [
     {name = "Konstantinos Drachtidis",email = "kdrachtidis@outlook.com"}
 ]
-readme = "README.md"
+license = "Apache-2.0"
+license-files = []
+readme = "./README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard] (>=0.116.1,<0.117.0)",
@@ -15,6 +17,9 @@ dependencies = [
     "psycopg2 (>=2.9.10,<3.0.0)",
     "passlib (>=1.7.4,<2.0.0)"
 ]
+
+[project.urls]
+repository = "https://github.com/kdrachtidis/bike-configurator"
 
 [tool.poetry]
 packages = [{include = "backend", from = "src"}]
