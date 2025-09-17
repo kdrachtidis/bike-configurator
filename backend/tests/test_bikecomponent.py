@@ -1,10 +1,10 @@
 from unittest.mock import Mock
 from fastapi.testclient import TestClient
 
-from app.main import app
-from app.views.user import User
-from app.models.bikecomponent import BikeComponentInput, BikeComponent
-from app.views.bikecomponent import create_a_bike_component
+from backend.src.main import app
+from src.views.user import User
+from src.models.bikecomponent import BikeComponentInput, BikeComponent
+from src.views.bikecomponent import create_a_bike_component
 
 client = TestClient(app)
 

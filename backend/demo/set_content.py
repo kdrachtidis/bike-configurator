@@ -1,7 +1,7 @@
-from app.models.biketype import BikeType
-from app.models.assemblygroup import AssemblyGroup
-from app.models.assemblygroupmodule import AssemblyGroupModule
-from app.models.bikecomponent import BikeComponent
+from src.models.biketype import BikeType
+from src.models.assemblygroup import AssemblyGroup
+from src.models.assemblygroupmodule import AssemblyGroupModule
+from src.models.bikecomponent import BikeComponent
 
 
 def set_content():

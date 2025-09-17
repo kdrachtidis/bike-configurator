@@ -3,11 +3,11 @@ from typing import Annotated
 from fastapi import Depends, APIRouter, status
 from sqlmodel import Session
 
-from app.views.user import get_current_user
-from app.utils.database import get_session
-from app.models.user import User
-from app.crud.biketype import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
-from app.models.biketype import BikeType, BikeTypeOutput, BikeTypeInput
+from src.views.user import get_current_user
+from src.utils.database import get_session
+from src.models.user import User
+from src.crud.biketype import create_biketype, read_all_biketypes, read_biketype, update_biketype, delete_biketype
+from src.models.biketype import BikeType, BikeTypeOutput, BikeTypeInput
 
 router = APIRouter(prefix="/biketypes")
 SessionDep = Annotated[Session, Depends(get_session)]

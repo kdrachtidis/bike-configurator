@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 
-from app.utils.database import get_session
-from app.models.biketype import BikeType, BikeTypeInput
+from src.utils.database import get_session
+from src.models.biketype import BikeType, BikeTypeInput
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 

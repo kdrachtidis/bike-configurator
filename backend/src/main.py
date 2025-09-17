@@ -10,16 +10,17 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 import os
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.env'))
+load_dotenv(env_path)
 print("DATABASE_URL:", os.environ.get("DATABASE_URL"))
 
-from app.utils.database import create_db_and_tables
-from app.utils import web
-from app.views import biketype as biketype
-from app.views import assemblygroup as assemblygroup
-from app.views import assemblygroupmodule as assemblygroupmodule
-from app.views import bikecomponent as bikecomponent
-from app.views import user as auth
+from src.utils.database import create_db_and_tables
+from src.utils import web
+from src.views import biketype as biketype
+from src.views import assemblygroup as assemblygroup
+from src.views import assemblygroupmodule as assemblygroupmodule
+from src.views import bikecomponent as bikecomponent
+from src.views import user as auth
 
 origins = [
     "http://localhost:8000",

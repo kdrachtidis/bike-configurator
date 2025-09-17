@@ -1,4 +1,7 @@
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dotenv import load_dotenv
 env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(env_path)
@@ -10,7 +13,7 @@ if not DATABASE_URL:
 from getpass import getpass
 from sqlmodel import SQLModel, Session, create_engine
 
-from app.models.user import User
+from src.models.user import User
 
 engine = create_engine(DATABASE_URL, echo=True)
 

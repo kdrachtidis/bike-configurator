@@ -3,11 +3,11 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, APIRouter, status
 from sqlmodel import Session, select
 
-from app.views.user import get_current_user
-from app.utils.database import get_session
-from app.models.user import User
-from app.crud.bikecomponent import create_bikecomponent, read_all_bikecomponents, read_bikecomponent, update_bikecomponent, delete_bikecomponent
-from app.models.bikecomponent import BikeComponent, BikeComponentOutput, BikeComponentInput
+from src.views.user import get_current_user
+from src.utils.database import get_session
+from src.models.user import User
+from src.crud.bikecomponent import create_bikecomponent, read_all_bikecomponents, read_bikecomponent, update_bikecomponent, delete_bikecomponent
+from src.models.bikecomponent import BikeComponent, BikeComponentOutput, BikeComponentInput
 
 router = APIRouter()
 SessionDependency = Annotated[Session, Depends(get_session)]

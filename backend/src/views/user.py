@@ -5,8 +5,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 from starlette import status
 
-from app.utils.database import get_session
-from app.models.user import UserOutput, User
+from src.utils.database import get_session
+from src.models.user import UserOutput, User
 
 URL_PREFIX = "/auth"
 router = APIRouter(prefix=URL_PREFIX)

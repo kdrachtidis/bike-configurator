@@ -1,10 +1,10 @@
 from unittest.mock import Mock
 from fastapi.testclient import TestClient
 
-from app.main import app
-from app.views.user import User
-from app.models.assemblygroupmodule import AssemblyGroupModuleInput, AssemblyGroupModule
-from app.views.assemblygroupmodule import create_an_assembly_group_module
+from src.main import app
+from src.views.user import User
+from src.models.assemblygroupmodule import AssemblyGroupModuleInput, AssemblyGroupModule
+from src.views.assemblygroupmodule import create_an_assembly_group_module
 
 client = TestClient(app)
 
@@ -15,7 +15,7 @@ def test_read_all_assemblygroupmodules():
 
 
 def test_read_assemblygroupmodule():
-    response = client.get("/api/assemblygroupmodules/1")
+    response = client.get("/api/assemblygroupmodules/5")
     assert response.status_code == 200
 
 # def test_create_assemblygroupmodule_with_mock_session():

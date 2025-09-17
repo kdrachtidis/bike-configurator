@@ -1,32 +1,32 @@
 name: bike-configurator
 
 services:
-  # db:
-  #   image: postgres
-  #   restart: always
-  #   container_name: postgres_database
-  #   volumes:
-  #     - ./data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_DB: postgres
-  #   ports:
-  #     - "5432:5432"
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-      args:
-          WWWGROUP: '${WWWGROUP:-1000}'
-          WWWUSER: '${WWWUSER:-1000}' 
-          NAME: '${NAME:-kdrachtidis}' 
+  db:
+    image: postgres
     restart: always
-    container_name: bike-configurator_backend
+    container_name: postgres_database
+    # volumes:
+    #   - ./data:/var/lib/postgresql/data
     environment:
-      #  DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-      DATABASE_URL: postgresql://postgres:postgres@192.168.178.66:5432
-    # depends_on:
-    #   - db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
     ports:
-      - "8080:80"
+      - "5432:5432"
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #     args:
+  #         WWWGROUP: '${WWWGROUP:-1000}'
+  #         WWWUSER: '${WWWUSER:-1000}' 
+  #         NAME: '${NAME:-kdrachtidis}' 
+  #   restart: always
+  #   container_name: bike-configurator_backend
+  #   environment:
+  #     #  DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+  #     DATABASE_URL: postgresql://postgres:postgres@192.168.178.66:5432
+  #   # depends_on:
+  #   #   - db
+  #   ports:
+  #     - "8080:80"

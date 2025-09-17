@@ -3,11 +3,11 @@ from typing import Annotated
 from fastapi import Depends, APIRouter, status
 from sqlmodel import Session
 
-from app.views.user import get_current_user
-from app.utils.database import get_session
-from app.models.user import User
-from app.crud.assemblygroupmodule import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
-from app.models.assemblygroupmodule import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
+from src.views.user import get_current_user
+from src.utils.database import get_session
+from src.models.user import User
+from src.crud.assemblygroupmodule import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
+from src.models.assemblygroupmodule import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
 
 router = APIRouter()
 SessionDep = Annotated[Session, Depends(get_session)]
