@@ -1,25 +1,32 @@
-FROM python:latest
+FROM python:3.13.7-slim
 
-ARG WWWGROUP
-ARG WWWUSER
-ARG NAME
+# declare build-time arguments (with defaults)
+ARG USERNAME=appuser
+ARG UID=1000
+ARG GID=1000
 
-WORKDIR /home/$NAME/bike-configurator
+# make sure ARG is visible in this layer
+ENV USERNAME=${USERNAME} UID=${UID} GID=${GID}
 
-COPY /app /home/$NAME/bike-configurator/app
-#COPY /demo /bike-configurator/demo
-#COPY /templates /bike-configurator/
-#COPY /test /bike-configurator/
+# create group and user
+RUN groupadd --gid $GID $USERNAME \
+    && useradd --uid $UID --gid $GID -m $USERNAME
 
-#COPY create_content.py /bike-configurator/
-#COPY create_user.py /bike-configurator/
+# set working dir inside user's home
+WORKDIR /home/$USERNAME/app
 
-COPY requirements.txt /home/$NAME/bike-configurator/requirements.txt
+# install dependencies first
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+# copy project files
+COPY . .
 
-RUN groupadd -g $WWWGROUP -o $NAME
-RUN useradd -m -u $WWWUSER -g $WWWGROUP -o -s /bin/bash $NAME
-USER $NAME
+# set ownership
+RUN chown -R $USERNAME:$USERNAME /home/$USERNAME
 
-CMD ["fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "80"]
+# switch to non-root user
+USER $USERNAME
+
+# RUN python demo/create_content.py
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

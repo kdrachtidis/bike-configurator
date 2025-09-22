@@ -7,14 +7,14 @@ authors = [
 ]
 license = "Apache-2.0"
 license-files = []
-readme = "./README.md"
+# readme = "./README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard] (>=0.116.1,<0.117.0)",
     "uvicorn[standard] (>=0.35.0,<0.36.0)",
     "fastapi-sqlalchemy (>=0.2.1,<0.3.0)",
     "sqlmodel (>=0.0.24,<0.0.25)",
-    "psycopg2 (>=2.9.10,<3.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
     "passlib (>=1.7.4,<2.0.0)"
 ]
 
@@ -22,10 +22,13 @@ dependencies = [
 repository = "https://github.com/kdrachtidis/bike-configurator"
 
 [tool.poetry]
-packages = [{include = "backend", from = "src"}]
+packages = [{include = "src"}]
 
 [tool.poetry.group.dev.dependencies]
 fastapi-cli = "^0.0.11"
+
+# [tool.poetry.requires-plugins]
+# poetry-plugin-export = ">=1.8"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
