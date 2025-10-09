@@ -2,7 +2,7 @@ from sqlmodel import SQLModel, Field, Column, VARCHAR
 
 from passlib.context import CryptContext
 
-pwd_context = CryptContext(schemes=["bcrypt"])
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)

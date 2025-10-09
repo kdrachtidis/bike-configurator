@@ -11,7 +11,7 @@ if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL is not set!")
 
 from sqlmodel import SQLModel, Session, create_engine
-from set_content import set_content
+from demo.set_content import set_content
 
 engine = create_engine(DATABASE_URL, echo=True)
 
