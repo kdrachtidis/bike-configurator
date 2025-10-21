@@ -4,9 +4,9 @@ from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 
 from src.utils.database import get_session
+from src.utils.logging import log_print, log_exception
 from src.models.assemblygroupmodule import AssemblyGroupModule
 from src.models.bikecomponent import BikeComponent, BikeComponentInput
-from src.utils.logging import log_print, log_exception
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 

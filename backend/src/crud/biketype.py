@@ -4,17 +4,13 @@ from fastapi import Depends, HTTPException
 from sqlmodel import Session, select
 
 from src.utils.database import get_session
+from src.utils.logging import log_print, log_exception
 from src.models.biketype import BikeType, BikeTypeInput
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API"  # API logs identifier
-msg_create = ": Create bike type."
-msg_read_all = ": Read all bike types."
-msg_read = ": Read bike type with id ="
-msg_update = ": Update bike type with id ="
-msg_delete = ": Delete bike type with id ="
+msg_object_type = "bike type"
 
 # HTTPException details messages
 
@@ -30,8 +26,7 @@ def create_biketype(input: BikeTypeInput, session: SessionDependency) -> BikeTyp
     session.add(biketype)
     session.commit()
     session.refresh(biketype)
-    print(msg_init, end="")
-    print(msg_create)
+    log_print("create", obj_type=msg_object_type)
     return biketype
 
 # Read
@@ -39,16 +34,14 @@ def create_biketype(input: BikeTypeInput, session: SessionDependency) -> BikeTyp
 
 def read_all_biketypes(session: SessionDependency) -> list:
     query = select(BikeType)
-    print(msg_init, end="")
-    print(msg_read_all)
+    log_print("read_all", obj_type=msg_object_type)
     return session.exec(query).all()
 
 
 def read_biketype(id: int, session: SessionDependency) -> BikeType:
     biketype = session.get(BikeType, id)
     if biketype:
-        print(msg_init, end="")
-        print(msg_read, id)
+        log_print("read", obj_id=id, obj_type=msg_object_type)
         return biketype
     else:
         raise HTTPException(
@@ -62,8 +55,7 @@ def update_biketype(id: int, input: BikeTypeInput, session: SessionDependency) -
     if biketype:
         biketype.name = input.name
         session.commit()
-        print(msg_init, end="")
-        print(msg_update, id)
+        log_print("update", obj_id=id, obj_type=msg_object_type)
         return biketype
     else:
         raise HTTPException(
@@ -77,8 +69,7 @@ def delete_biketype(id: int, session: SessionDependency) -> None:
     if biketype:
         session.delete(biketype)
         session.commit()
-        print(msg_init, end="")
-        print(msg_delete, id)
+        log_print("delete", obj_id=id, obj_type=msg_object_type)
     else:
         raise HTTPException(
             status_code=404, detail=msg_no_item(id))
