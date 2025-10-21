@@ -11,18 +11,18 @@ services:
     #   - ./data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  # app:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./backend/src:/home/${USER:-appuser}/app/src
-  #   restart: always
-  #   container_name: app_service
-  #   environment:
-  #     DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/src:/home/${USER:-appuser}/app/src
+    restart: always
+    container_name: app_service
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
      

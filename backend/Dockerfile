@@ -1,4 +1,4 @@
-FROM python:3.14.0-slim
+FROM python:3.13.7
 
 # declare build-time arguments (with defaults)
 ARG USERNAME=appuser

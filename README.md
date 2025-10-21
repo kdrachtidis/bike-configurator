@@ -1,4 +1,4 @@
-# Bike Configurator'S API
+# Bike Configurator App
 
 1. First, you need [Python](https://www.python.org/) and a running [PostgreSQL](https://www.postgresql.org/) database.
 2. Create a virtual environment and install all necessary packages:
