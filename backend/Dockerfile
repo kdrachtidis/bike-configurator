@@ -22,11 +22,20 @@ RUN pip install --no-cache-dir -r requirements.txt
 # copy project files
 COPY . .
 
+# copy startup script
+COPY startup.sh /home/$USERNAME/startup.sh
+
 # set ownership
 RUN chown -R $USERNAME:$USERNAME /home/$USERNAME
 
 # switch to non-root user
 USER $USERNAME
 
+# Script ausführbar machen
+RUN chmod +x /home/$USERNAME/startup.sh
+
+# Verwende absoluten Pfad ohne Variable
+CMD ["/home/appuser/startup.sh"]
+
 # RUN python demo/create_content.py
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
