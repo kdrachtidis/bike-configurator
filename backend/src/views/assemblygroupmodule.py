@@ -1,12 +1,12 @@
 from typing import Annotated
 
-from fastapi import Depends, APIRouter, status
-from sqlmodel import Session
+from fastapi import Depends, APIRouter, status, HTTPException
+from sqlmodel import Session, select
 
 from src.views.user import get_current_user
 from src.utils.database import get_session
 from src.models.user import User
-from src.crud.assemblygroupmodule import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
+from src.crud.assemblygroupmodule import create_assemblygroupmodule, read_all_assemblygroupmodules, read_assemblygroupmodules_by_group, read_assemblygroupmodule, update_assemblygroupmodule, delete_assemblygroupmodule
 from src.models.assemblygroupmodule import AssemblyGroupModule, AssemblyGroupModuleInput, AssemblyGroupModuleOutput
 
 router = APIRouter()
@@ -24,10 +24,16 @@ msg_description_update = "Edit a specific assembly group module based on its ID.
 # Create an assembly group module assigned to an assembly group
 
 
-@router.post("/assemblygroups/{id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
-def create_an_assembly_group_module(id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
-    return create_assemblygroupmodule(id=id, input=input, session=session)
+@router.post("/assemblygroups/{group_id}/assemblygroupmodules/", response_model=AssemblyGroupModule, tags=[msg_tags], description=msg_description_create, status_code=status.HTTP_201_CREATED)
+def create_an_assembly_group_module(group_id: int, input: AssemblyGroupModuleInput, session: SessionDep, user: User = Depends(get_current_user)) -> AssemblyGroupModule:
+    return create_assemblygroupmodule(id=group_id, input=input, session=session)
 
+# Read assembly group modules by group ID
+
+
+@router.get("/assemblygroups/{group_id}/assemblygroupmodules/", response_model=list[AssemblyGroupModuleOutput], tags=[msg_tags], description=msg_description_get_group_id)
+def read_assembly_group_module_by_group_and_module(group_id: int, session: SessionDep) -> list[AssemblyGroupModule]:
+    return read_assemblygroupmodules_by_group(id=group_id, session=session)
 
 # Read all assembly group modules
 
@@ -39,9 +45,9 @@ def read_all_assembly_group_modules(session: SessionDep):
 # Read an assembly group module
 
 
-@router.get("/assemblygroupmodules/{id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags], description=msg_description_get_group_id)
-def read_an_assembly_group_module(id: int, session: SessionDep) -> AssemblyGroupModule:
-    return read_assemblygroupmodule(id=id, session=session)
+@router.get("/assemblygroupmodules/{module_id}", response_model=AssemblyGroupModuleOutput, tags=[msg_tags], description=msg_description_get_group_id)
+def read_an_assembly_group_module(module_id: int, session: SessionDep) -> AssemblyGroupModule:
+    return read_assemblygroupmodule(id=module_id, session=session)
 
 # Update assembly group module
 
