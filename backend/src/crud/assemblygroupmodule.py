@@ -6,16 +6,12 @@ from sqlmodel import Session, select
 from src.utils.database import get_session
 from src.models.assemblygroup import AssemblyGroup
 from src.models.assemblygroupmodule import AssemblyGroupModule, AssemblyGroupModuleInput
+from src.utils.logging import log_print
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API"  # API logs identifier
-msg_create = ": Create assembly group module."
-msg_read_all = ": Read all assemby group modules."
-msg_read = ": Read assembly group module with id ="
-msg_update = ": Update assembly group module with id ="
-msg_delete = ": Delete assembly group module with id ="
+msg_object_type = "assembly group module"
 
 # HTTPException details messages
 
@@ -37,8 +33,7 @@ def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
         assemblygroup.assemblygroupmodules.append(assemblygroupmodule)
         session.commit()
         session.refresh(assemblygroupmodule)
-        print(msg_init, end="")
-        print(msg_create)
+        log_print("create", obj_type=msg_object_type)
         return assemblygroupmodule
     else:
         raise HTTPException(
@@ -50,16 +45,23 @@ def create_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
 
 def read_all_assemblygroupmodules(session: SessionDependency) -> list:
     query = select(AssemblyGroupModule)
-    print(msg_init, end="")
-    print(msg_read_all)
+    log_print("read_all", obj_type=msg_object_type)
     return session.exec(query).all()
 
+def read_assemblygroupmodules_by_group(id:int, session: SessionDependency) -> list:
+    assemblygroup = session.get(AssemblyGroup, id)
+    if assemblygroup:
+        log_print("read_by_group", group_id=id, obj_type=msg_object_type)
+        return assemblygroup.assemblygroupmodules
+    else:
+        raise HTTPException(
+            status_code=404, detail=msg_no_group(id)
+        )
 
 def read_assemblygroupmodule(id: int, session: SessionDependency) -> AssemblyGroupModule:
     assemblygroupmodule = session.get(AssemblyGroupModule, id)
     if assemblygroupmodule:
-        print(msg_init, end="")
-        print(msg_read, id)
+        log_print("read", obj_id=id, obj_type=msg_object_type)
         return assemblygroupmodule
     else:
         raise HTTPException(
@@ -73,8 +75,7 @@ def update_assemblygroupmodule(id: int, input: AssemblyGroupModuleInput, session
     if assemblygroupmodule:
         assemblygroupmodule.name = input.name
         session.commit()
-        print(msg_init, end="")
-        print(msg_update, id)
+        log_print("update", obj_id=id, obj_type=msg_object_type)
         return assemblygroupmodule
     else:
         raise HTTPException(status_code=404, detail=msg_no_module(id))
@@ -87,8 +88,7 @@ def delete_assemblygroupmodule(id: int, session: SessionDependency) -> None:
     if assemblygroupmodule:
         session.delete(assemblygroupmodule)
         session.commit()
-        print(msg_init, end="")
-        print(msg_delete, id)
+        log_print("delete", obj_id=id, obj_type=msg_object_type)
     else:
         raise HTTPException(
             status_code=404, detail=msg_no_module(id)

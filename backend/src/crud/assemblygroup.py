@@ -6,16 +6,12 @@ from sqlmodel import Session, select
 from src.utils.database import get_session
 from src.models.biketype import BikeType
 from src.models.assemblygroup import AssemblyGroup, AssemblyGroupInput
+from src.utils.logging import log_print
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API"  # API logs identifier
-msg_create = ": Create assembly group."
-msg_read_all = ": Read all assemby groups."
-msg_read = ": Read assembly group with id ="
-msg_update = ": Update assembly group with id ="
-msg_delete = ": Delete assembly group with id ="
+msg_object_type = "assembly group"
 
 # HTTPException details messages
 
@@ -37,8 +33,7 @@ def create_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDep
         biketype.assemblygroups.append(assemblygroup)
         session.commit()
         session.refresh(assemblygroup)
-        print(msg_init, end="")
-        print(msg_create)
+        log_print("create", obj_type=msg_object_type)
         return assemblygroup
     else:
         raise HTTPException(
@@ -50,16 +45,14 @@ def create_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDep
 
 def read_all_assemblygroups(session: SessionDependency) -> list:
     query = select(AssemblyGroup)
-    print(msg_init, end="")
-    print(msg_read_all)
+    log_print("read_all", obj_type=msg_object_type)
     return session.exec(query).all()
 
 
 def read_assemblygroup(id: int, session: SessionDependency) -> AssemblyGroup:
     assemblygroup = session.get(AssemblyGroup, id)
     if assemblygroup:
-        print(msg_init, end="")
-        print(msg_read, id)
+        log_print("read", obj_id=id, obj_type=msg_object_type)
         return assemblygroup
     else:
         raise HTTPException(
@@ -73,8 +66,7 @@ def update_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDep
     if assemblygroup:
         assemblygroup.name = input.name
         session.commit()
-        print(msg_init, end="")
-        print(msg_update, id)
+        log_print("update", obj_id=id, obj_type=msg_object_type)
         return assemblygroup
     else:
         raise HTTPException(
@@ -88,8 +80,7 @@ def delete_assemblygroup(id: int, session: SessionDependency) -> None:
     if assemblygroup:
         session.delete(assemblygroup)
         session.commit()
-        print(msg_init, end="")
-        print(msg_delete, id)
+        log_print("delete", obj_id=id, obj_type=msg_object_type)
     else:
         raise HTTPException(
             status_code=404, detail=msg_no_item(id)
