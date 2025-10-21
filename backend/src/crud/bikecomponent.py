@@ -6,26 +6,12 @@ from sqlmodel import Session, select
 from src.utils.database import get_session
 from src.models.assemblygroupmodule import AssemblyGroupModule
 from src.models.bikecomponent import BikeComponent, BikeComponentInput
+from src.utils.logging import log_print, log_exception
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
-msg_init = "Bike Configurator API"  # API logs identifier
-msg_create = ": Create bike component."
-msg_read_all = ": Read all bike components."
-msg_read = ": Read bike component with id ="
-msg_update = ": Update bike component with id ="
-msg_delete = ": Delete bike component with id ="
-
-# HTTPException details messages
-
-
-def msg_no_module(i):
-    return f"No assembly group module with id={i}."
-
-
-def msg_no_item(i):
-    return f"No bike component with id={i}."
+msg_object_type = "bike component"
 
 # Create
 
@@ -37,12 +23,11 @@ def create_bikecomponent(id: int, input: BikeComponentInput, session: SessionDep
         assemblygroupmodule.bikecomponents.append(bikecomponent)
         session.commit()
         session.refresh(bikecomponent)
-        print(msg_init, end="")
-        print(msg_create)
+        log_print("create", obj_type=msg_object_type)
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_module(id)
+            status_code=404, detail=log_exception("module", obj_id=id)
         )
 
 # Read
@@ -55,20 +40,18 @@ def read_all_bikecomponents(source: str | None = None, group: str | None = None,
         query = query.where(BikeComponent.source == source)
     if group:
         query = query.where(BikeComponent.group == group)
-    print(msg_init, end="")
-    print(msg_read_all)
+    log_print("read_all", obj_type=msg_object_type)
     return session.exec(query).all()
 
 
 def read_bikecomponent(id: int, session: SessionDependency) -> None:
     bikecomponent = session.get(BikeComponent, id)
     if bikecomponent:
-        print(msg_init, end="")
-        print(msg_read, id)
+        log_print("read", obj_id=id, obj_type=msg_object_type)
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=log_exception("component", obj_id=id))
 
     # Update
 
@@ -81,11 +64,11 @@ def update_bikecomponent(id: int, new_data: BikeComponentInput, session: Session
         bikecomponent.price = new_data.price
         bikecomponent.group = new_data.group
         session.commit()
-        print(msg_init, end="")
-        print(msg_update, id)
+        log_print("update", obj_id=id, obj_type=msg_object_type)
         return bikecomponent
     else:
-        raise HTTPException(status_code=404, detail=msg_no_item(id))
+        raise HTTPException(
+            status_code=404, detail=log_exception("component", obj_id=id))
 
 # Delete
 
@@ -95,8 +78,7 @@ def delete_bikecomponent(id: int, session: SessionDependency) -> None:
     if bikecomponent:
         session.delete(bikecomponent)
         session.commit()
-        print(msg_init, end="")
-        print(msg_delete, id)
+        log_print("delete", obj_id=id, obj_type=msg_object_type)
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=log_exception("component", obj_id=id))

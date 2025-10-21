@@ -6,22 +6,12 @@ from sqlmodel import Session, select
 from src.utils.database import get_session
 from src.models.biketype import BikeType
 from src.models.assemblygroup import AssemblyGroup, AssemblyGroupInput
-from src.utils.logging import log_print
+from src.utils.logging import log_print, log_exception
 
 SessionDependency = Annotated[Session, Depends(get_session)]
 
 # Logs
 msg_object_type = "assembly group"
-
-# HTTPException details messages
-
-
-def msg_no_type(i):
-    return f"No bike type with id={i}."
-
-
-def msg_no_item(i):
-    return f"No assembly group with id={i}."
 
 # Create
 
@@ -37,7 +27,7 @@ def create_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDep
         return assemblygroup
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_type(id)
+            status_code=404, detail=log_exception("type", obj_id=id)
         )
 
 # Read
@@ -56,7 +46,7 @@ def read_assemblygroup(id: int, session: SessionDependency) -> AssemblyGroup:
         return assemblygroup
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=log_exception("group", obj_id=id))
 
 # Update
 
@@ -70,7 +60,7 @@ def update_assemblygroup(id: int, input: AssemblyGroupInput, session: SessionDep
         return assemblygroup
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=log_exception("group", obj_id=id))
 
 # Delete
 
@@ -83,5 +73,5 @@ def delete_assemblygroup(id: int, session: SessionDependency) -> None:
         log_print("delete", obj_id=id, obj_type=msg_object_type)
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id)
+            status_code=404, detail=log_exception("group", obj_id=id)
         )

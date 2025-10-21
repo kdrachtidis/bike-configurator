@@ -1,8 +1,6 @@
 from datetime import datetime
 
 msg_init = "Bike Configurator API:"  # API logs identifier
-msg_update = ": Update assembly group module with id ="
-msg_delete = ": Delete assembly group module with id ="
 
 def get_timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -23,3 +21,18 @@ def log_print(*args, **kwargs):
         print(f"[{timestamp}] {msg_init} Deleting {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
     else:
         print(f"[{timestamp}]", *args, "is not recognized as argument.")
+
+# HTTPException details messages
+
+def log_exception(*args, **kwargs):
+    if (args) == ("type",):
+        return f"No bike type with id = {kwargs.get('obj_id', '')}." 
+    elif (args) == ("group",):
+        return f"No assembly group with id = {kwargs.get('obj_id', '')}."
+    elif (args) == ("module",):
+        return f"No assembly group module with id = {kwargs.get('obj_id', '')}." 
+    elif (args) == ("component",):
+        return f"No bike component with id = {kwargs.get('obj_id', '')}."
+    else:
+        return "Unknown object type for exception message."
+    
