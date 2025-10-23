@@ -2,7 +2,7 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useAssemblyGroupModuleStore = defineStore('assemblygroupmodules', () => {
+export const useAssemblyGroupModuleStore = defineStore('assemblygroupmodules', () => { // Define the assembly group modules store
   const assemblygroupmodules = ref([]); // All modules
   const assemblygroupmodulesByGroup = ref(new Map()); // Grouped modules by group_id
 

@@ -2,10 +2,10 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useAssemblyGroupStore = defineStore('assemblygroups', () => {
+export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // Define the assembly groups store
   const assemblygroups = ref([]); // All assembly groups
 
-  async function getAssemblyGroups() {
+  async function getAssemblyGroups() { // Fetch all assembly groups
     try {
       const { data } = await axios.get('api/assemblygroups'); // Fetch all assembly groups
       assemblygroups.value = data; // Store all assembly groups
