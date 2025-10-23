@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   assemblygroupmodule: { type: Object, required: true },
   Category: String
 })
