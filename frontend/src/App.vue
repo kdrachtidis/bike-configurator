@@ -1,5 +1,6 @@
 <template>
   <ConfiguratorComponent />
+  <ConfiguratorEditGroupName />
   <AppHeader />
   <main class="container-fluid">
     <div class="row mt-3">
@@ -20,4 +21,5 @@ import ConfiguratorHeader from './components/ui/ConfiguratorHeader.vue';
 import ConfiguratorProductList from './components/basket/ConfiguratorProductList.vue';
 import ConfiguratorList from './components/module/ConfiguratorList.vue';
 import ConfiguratorComponent from './components/modal/ConfiguratorComponent.vue';
+import ConfiguratorEditGroupName from './components/modal/ConfiguratorEditGroupName.vue';
 </script>

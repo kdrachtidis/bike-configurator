@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-defineProps({
-  count: { type: Number, required: false },
-})
+  defineProps({
+    count: { type: Number, required: false },
+  })
 </script>

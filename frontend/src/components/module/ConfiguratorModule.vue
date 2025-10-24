@@ -16,7 +16,7 @@
         <ul class="list-group list-group-flush">
           <li v-for="assemblygroupmodule in currentGroupModules" :key="assemblygroupmodule.id"
             class="list-group-item bg-dark-subtle">
-            <ConfiguratorModuleItemCategory v-if="moduleState" :assemblygroupmodule="assemblygroupmodule"/>
+            <ConfiguratorModuleItemCategory v-if="moduleState" :assemblygroupmodule="assemblygroupmodule" />
             <ConfiguratorModuleItemProduct v-else :assemblygroupmodule="assemblygroupmodule" :Category="wtf" />
           </li>
         </ul>
@@ -27,57 +27,57 @@
 </template>
 
 <script setup>
-import { onMounted, watch, computed } from 'vue'
-import ConfiguratorModuleHeader from './ConfiguratorModuleHeader.vue'
-import ConfiguratorModuleFooter from './ConfiguratorModuleFooter.vue'
-import ConfiguratorModuleSubHeader from './ConfiguratorModuleSubHeader.vue'
-import ConfiguratorModuleItemCategory from './ConfiguratorModuleItemCategory.vue'
-import ConfiguratorModuleItemProduct from './ConfiguratorModuleItemProduct.vue'
+  import { onMounted, watch, computed } from 'vue'
+  import ConfiguratorModuleHeader from './ConfiguratorModuleHeader.vue'
+  import ConfiguratorModuleFooter from './ConfiguratorModuleFooter.vue'
+  import ConfiguratorModuleSubHeader from './ConfiguratorModuleSubHeader.vue'
+  import ConfiguratorModuleItemCategory from './ConfiguratorModuleItemCategory.vue'
+  import ConfiguratorModuleItemProduct from './ConfiguratorModuleItemProduct.vue'
 
-import { useAssemblyGroupModuleStore } from '@/stores/assemblygroupmodule'
+  import { useAssemblyGroupModuleStore } from '@/stores/assemblygroupmodule'
 
-const componentStore = useAssemblyGroupModuleStore() // Store instance
+  const componentStore = useAssemblyGroupModuleStore() // Store instance
 
-const moduleState = true // true = Categories, false = Products
+  const moduleState = true // true = Categories, false = Products
 
-const props = defineProps({
-  assemblygroup: { type: Object, required: true },
-  ModuleSum: String
-})
+  const props = defineProps({
+    assemblygroup: { type: Object, required: true },
+    ModuleSum: String
+  })
 
-// Computed property for the modules of this specific group
-const currentGroupModules = computed(() => {
-  if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
-    return componentStore.getAssemblyGroupModulesForGroup(props.assemblygroup.id) // Get modules for the specific group
-  }
-  return []
-})
-
-// Load modules for the specific Assembly Group
-const loadModulesForGroup = async () => {
-  console.log('loadModulesForGroup called with assemblygroup:', props.assemblygroup)
-  console.log('assemblygroup.id:', props.assemblygroup?.id)
-
-  if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
-    console.log('Loading modules for group ID:', props.assemblygroup.id)
-    try {
-      await componentStore.getAssemblyGroupModulesByGroup(props.assemblygroup.id) // Fetch modules from store
-      console.log('Modules loaded for group', props.assemblygroup.id, ':', currentGroupModules.value)
-    } catch (error) {
-      console.error('Error in loadModulesForGroup:', error)
+  // Computed property for the modules of this specific group
+  const currentGroupModules = computed(() => {
+    if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
+      return componentStore.getAssemblyGroupModulesForGroup(props.assemblygroup.id) // Get modules for the specific group
     }
-  } else {
-    console.warn('No assemblygroup.id available')
+    return []
+  })
+
+  // Load modules for the specific Assembly Group
+  const loadModulesForGroup = async () => {
+    console.log('loadModulesForGroup called with assemblygroup:', props.assemblygroup)
+    console.log('assemblygroup.id:', props.assemblygroup?.id)
+
+    if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
+      console.log('Loading modules for group ID:', props.assemblygroup.id)
+      try {
+        await componentStore.getAssemblyGroupModulesByGroup(props.assemblygroup.id) // Fetch modules from store
+        console.log('Modules loaded for group', props.assemblygroup.id, ':', currentGroupModules.value)
+      } catch (error) {
+        console.error('Error in loadModulesForGroup:', error)
+      }
+    } else {
+      console.warn('No assemblygroup.id available')
+    }
   }
-}
 
-// Load modules when component is mounted
-onMounted(() => {
-  loadModulesForGroup()
-})
+  // Load modules when component is mounted
+  onMounted(() => {
+    loadModulesForGroup()
+  })
 
-// Reload modules when the assemblygroup changes
-watch(() => props.assemblygroup?.id, () => { // Watch for changes in assemblygroup id
-  loadModulesForGroup() // Reload modules when assemblygroup changes
-})
+  // Reload modules when the assemblygroup changes
+  watch(() => props.assemblygroup?.id, () => { // Watch for changes in assemblygroup id
+    loadModulesForGroup() // Reload modules when assemblygroup changes
+  })
 </script>
