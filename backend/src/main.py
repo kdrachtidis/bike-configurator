@@ -41,7 +41,7 @@ def get_app() -> FastAPI:
     app.include_router(assemblygroup.router, prefix="/api")
     app.include_router(assemblygroupmodule.router, prefix="/api")
     app.include_router(bikecomponent.router, prefix="/api")
-    app.include_router(auth.router)
+    app.include_router(auth.router, prefix="/api")
 
     app.add_middleware(
         CORSMiddleware,

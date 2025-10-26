@@ -2,7 +2,7 @@
   <section class="card border-secondary mb-3">
     <ConfiguratorModuleHeader :assemblygroup="assemblygroup" />
     <ConfiguratorModuleSubHeader :count="currentGroupModules.length" />
-    <div class="collapse show" :id="assemblygroup.id">
+    <div class="collapse show" :id="'collapse-' + assemblygroup.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
         <!-- Debug Info -->
         <div v-if="currentGroupModules.length === 0" class="alert alert-info m-2">
@@ -46,7 +46,7 @@
   })
 
   // Computed property for the modules of this specific group
-  const currentGroupModules = computed(() => {
+  const currentGroupModules = computed(() => { // Compute modules for the current assembly group
     if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
       return componentStore.getAssemblyGroupModulesForGroup(props.assemblygroup.id) // Get modules for the specific group
     }
@@ -77,7 +77,16 @@
   })
 
   // Reload modules when the assemblygroup changes
-  watch(() => props.assemblygroup?.id, () => { // Watch for changes in assemblygroup id
-    loadModulesForGroup() // Reload modules when assemblygroup changes
+  watch(() => props.assemblygroup?.id, (newId, oldId) => { // Watch for changes in assemblygroup id
+    console.log('AssemblyGroup ID changed from', oldId, 'to', newId)
+    if (newId) { // If newId is valid
+      loadModulesForGroup() // Reload modules when assemblygroup changes
+    }
+  })
+
+  // Also watch for name changes to detect updates
+  watch(() => props.assemblygroup?.name, (newName, oldName) => {
+    console.log('AssemblyGroup name changed from', oldName, 'to', newName)
+    // Name changes don't require module reload, but good for debugging
   })
 </script>
