@@ -2,7 +2,6 @@
   "message": {
     "components": "Components",
     "accessories": "Accessories",
-    "add": "Add Module",
     "expand": "Expand and Collapse",
     "edit": "Edit",
     "items": "Products added",
@@ -20,6 +19,7 @@
     "header-load": "Load",
     "header-login": "Login",
     "header-logout": "Logout",
+    "subheader-add": "Add Assembly Group",
     "modal-addbikecomponent-title": "Add Component",
     "modal-addbikecomponent-component": "Component",
     "modal-addbikecomponent-product-name-label": "Product Name",
