@@ -28,11 +28,11 @@
 
 <script setup>
   import { onMounted, watch, computed } from 'vue'
-  import ConfiguratorModuleHeader from './ConfiguratorModuleHeader.vue'
-  import ConfiguratorModuleFooter from './ConfiguratorModuleFooter.vue'
-  import ConfiguratorModuleSubHeader from './ConfiguratorModuleSubHeader.vue'
-  import ConfiguratorModuleItemCategory from './ConfiguratorModuleItemCategory.vue'
-  import ConfiguratorModuleItemProduct from './ConfiguratorModuleItemProduct.vue'
+  import ConfiguratorModuleHeader from './CardHeader.vue'
+  import ConfiguratorModuleFooter from './CardFooter.vue'
+  import ConfiguratorModuleSubHeader from './CardSubHeader.vue'
+  import ConfiguratorModuleItemCategory from './CardItemCategory.vue'
+  import ConfiguratorModuleItemProduct from './CardItemProduct.vue'
 
   import { useAssemblyGroupModuleStore } from '@/stores/assemblygroupmodule'
 
