@@ -1,6 +1,6 @@
 <script setup>
-import ConfiguratorProductListHeader from './ConfiguratorProductListHeader.vue';
-import ConfiguratorProductListGroup from './ConfiguratorProductListGroup.vue';
+import ConfiguratorProductListHeader from './ListHeader.vue';
+import ConfiguratorProductListGroup from './ListGroup.vue';
 
 </script>
 

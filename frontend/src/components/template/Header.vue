@@ -17,8 +17,9 @@
         </ul>
       </div>
       <div class="col-md-6 text-end">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="tooltip" data-placement="bottom"
-          :title="$t('message.add')" :aria-label="$t('message.add')">{{
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+          data-bs-target="#AddAssemblyGroup" data-toggle="tooltip" data-placement="bottom" :title="$t('message.subheader-             add')"
+          :aria-label="$t('message.subheader-add')">{{
             $t('message.subheader-add') }}</button>
       </div>
     </div>

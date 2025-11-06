@@ -1,5 +1,5 @@
 <script setup>
-import ConfiguratorProductListItem from './ConfiguratorProductListItem.vue';
+import ConfiguratorProductListItem from './ListItem.vue';
 
 const category = ["Adapter-Kits", "Cleats & Schuhplatten", "Fahrradkassetten", "Fahrradketten", "Fahrradkurbeln", "Innenlager", "Kettenblätter", "Kettenführungen & Bashguards", "Kleinteile", "Nabenschaltung", "Pedale", "Riemen", "Riemenscheiben", "Singlespeed", "Verschleißsets"]
 const product = ["SHIMANO SLX KASSETTE CS-M7000-11 11-FACH", "SHIMANO ULTEGRA KURBELGARNITUR FC-R8000 HOLLOWTECH II"]
