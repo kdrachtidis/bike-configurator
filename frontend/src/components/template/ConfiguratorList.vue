@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import ConfiguratorModule from '../assemblygroup/CardModule.vue';
+import ConfiguratorModule from '../cards/CardModule.vue';
 
 import { useAssemblyGroupStore } from '@/stores/assemblygroups'
 
