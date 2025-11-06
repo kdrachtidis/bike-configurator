@@ -30,6 +30,9 @@
     "modal-editgroup-title": "Επεξεργασία ονόματος ομάδας",
     "modal-editgroup-name-label": "Όνομα ομάδας",
     "modal-editgroup-name-placeholder": "Επεξεργαστείτε το όνομα της ομάδας εδώ",
+    "modal-addgroup-title": "Προσθήκη ομάδας συναρμολόγησης",
+    "modal-addgroup-name-label": "Όνομα ομάδας",
+    "modal-addgroup-name-placeholder": "Εισάγετε το όνομα της ομάδας εδώ",
     "modal-close": "Κλείσιμο",
     "modal-save": "Αποθήκευση"
   }
