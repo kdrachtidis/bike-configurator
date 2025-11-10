@@ -2,8 +2,6 @@
   "message": {
     "expand": "Erweitern und Zusammenbrechen",
     "edit": "Bearbeiten",
-    "components": "Komponenten",
-    "accessories": "Zubehör",
     "items": "Artikel hinzugefügt",
     "item": "Artikel hinzugefügt",
     "partialsum": "Teilsumme",
@@ -19,6 +17,8 @@
     "header-load": "Laden",
     "header-login": "Anmelden",
     "header-logout": "Abmelden",
+    "subheader-tab-components": "Komponenten",
+    "subheader-tab-accessories": "Zubehör",
     "subheader-add": "Baugruppe hinzufügen",
     "modal-addbikecomponent-title": "Komponente hinzufügen",
     "modal-addbikecomponent-component": "Komponente",

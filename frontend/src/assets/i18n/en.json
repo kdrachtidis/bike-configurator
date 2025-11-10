@@ -1,7 +1,5 @@
 {
   "message": {
-    "components": "Components",
-    "accessories": "Accessories",
     "expand": "Expand and Collapse",
     "edit": "Edit",
     "items": "Products added",
@@ -19,6 +17,8 @@
     "header-load": "Load",
     "header-login": "Login",
     "header-logout": "Logout",
+    "subheader-tab-components": "Components",
+    "subheader-tab-accessories": "Accessories",
     "subheader-add": "Add Assembly Group",
     "modal-addbikecomponent-title": "Add Component",
     "modal-addbikecomponent-component": "Component",

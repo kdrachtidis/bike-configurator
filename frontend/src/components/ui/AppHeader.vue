@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar bg-dark-subtle" :aria-label="$t('message.title')">
+    <nav class="navbar bg-dark-subtle" :aria-label="$t('message.header-title')">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <h1 class="display-6"><i class="bi bi-bicycle me-3"></i>{{ $t("message.header-title") }}</h1>
