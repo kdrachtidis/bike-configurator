@@ -1,5 +1,9 @@
 <template>
-  <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <!-- Für Entwicklung: Modal immer sichtbar mit persistentem Backdrop -->
+  <div v-if="isDevelopment" class="dev-modal-backdrop"></div>
+  <div :class="['modal', isDevelopment ? 'show dev-modal' : 'fade']" id="LoginModal" tabindex="-1" 
+       aria-labelledby="loginModalLabel" :aria-hidden="!isDevelopment"
+       :style="isDevelopment ? 'display: block; position: fixed; z-index: 1055;' : ''">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -40,6 +44,9 @@
   import { ref } from 'vue';
   import { useAuthStore } from '@/stores/auth';
   import { Modal } from 'bootstrap';
+
+  // Development flag - set to false for production
+  const isDevelopment = ref(false) // Set to true to always show modal in development
 
   const authStore = useAuthStore();
 
@@ -110,3 +117,24 @@
     }
   };
 </script>
+
+<style scoped>
+.dev-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  pointer-events: none; /* Backdrop doesn't interfere with modal interactions */
+}
+
+.dev-modal {
+  pointer-events: auto; /* Modal can be interacted with */
+}
+
+.dev-modal .modal-dialog {
+  margin: 1.75rem auto;
+}
+</style>

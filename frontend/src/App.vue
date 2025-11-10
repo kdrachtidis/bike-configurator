@@ -1,6 +1,7 @@
 <template>
   <ConfiguratorComponent />
   <ConfiguratorEditGroupName />
+  <AddAssemblyGroup />
   <LoginModal />
   <AppHeader />
   <main class="container-fluid">
@@ -18,10 +19,11 @@
 
 <script setup>
 import AppHeader from './components/ui/AppHeader.vue';
-import ConfiguratorHeader from './components/ui/ConfiguratorHeader.vue';
-import ConfiguratorProductList from './components/basket/ConfiguratorProductList.vue';
-import ConfiguratorList from './components/module/ConfiguratorList.vue';
+import ConfiguratorHeader from './components/configuration/ConfigurationHeader.vue';
+import ConfiguratorList from './components/configuration/ConfigurationList.vue';
+import ConfiguratorProductList from './components/basket/List.vue';
 import ConfiguratorComponent from './components/modal/ConfiguratorComponent.vue';
 import ConfiguratorEditGroupName from './components/modal/ConfiguratorEditGroupName.vue';
 import LoginModal from './components/modal/LoginModal.vue';
+import AddAssemblyGroup from './components/modal/AddAssemblyGroup.vue';
 </script>

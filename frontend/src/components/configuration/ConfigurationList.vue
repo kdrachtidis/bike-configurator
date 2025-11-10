@@ -10,12 +10,12 @@
 </template>
 
 <script setup>
-import ConfiguratorModule from '../cards/CardModule.vue';
+  import ConfiguratorModule from '../cards/CardModule.vue';
 
-import { useAssemblyGroupStore } from '@/stores/assemblygroups'
+  import { useAssemblyGroupStore } from '@/stores/assemblygroups'
 
-const assemblygroupStore = useAssemblyGroupStore()
-assemblygroupStore.getAssemblyGroups()
+  const assemblygroupStore = useAssemblyGroupStore()
+  assemblygroupStore.getAssemblyGroups()
 
-const ModuleSum = "150,00 €"
+  const ModuleSum = "150,00 €"
 </script>
