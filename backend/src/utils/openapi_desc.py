@@ -21,12 +21,12 @@ class AssemblyGroupMessages:
 @dataclass
 class AssemblyGroupModuleMessages:
     tags: str = "Assembly Group Module"
-    description_create: str = "Add an assembly group module, providing the ID of the assembly group it belongs to."
+    description_create: str = "Create a new assembly group module within the hierarchy"
     description_read_all: str = "Get the list of all assembly group modules."
     description_read: str = "Get a specific assembly group module based on its ID."
-    description_get_group_id: str = "Get a specific assembly group module based on its group's and module's ID."
-    description_delete: str = "Remove a specific assembly group module based on its ID."
-    description_update: str = "Edit a specific assembly group module based on its ID."
+    description_get_group_id: str = "Read a specific assembly group module within the hierarchy"
+    description_delete: str = "Delete a specific assembly group module within the hierarchy."
+    description_update: str = "Update a specific assembly group module within the hierarchy."
 
 @dataclass
 class BikeComponentMessages:

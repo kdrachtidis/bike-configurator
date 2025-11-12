@@ -23,7 +23,7 @@ def read_an_assembly_group(id: int, session: SessionDependency) -> AssemblyGroup
     return read_assemblygroup(id=id, session=session)
 
 
-# Read all assembly groups under a bike type
+# Read all assembly groups by hierarchy
 
 
 @router.get("/biketypes/{biketype_id}/assemblygroups", tags=[swagger_desc.tags], description=swagger_desc.description_read_all)
@@ -39,7 +39,7 @@ def create_an_assembly_group(biketype_id: int, input: AssemblyGroupInput, sessio
     return create_assemblygroup(id=biketype_id, input=input, session=session)
 
 
-# Read an assembly group by bike type
+# Read an assembly group by hierarchy
 
 
 @router.get("/biketypes/{biketype_id}/assemblygroups/{assemblygroup_id}", response_model=AssemblyGroupOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read, status_code=status.HTTP_200_OK)
@@ -47,7 +47,7 @@ def read_assembly_group_by_biketype(biketype_id: int, assemblygroup_id: int, ses
     return read_assemblygroup_by_biketype(biketype_id=biketype_id, assemblygroup_id=assemblygroup_id, session=session)
 
 
-# Update an assembly group by bike type
+# Update an assembly group by hierarchy
 
 
 @router.put("/biketypes/{biketype_id}/assemblygroups/{assemblygroup_id}", response_model=AssemblyGroup, tags=[swagger_desc.tags], description=swagger_desc.description_update, status_code=status.HTTP_200_OK)
@@ -55,7 +55,7 @@ def update_assembly_group_by_biketype(biketype_id: int, assemblygroup_id: int, n
     return update_assemblygroup_by_biketype(biketype_id=biketype_id, assemblygroup_id=assemblygroup_id, input=new_assemblygroup, session=session)
 
 
-# Delete an assembly group by bike type
+# Delete an assembly group by hierarchy
 
 
 @router.delete("/biketypes/{biketype_id}/assemblygroups/{assemblygroup_id}", tags=[swagger_desc.tags], description=swagger_desc.description_delete, status_code=status.HTTP_200_OK)
