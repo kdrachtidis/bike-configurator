@@ -14,9 +14,9 @@ class AssemblyGroupMessages:
     tags: str = "Assembly Group"
     description_create: str = "Create an assembly group."
     description_read_all: str = "Get the list of all assembly groups."
-    description_read: str = "Get a specific assembly group based on its ID."
-    description_delete: str = "Remove a specific assembly group based on its ID."
-    description_update: str = "Edit a specific assembly group based on its ID."
+    description_read: str = "Read a specific assembly group within a bike type."
+    description_delete: str = "Delete a specific assembly group within a bike type."
+    description_update: str = "Update a specific assembly group within a bike type."
 
 @dataclass
 class AssemblyGroupModuleMessages:
