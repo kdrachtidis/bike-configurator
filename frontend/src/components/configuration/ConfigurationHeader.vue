@@ -59,7 +59,7 @@
 
   // Close dropdown when clicking outside
   function handleClickOutside(event) {
-    const dropdown = event.target.closest('.dropdown');
+    const dropdown = event.target.closest('.dropdown'); // Check if click is inside dropdown
     if (!dropdown) {
       closeDropdown();
     }
@@ -70,44 +70,44 @@
     // Add click outside listener
     document.addEventListener('click', handleClickOutside);
     console.log('ConfigurationHeader: Loading bike types...');
-    await bikeTypeStore.getBikeTypes();
+    await bikeTypeStore.getBikeTypes(); // Fetch bike types from API
     console.log('ConfigurationHeader: Bike types loaded:', bikeTypeStore.biketypes);
     console.log('ConfigurationHeader: Number of bike types:', bikeTypeStore.biketypes.length);
 
     // If no bike type is selected and we have bike types, select the first one
     if (!bikeTypeStore.currentBikeType && bikeTypeStore.biketypes.length > 0) {
       console.log('ConfigurationHeader: Auto-selecting first bike type');
-      bikeTypeStore.setBikeType(bikeTypeStore.biketypes[0]);
+      bikeTypeStore.setBikeType(bikeTypeStore.biketypes[0]); // Set first bike type
     }
   });
 
   // Cleanup event listener
   onUnmounted(() => {
-    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('click', handleClickOutside); // Remove listener
   });
 
   // Dropdown control functions
   function toggleDropdown() {
-    isDropdownOpen.value = !isDropdownOpen.value;
+    isDropdownOpen.value = !isDropdownOpen.value; // Toggle state
     console.log('Dropdown toggled:', isDropdownOpen.value);
   }
 
   function closeDropdown() {
-    isDropdownOpen.value = false;
+    isDropdownOpen.value = false; // Close dropdown
   }
 
   // Function to select a bike type
   function selectBikeType(bikeType) {
     console.log('selectBikeType called with:', bikeType);
 
-    try {
-      bikeTypeStore.setBikeType(bikeType);
+    try { // Error handling
+      bikeTypeStore.setBikeType(bikeType); // Set selected bike type
       console.log('Bike type set successfully in store');
       console.log('Current bike type in store:', bikeTypeStore.currentBikeType);
 
       // Close dropdown after selection
       closeDropdown();
-    } catch (error) {
+    } catch (error) { // Error handling
       console.error('Error setting bike type:', error);
     }
   }
