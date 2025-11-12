@@ -10,7 +10,7 @@ from src.models.user import UserOutput, User
 
 URL_PREFIX = "/auth"
 router = APIRouter(prefix=URL_PREFIX)
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{URL_PREFIX}/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"/api{URL_PREFIX}/token")
 SessionDep = Annotated[Session, Depends(get_session)]
 
 def get_current_user(token: str = Depends(oauth2_scheme),
