@@ -41,6 +41,7 @@
 <script setup>
   import { ref, watch, computed } from 'vue'
   import { useAssemblyGroupStore } from '@/stores/assemblygroups'
+  import { useBikeTypeStore } from '@/stores/biketype'
   import { Modal } from 'bootstrap'
 
   // Development flag - set to false for production
@@ -56,6 +57,7 @@
 
   // Store
   const assemblyGroupStore = useAssemblyGroupStore() // Store instance
+  const bikeTypeStore = useBikeTypeStore() // Bike type store instance
 
   // Computed properties for current edit group
   const currentGroup = computed(() => assemblyGroupStore.currentEditGroup) // Currently edited group
@@ -120,13 +122,19 @@
     errorMessage.value = ''
 
     try {
-      console.log('Updating group with ID:', groupId.value, 'New name:', groupName.value.trim())
-      const updatedGroup = await assemblyGroupStore.updateAssemblyGroup(groupId.value, groupName.value.trim())
+      // Check if we have a bike type selected
+      if (!bikeTypeStore.currentBikeType?.id) {
+        errorMessage.value = 'Kein Fahrradtyp ausgewählt. Bitte wählen Sie einen Fahrradtyp aus.'
+        return
+      }
+
+      console.log('Updating group with ID:', groupId.value, 'for bike type:', bikeTypeStore.currentBikeType.id, 'New name:', groupName.value.trim())
+      const updatedGroup = await assemblyGroupStore.updateAssemblyGroupByBikeType(bikeTypeStore.currentBikeType.id, groupId.value, groupName.value.trim())
       console.log('Group updated successfully:', updatedGroup)
 
-      // Reload all assembly groups to ensure reactivity
-      console.log('Reloading all assembly groups...')
-      await assemblyGroupStore.getAssemblyGroups()
+      // Reload assembly groups for current bike type to ensure reactivity
+      console.log('Reloading assembly groups for current bike type...')
+      await assemblyGroupStore.getAssemblyGroupsByBikeType(bikeTypeStore.currentBikeType.id)
       console.log('Assembly groups reloaded')
 
       // Emit success event

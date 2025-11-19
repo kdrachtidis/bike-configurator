@@ -41,7 +41,7 @@ export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // De
     }
   };
 
-  async function updateAssemblyGroup(groupId, newName) { // Update an assembly group name
+  async function updateAssemblyGroup(groupId, newName) { // Update an assembly group name (deprecated - use updateAssemblyGroupByBikeType)
     try {
       const { data } = await axios.put(`api/assemblygroups/${groupId}`, {
         name: newName
@@ -61,6 +61,28 @@ export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // De
     }
   };
 
+  async function updateAssemblyGroupByBikeType(bikeTypeId, groupId, newName) { // Update an assembly group name using hierarchical API
+    try {
+      console.log('AssemblyGroupStore: Updating group', groupId, 'for bike type', bikeTypeId, 'with name:', newName);
+      const { data } = await axios.put(`api/biketypes/${bikeTypeId}/assemblygroups/${groupId}`, {
+        name: newName
+      }); // Use hierarchical API
+      console.log('AssemblyGroupStore: Group updated successfully:', data);
+
+      // Update the local store reactively
+      const index = assemblygroups.value.findIndex(group => group.id === groupId);
+      if (index !== -1) {
+        // Update properties instead of replacing the whole object to maintain reactivity
+        Object.assign(assemblygroups.value[index], data);
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error updating assembly group by bike type:', error);
+      throw error;
+    }
+  };
+
   // Function to set the group to edit
   function setEditGroup(group) {
     currentEditGroup.value = group;
@@ -71,15 +93,16 @@ export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // De
     currentEditGroup.value = null;
   }
 
-  return { 
-    assemblygroups, 
-    currentEditGroup, 
+  return {
+    assemblygroups,
+    currentEditGroup,
     currentBikeTypeId,
-    getAssemblyGroups, 
+    getAssemblyGroups,
     getAssemblyGroupsByBikeType,
-    getAssemblyGroupById, 
-    updateAssemblyGroup, 
-    setEditGroup, 
-    clearEditGroup 
+    getAssemblyGroupById,
+    updateAssemblyGroup,
+    updateAssemblyGroupByBikeType,
+    setEditGroup,
+    clearEditGroup
   };
 });
