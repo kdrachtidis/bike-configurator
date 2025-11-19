@@ -20,7 +20,7 @@ swagger_desc = AssemblyGroupMessages()
 
 @router.get("/assemblygroups/{assemblygroup_id}", response_model=AssemblyGroupOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read)
 def read_an_assembly_group(assemblygroup_id: int, session: SessionDependency) -> AssemblyGroup:
-    return read_assemblygroup(assemblygroup_id=assemblygroup_id, session=session)
+    return read_assemblygroup(id=assemblygroup_id, session=session)
 
 
 # Read all assembly groups by hierarchy

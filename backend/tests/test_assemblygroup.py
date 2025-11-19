@@ -9,13 +9,18 @@ from src.crud.assemblygroup import create_assemblygroup
 client = TestClient(app)
 
 class TestAssemblyGroupRead:
-    def test_read_all_assemblygroups(self):
-        response = client.get("/api/assemblygroups/")
-        assert response.status_code == 200
-
-
     def test_read_assemblygroup(self):
         response = client.get("/api/assemblygroups/1")
+        assert response.status_code == 200
+        
+    def test_read_assemblygroups_by_biketype(self):
+        # Test hierarchische Route: biketype 2
+        response = client.get("/api/biketypes/2/assemblygroups")
+        assert response.status_code == 200
+        
+    def test_read_assemblygroup_by_hierarchy(self):
+        # Test hierarchische Route: biketype 2, assemblygroup 1
+        response = client.get("/api/biketypes/2/assemblygroups/1")
         assert response.status_code == 200
 
 class TestAssemblyGroupCreate:

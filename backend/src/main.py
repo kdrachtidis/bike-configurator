@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware
 from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+# Status codes are imported by FastAPI when needed
 
 import os
 from dotenv import load_dotenv
