@@ -4,12 +4,29 @@
     <ConfiguratorModuleSubHeader :count="currentGroupModules.length" />
     <div class="collapse show" :id="'collapse-' + assemblygroup.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
-        <!-- Debug Info -->
-        <div v-if="currentGroupModules.length === 0" class="alert alert-info m-2">
+        <!-- Loading State -->
+        <div v-if="isLoadingModules" class="alert alert-info m-2">
+          <div class="d-flex align-items-center">
+            <div class="spinner-border spinner-border-sm me-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <small>Lade Module für {{ assemblygroup?.name }}...</small>
+          </div>
+        </div>
+
+        <!-- No Bike Type Selected -->
+        <div v-else-if="!bikeTypeStore.currentBikeType?.id" class="alert alert-warning m-2">
           <small>
-            Debug: Group ID: {{ assemblygroup?.id || 'undefined' }}<br>
-            Debug: Module Count: {{ currentGroupModules.length }}<br>
-            Debug: Modules: {{ JSON.stringify(currentGroupModules) }}
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            Bitte wählen Sie einen Fahrradtyp aus, um Module zu sehen.
+          </small>
+        </div>
+
+        <!-- No Modules Found -->
+        <div v-else-if="currentGroupModules.length === 0" class="alert alert-info m-2">
+          <small>
+            <i class="bi bi-info-circle me-1"></i>
+            Keine Module für {{ assemblygroup?.name }} verfügbar.
           </small>
         </div>
 
@@ -27,7 +44,7 @@
 </template>
 
 <script setup>
-  import { onMounted, watch, computed } from 'vue'
+  import { onMounted, watch, computed, ref } from 'vue'
   import ConfiguratorModuleHeader from './CardHeader.vue'
   import ConfiguratorModuleFooter from './CardFooter.vue'
   import ConfiguratorModuleSubHeader from './CardSubHeader.vue'
@@ -35,8 +52,10 @@
   import ConfiguratorModuleItemProduct from './CardItemProduct.vue'
 
   import { useAssemblyGroupModuleStore } from '@/stores/assemblygroupmodule'
+  import { useBikeTypeStore } from '@/stores/biketype'
 
   const componentStore = useAssemblyGroupModuleStore() // Store instance
+  const bikeTypeStore = useBikeTypeStore() // Bike type store instance
 
   const moduleState = true // true = Categories, false = Products
 
@@ -44,6 +63,9 @@
     assemblygroup: { type: Object, required: true },
     ModuleSum: String
   })
+
+  // Loading state for modules
+  const isLoadingModules = ref(false)
 
   // Computed property for the modules of this specific group
   const currentGroupModules = computed(() => { // Compute modules for the current assembly group
@@ -57,17 +79,24 @@
   const loadModulesForGroup = async () => {
     console.log('loadModulesForGroup called with assemblygroup:', props.assemblygroup)
     console.log('assemblygroup.id:', props.assemblygroup?.id)
+    console.log('current biketype:', bikeTypeStore.currentBikeType?.id)
 
-    if (props.assemblygroup?.id) { // Check if assemblygroup and its id exist
-      console.log('Loading modules for group ID:', props.assemblygroup.id)
+    if (props.assemblygroup?.id && bikeTypeStore.currentBikeType?.id) { // Check if both assemblygroup and biketype exist
+      console.log('Loading modules for bike type:', bikeTypeStore.currentBikeType.id, 'group ID:', props.assemblygroup.id)
+      isLoadingModules.value = true // Set loading state
       try {
-        await componentStore.getAssemblyGroupModulesByGroup(props.assemblygroup.id) // Fetch modules from store
+        await componentStore.getAssemblyGroupModulesByGroup(bikeTypeStore.currentBikeType.id, props.assemblygroup.id) // Use hierarchical API
         console.log('Modules loaded for group', props.assemblygroup.id, ':', currentGroupModules.value)
       } catch (error) {
         console.error('Error in loadModulesForGroup:', error)
+      } finally {
+        isLoadingModules.value = false // Clear loading state
       }
     } else {
-      console.warn('No assemblygroup.id available')
+      console.warn('Missing assemblygroup.id or biketype.id:', {
+        assemblygroupId: props.assemblygroup?.id,
+        bikeTypeId: bikeTypeStore.currentBikeType?.id
+      })
     }
   }
 
@@ -88,5 +117,13 @@
   watch(() => props.assemblygroup?.name, (newName, oldName) => {
     console.log('AssemblyGroup name changed from', oldName, 'to', newName)
     // Name changes don't require module reload, but good for debugging
+  })
+
+  // Watch for bike type changes and reload modules
+  watch(() => bikeTypeStore.currentBikeType?.id, (newBikeTypeId, oldBikeTypeId) => {
+    console.log('CardModule: Bike type changed from', oldBikeTypeId, 'to', newBikeTypeId)
+    if (newBikeTypeId && props.assemblygroup?.id) {
+      loadModulesForGroup() // Reload modules when bike type changes
+    }
   })
 </script>

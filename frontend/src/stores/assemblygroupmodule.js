@@ -15,10 +15,10 @@ export const useAssemblyGroupModuleStore = defineStore('assemblygroupmodules', (
     }
   };
 
-  async function getAssemblyGroupModulesByGroup(groupId) { // Fetch modules for a specific group
+  async function getAssemblyGroupModulesByGroup(bikeTypeId, groupId) { // Fetch modules for a specific group using hierarchy
     try {
-      console.log('Store: Fetching modules for group ID:', groupId)
-      const url = `api/assemblygroups/${groupId}/assemblygroupmodules` // Construct API URL
+      console.log('Store: Fetching modules for bike type:', bikeTypeId, 'group ID:', groupId)
+      const url = `api/biketypes/${bikeTypeId}/assemblygroups/${groupId}/assemblygroupmodules` // Use hierarchical API
       console.log('Store: API URL:', url)
 
       const { data } = await axios.get(url); // Fetch modules for the group

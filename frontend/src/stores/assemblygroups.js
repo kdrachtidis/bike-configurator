@@ -5,13 +5,29 @@ import { ref } from 'vue';
 export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // Define the assembly groups store
   const assemblygroups = ref([]); // All assembly groups
   const currentEditGroup = ref(null); // Currently editing group
+  const currentBikeTypeId = ref(null); // Currently selected bike type ID
 
-  async function getAssemblyGroups() { // Fetch all assembly groups
+  async function getAssemblyGroups() { // Fetch all assembly groups (deprecated - use getAssemblyGroupsByBikeType instead)
     try {
       const { data } = await axios.get('api/assemblygroups'); // Fetch all assembly groups
       assemblygroups.value = data; // Store all assembly groups
     } catch (error) {
       console.error('Error fetching assembly groups:', error);
+    }
+  };
+
+  async function getAssemblyGroupsByBikeType(bikeTypeId) { // Fetch assembly groups for specific bike type
+    try {
+      console.log('AssemblyGroupStore: Fetching groups for bike type ID:', bikeTypeId);
+      const { data } = await axios.get(`api/biketypes/${bikeTypeId}/assemblygroups`); // Use hierarchical API
+      assemblygroups.value = data; // Store assembly groups for this bike type
+      currentBikeTypeId.value = bikeTypeId; // Store the current bike type ID
+      console.log('AssemblyGroupStore: Groups loaded:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching assembly groups by bike type:', error);
+      assemblygroups.value = []; // Clear on error
+      return [];
     }
   };
 
@@ -55,5 +71,15 @@ export const useAssemblyGroupStore = defineStore('assemblygroups', () => { // De
     currentEditGroup.value = null;
   }
 
-  return { assemblygroups, currentEditGroup, getAssemblyGroups, getAssemblyGroupById, updateAssemblyGroup, setEditGroup, clearEditGroup };
+  return { 
+    assemblygroups, 
+    currentEditGroup, 
+    currentBikeTypeId,
+    getAssemblyGroups, 
+    getAssemblyGroupsByBikeType,
+    getAssemblyGroupById, 
+    updateAssemblyGroup, 
+    setEditGroup, 
+    clearEditGroup 
+  };
 });
