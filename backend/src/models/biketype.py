@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from src.models.links import TypesToGroups
+from src.models.links import TypesToComponents
 
 
 class BikeTypeInput(SQLModel):
@@ -17,10 +17,10 @@ class BikeTypeInput(SQLModel):
 
 class BikeType(BikeTypeInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    assemblygroups: list["AssemblyGroup"] = Relationship(
-        back_populates="biketypes", link_model=TypesToGroups)
+    bikecomponents: list["BikeComponent"] = Relationship(
+        back_populates="biketypes", link_model=TypesToComponents)
 
 
 class BikeTypeOutput(BikeTypeInput):
     id: int
-    assemblygroups: list
+    bikecomponents: list

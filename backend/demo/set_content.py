@@ -1,7 +1,7 @@
 from src.models.biketype import BikeType
-from src.models.assemblygroup import AssemblyGroup
-from src.models.assemblygroupmodule import AssemblyGroupModule
 from src.models.bikecomponent import BikeComponent
+from src.models.bikepart import BikePart
+from src.models.bikeproduct import BikeProduct
 
 
 def set_content():
@@ -15,89 +15,89 @@ def set_content():
     BikeType_8 = BikeType(name="Triathlon")
     BikeType_9 = BikeType(name="Downhill")
 
-    AssemblyGroup_1 = AssemblyGroup(name="Antrieb", biketypes=[BikeType_2])
-    AssemblyGroup_2 = AssemblyGroup(name="Cockpit", biketypes=[BikeType_2])
-    AssemblyGroup_3 = AssemblyGroup(name="Dämpfer", biketypes=[BikeType_3])
-    AssemblyGroup_4 = AssemblyGroup(name="Bremsen", biketypes=[BikeType_2])
-    AssemblyGroup_5 = AssemblyGroup(name="Gabeln", biketypes=[BikeType_3])
-    AssemblyGroup_6 = AssemblyGroup(name="Rahmen", biketypes=[BikeType_2])
-    AssemblyGroup_7 = AssemblyGroup(name="Reifen", biketypes=[BikeType_2])
-    AssemblyGroup_8 = AssemblyGroup(name="Schläuche", biketypes=[BikeType_2])
-    AssemblyGroup_9 = AssemblyGroup(
-        name="Komplettgruppen", biketypes=[BikeType_2])
-    AssemblyGroup_10 = AssemblyGroup(name="Laufräder", biketypes=[BikeType_2])
-    AssemblyGroup_11 = AssemblyGroup(name="Powermeter", biketypes=[BikeType_2])
-    AssemblyGroup_12 = AssemblyGroup(name="Sättel", biketypes=[BikeType_2])
-    AssemblyGroup_13 = AssemblyGroup(
-        name="Sattelstützen", biketypes=[BikeType_2])
-    AssemblyGroup_14 = AssemblyGroup(name="Schaltung", biketypes=[BikeType_2])
-
-    AssemblyGroupModule_1 = AssemblyGroupModule(
-        name="Adapter", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_2 = AssemblyGroupModule(
-        name="Aussenhüllen", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_3 = AssemblyGroupModule(
-        name="Bremsflüssigkeit", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_4 = AssemblyGroupModule(
-        name="Bremsgriffe", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_5 = AssemblyGroupModule(
-        name="Bremsleitungen", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_6 = AssemblyGroupModule(
-        name="Bremsscheiben", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_7 = AssemblyGroupModule(
-        name="Entlüftungskits", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_8 = AssemblyGroupModule(
-        name="Felgenbremsbeläge", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_9 = AssemblyGroupModule(
-        name="Felgenbremsen", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_10 = AssemblyGroupModule(
-        name="Innenzüge", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_11 = AssemblyGroupModule(
-        name="Scheibenbremsbeläge", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_12 = AssemblyGroupModule(
-        name="Scheibenbremsen", assemblygroups=[AssemblyGroup_4])
-    AssemblyGroupModule_13 = AssemblyGroupModule(
-        name="Felgen", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_14 = AssemblyGroupModule(
-        name="Felgenbänder", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_15 = AssemblyGroupModule(
-        name="Freiläufe", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_16 = AssemblyGroupModule(
-        name="Naben", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_17 = AssemblyGroupModule(
-        name="Schnellspanner", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_18 = AssemblyGroupModule(
-        name="Speichen", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_19 = AssemblyGroupModule(
-        name="Nippel", assemblygroups=[AssemblyGroup_10])
-    AssemblyGroupModule_20 = AssemblyGroupModule(
-        name="Steckachsen", assemblygroups=[AssemblyGroup_10])
-
-    BikeComponent_1 = BikeComponent(
-        name="SHIMANO BREMSSCHEIBE SM-RT30 CENTER LOCK", source="bike24.de", price="8.99")
-    BikeComponent_2 = BikeComponent(
-        name="SHIMANO BREMSLEITUNG SM-BH90-SS KÜRZBAR FÜR XTR (M9100), DEORE, LX, MT520", source="bike-discount.de", price="13.99")
-    BikeComponent_3 = BikeComponent(
-        name="SPECIALIZED PATHFINDER PRO 28 FALTREIFEN", source="bike-discount.de", price="37.99")
-    BikeComponent_4 = BikeComponent(
-        name="PROLOGO NAGO R4 PAS 3DMSS NACK SADDLE", source="ebay.de", price="369")
-    BikeComponent_5 = BikeComponent(
-        name="SHIMANO SLX CS-M7000-11 11-SPEED CASSETTE", source="bike-components.de", price="39.99")
-    BikeComponent_6 = BikeComponent(
-        name="SHIMANO XT / XTR / SLX CN-HG95 10-SPEED CHAIN", source="bike-components.de", price="18.99")
-    BikeComponent_7 = BikeComponent(
-        name="BLACK INC CARBON LENKER-VORBAU-EINHEIT", source="bike-components.de", price="539")
-    BikeComponent_8 = BikeComponent(
-        name="FIZIK TEMPO MICROTEX BONDCUSH SOFT LENKERBAND", source="bike24.de", price="19.99")
+    BikeComponent_1 = BikeComponent(name="Antrieb", biketypes=[BikeType_2])
+    BikeComponent_2 = BikeComponent(name="Cockpit", biketypes=[BikeType_2])
+    BikeComponent_3 = BikeComponent(name="Dämpfer", biketypes=[BikeType_3])
+    BikeComponent_4 = BikeComponent(name="Bremsen", biketypes=[BikeType_2])
+    BikeComponent_5 = BikeComponent(name="Gabeln", biketypes=[BikeType_3])
+    BikeComponent_6 = BikeComponent(name="Rahmen", biketypes=[BikeType_2])
+    BikeComponent_7 = BikeComponent(name="Reifen", biketypes=[BikeType_2])
+    BikeComponent_8 = BikeComponent(name="Schläuche", biketypes=[BikeType_2])
     BikeComponent_9 = BikeComponent(
+        name="Komplettgruppen", biketypes=[BikeType_2])
+    BikeComponent_10 = BikeComponent(name="Laufräder", biketypes=[BikeType_2])
+    BikeComponent_11 = BikeComponent(name="Powermeter", biketypes=[BikeType_2])
+    BikeComponent_12 = BikeComponent(name="Sättel", biketypes=[BikeType_2])
+    BikeComponent_13 = BikeComponent(
+        name="Sattelstützen", biketypes=[BikeType_2])
+    BikeComponent_14 = BikeComponent(name="Schaltung", biketypes=[BikeType_2])
+
+    BikePart_1 = BikePart(
+        name="Adapter", bikecomponents=[BikeComponent_4])
+    BikePart_2 = BikePart(
+        name="Aussenhüllen", bikecomponents=[BikeComponent_4])
+    BikePart_3 = BikePart(
+        name="Bremsflüssigkeit", bikecomponents=[BikeComponent_4])
+    BikePart_4 = BikePart(
+        name="Bremsgriffe", bikecomponents=[BikeComponent_4])
+    BikePart_5 = BikePart(
+        name="Bremsleitungen", bikecomponents=[BikeComponent_4])
+    BikePart_6 = BikePart(
+        name="Bremsscheiben", bikecomponents=[BikeComponent_4])
+    BikePart_7 = BikePart(
+        name="Entlüftungskits", bikecomponents=[BikeComponent_4])
+    BikePart_8 = BikePart(
+        name="Felgenbremsbeläge", bikecomponents=[BikeComponent_4])
+    BikePart_9 = BikePart(
+        name="Felgenbremsen", bikecomponents=[BikeComponent_4])
+    BikePart_10 = BikePart(
+        name="Innenzüge", bikecomponents=[BikeComponent_4])
+    BikePart_11 = BikePart(
+        name="Scheibenbremsbeläge", bikecomponents=[BikeComponent_4])
+    BikePart_12 = BikePart(
+        name="Scheibenbremsen", bikecomponents=[BikeComponent_4])
+    BikePart_13 = BikePart(
+        name="Felgen", bikecomponents=[BikeComponent_10])
+    BikePart_14 = BikePart(
+        name="Felgenbänder", bikecomponents=[BikeComponent_10])
+    BikePart_15 = BikePart(
+        name="Freiläufe", bikecomponents=[BikeComponent_10])
+    BikePart_16 = BikePart(
+        name="Naben", bikecomponents=[BikeComponent_10])
+    BikePart_17 = BikePart(
+        name="Schnellspanner", bikecomponents=[BikeComponent_10])
+    BikePart_18 = BikePart(
+        name="Speichen", bikecomponents=[BikeComponent_10])
+    BikePart_19 = BikePart(
+        name="Nippel", bikecomponents=[BikeComponent_10])
+    BikePart_20 = BikePart(
+        name="Steckachsen", bikecomponents=[BikeComponent_10])
+
+    BikeProduct_1 = BikeProduct(
+        name="SHIMANO BREMSSCHEIBE SM-RT30 CENTER LOCK", source="bike24.de", price="8.99")
+    BikeProduct_2 = BikeProduct(
+        name="SHIMANO BREMSLEITUNG SM-BH90-SS KÜRZBAR FÜR XTR (M9100), DEORE, LX, MT520", source="bike-discount.de", price="13.99")
+    BikeProduct_3 = BikeProduct(
+        name="SPECIALIZED PATHFINDER PRO 28 FALTREIFEN", source="bike-discount.de", price="37.99")
+    BikeProduct_4 = BikeProduct(
+        name="PROLOGO NAGO R4 PAS 3DMSS NACK SADDLE", source="ebay.de", price="369")
+    BikeProduct_5 = BikeProduct(
+        name="SHIMANO SLX CS-M7000-11 11-SPEED CASSETTE", source="bike-components.de", price="39.99")
+    BikeProduct_6 = BikeProduct(
+        name="SHIMANO XT / XTR / SLX CN-HG95 10-SPEED CHAIN", source="bike-components.de", price="18.99")
+    BikeProduct_7 = BikeProduct(
+        name="BLACK INC CARBON LENKER-VORBAU-EINHEIT", source="bike-components.de", price="539")
+    BikeProduct_8 = BikeProduct(
+        name="FIZIK TEMPO MICROTEX BONDCUSH SOFT LENKERBAND", source="bike24.de", price="19.99")
+    BikeProduct_9 = BikeProduct(
         name="SHIMANO B05S-RX BRAKE PADS", source="bike24.de", price="5.99")
-    BikeComponent_10 = BikeComponent(
+    BikeProduct_10 = BikeProduct(
         name="CHROMAG DUNE LOCK-ON LENKERGRIFFE", source="bike-components.de", price="28.99")
-    BikeComponent_11 = BikeComponent(
+    BikeProduct_11 = BikeProduct(
         name="Crankbrothers Stamp 1 Plattformpedal klein - schwarz", source="bike-components.de", price="19.99")
-    BikeComponent_12 = BikeComponent(
+    BikeProduct_12 = BikeProduct(
         name="SHIMANO 105 KURBELGARNITUR FC-R7000 HOLLOWTECH II", source="bike-discount.de", price="100")
 
-    return [BikeType_1, BikeType_2, BikeType_3, BikeType_4, BikeType_5, BikeType_6, BikeType_7, BikeType_8, BikeType_9, AssemblyGroup_1, AssemblyGroup_2, AssemblyGroup_3, AssemblyGroup_4, AssemblyGroup_5, AssemblyGroup_6, AssemblyGroup_7,
-            AssemblyGroup_8, AssemblyGroup_9, AssemblyGroup_10, AssemblyGroup_11, AssemblyGroup_12, AssemblyGroup_13, AssemblyGroup_14, AssemblyGroupModule_1, AssemblyGroupModule_2, AssemblyGroupModule_3, AssemblyGroupModule_4, AssemblyGroupModule_5, AssemblyGroupModule_6, AssemblyGroupModule_7,
-            AssemblyGroupModule_8, AssemblyGroupModule_9, AssemblyGroupModule_10, AssemblyGroupModule_11, AssemblyGroupModule_12, AssemblyGroupModule_13, AssemblyGroupModule_14, AssemblyGroupModule_15, AssemblyGroupModule_16, AssemblyGroupModule_17, AssemblyGroupModule_18, AssemblyGroupModule_19, AssemblyGroupModule_20, BikeComponent_1, BikeComponent_2, BikeComponent_3, BikeComponent_4, BikeComponent_5, BikeComponent_6, BikeComponent_7, BikeComponent_8, BikeComponent_9, BikeComponent_10, BikeComponent_11, BikeComponent_12]
+    return [BikeType_1, BikeType_2, BikeType_3, BikeType_4, BikeType_5, BikeType_6, BikeType_7, BikeType_8, BikeType_9, BikeComponent_1, BikeComponent_2, BikeComponent_3, BikeComponent_4, BikeComponent_5, BikeComponent_6, BikeComponent_7,
+            BikeComponent_8, BikeComponent_9, BikeComponent_10, BikeComponent_11, BikeComponent_12, BikeComponent_13, BikeComponent_14, BikePart_1, BikePart_2, BikePart_3, BikePart_4, BikePart_5, BikePart_6, BikePart_7,
+            BikePart_8, BikePart_9, BikePart_10, BikePart_11, BikePart_12, BikePart_13, BikePart_14, BikePart_15, BikePart_16, BikePart_17, BikePart_18, BikePart_19, BikePart_20, BikeProduct_1, BikeProduct_2, BikeProduct_3, BikeProduct_4, BikeProduct_5, BikeProduct_6, BikeProduct_7, BikeProduct_8, BikeProduct_9, BikeProduct_10, BikeProduct_11, BikeProduct_12]

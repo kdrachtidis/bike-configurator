@@ -1,21 +1,15 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from src.models.links import ModulesToComponents
+from src.models.links import TypesToComponents, ComponentsToParts
 
 
 class BikeComponentInput(SQLModel):
-    name: str | None = "No name"
-    source: str | None = "Unknown"
-    price: float | None = 0.00
-    group: str | None = "No group"
+    name: str | None = "No bike component name"
 
     model_config = {
         "json_schema_extra": {
             "examples": [{
-                "name": "SHIMANO 105 KURBELGARNITUR FC-R7000 HOLLOWTECH II",
-                "source": "bike-components.de",
-                "price": 100.00,
-                "group": "Drivetrain"
+                "name": "A bike component name"
             }]
         }
     }
@@ -23,11 +17,15 @@ class BikeComponentInput(SQLModel):
 
 class BikeComponent(BikeComponentInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    assemblygroupmodules: list["AssemblyGroupModule"] = Relationship(
-        back_populates="bikecomponents", link_model=ModulesToComponents
+    biketypes: list["BikeType"] = Relationship(
+        back_populates="bikecomponents", link_model=TypesToComponents
+    )
+    bikeparts: list["BikePart"] = Relationship(
+        back_populates="bikecomponents", link_model=ComponentsToParts
     )
 
 
 class BikeComponentOutput(BikeComponentInput):
     id: int
-    assemblygroupmodules: list
+    biketypes: list
+    bikeparts: list

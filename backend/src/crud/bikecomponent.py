@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from src.utils.database import get_session
 from src.utils.logging import log_print, log_exception
-from src.models.assemblygroupmodule import AssemblyGroupModule
+from src.models.biketype import BikeType
 from src.models.bikecomponent import BikeComponent, BikeComponentInput
 
 SessionDependency = Annotated[Session, Depends(get_session)]
@@ -13,38 +13,10 @@ SessionDependency = Annotated[Session, Depends(get_session)]
 # Logs
 msg_object_type = "bike component"
 
-# Create
+# Read an bike component by ID
 
 
-def create_bikecomponent(id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
-    assemblygroupmodule = session.get(AssemblyGroupModule, id)
-    if assemblygroupmodule:
-        bikecomponent = BikeComponent.model_validate(input)
-        assemblygroupmodule.bikecomponents.append(bikecomponent)
-        session.commit()
-        session.refresh(bikecomponent)
-        log_print("create", obj_type=msg_object_type)
-        return bikecomponent
-    else:
-        raise HTTPException(
-            status_code=404, detail=log_exception("module", obj_id=id)
-        )
-
-# Read
-
-
-def read_all_bikecomponents(source: str | None = None, group: str | None = None,
-                            session: Session = Depends(get_session)) -> list:
-    query = select(BikeComponent)
-    if source:
-        query = query.where(BikeComponent.source == source)
-    if group:
-        query = query.where(BikeComponent.group == group)
-    log_print("read_all", obj_type=msg_object_type)
-    return session.exec(query).all()
-
-
-def read_bikecomponent(id: int, session: SessionDependency) -> None:
+def read_bikecomponent(id: int, session: SessionDependency) -> BikeComponent:
     bikecomponent = session.get(BikeComponent, id)
     if bikecomponent:
         log_print("read", obj_id=id, obj_type=msg_object_type)
@@ -53,32 +25,125 @@ def read_bikecomponent(id: int, session: SessionDependency) -> None:
         raise HTTPException(
             status_code=404, detail=log_exception("component", obj_id=id))
 
-    # Update
+# Read all bike components under a bike type
 
 
-def update_bikecomponent(id: int, new_data: BikeComponentInput, session: SessionDependency) -> BikeComponent:
-    bikecomponent = session.get(BikeComponent, id)
-    if bikecomponent:
-        bikecomponent.name = new_data.name
-        bikecomponent.source = new_data.source
-        bikecomponent.price = new_data.price
-        bikecomponent.group = new_data.group
-        session.commit()
-        log_print("update", obj_id=id, obj_type=msg_object_type)
+def read_all_bikecomponents_by_biketype(biketype_id: int, session: SessionDependency) -> list:
+    # First check if biketype exists
+    biketype = session.get(BikeType, biketype_id)  # Get the bike type
+    if not biketype:  # If bike type does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("type", obj_id=biketype_id)
+        )
+
+    # Return bike components for this bike type
+    log_print("read_all", obj_type=msg_object_type, obj_id=biketype_id)
+    return biketype.bikecomponents
+
+# Create a bike component under a bike type
+
+
+def create_bikecomponent(id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
+    biketype = session.get(BikeType, id)  # Get the bike type
+    if biketype:  # If bike type exists
+        bikecomponent = BikeComponent.model_validate(
+            input)  # Create bike component from input
+        # Append bike component to bike type
+        biketype.bikecomponents.append(bikecomponent)
+        session.commit()  # Commit the changes
+        session.refresh(bikecomponent)  # Refresh the bike component instance
+        log_print("create", obj_type=msg_object_type)
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=log_exception("component", obj_id=id))
+            status_code=404, detail=log_exception("type", obj_id=id)
+        )
 
-# Delete
+# Read an bike component by bike type
 
 
-def delete_bikecomponent(id: int, session: SessionDependency) -> None:
-    bikecomponent = session.get(BikeComponent, id)
-    if bikecomponent:
-        session.delete(bikecomponent)
-        session.commit()
-        log_print("delete", obj_id=id, obj_type=msg_object_type)
-    else:
+def read_bikecomponent_by_biketype(biketype_id: int, bikecomponent_id: int, session: SessionDependency) -> BikeComponent:
+    # First check if biketype exists
+    biketype = session.get(BikeType, biketype_id)  # Get the bike type
+    if not biketype:  # If bike type does not exist, raise exception
         raise HTTPException(
-            status_code=404, detail=log_exception("component", obj_id=id))
+            status_code=404, detail=log_exception("type", obj_id=biketype_id)
+        )
+
+    # Then get the bike component
+    bikecomponent = session.get(
+        BikeComponent, bikecomponent_id)  # Get the bike component
+    if not bikecomponent:  # If bike component does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("component", obj_id=bikecomponent_id)
+        )
+
+    # Verify that the bike component belongs to the specified bike type
+    if bikecomponent not in biketype.bikecomponents:  # If not, raise exception
+        raise HTTPException(
+            status_code=404, detail=f"Bike component {bikecomponent_id} not found in bike type {biketype_id}"
+        )
+
+    log_print("read", obj_id=bikecomponent.id, obj_type=msg_object_type)
+    return bikecomponent
+
+
+# Update a bike component by bike type
+
+
+def update_bikecomponent_by_biketype(biketype_id: int, bikecomponent_id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
+    # First check if biketype exists
+    biketype = session.get(BikeType, biketype_id)  # Get the bike type
+    if not biketype:  # If bike type does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("type", obj_id=biketype_id)
+        )
+
+    # Then get the bike component
+    bikecomponent = session.get(
+        BikeComponent, bikecomponent_id)  # Get the bike component
+    if not bikecomponent:  # If bike component does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("component", obj_id=bikecomponent_id)
+        )
+
+    # Verify that the bike component belongs to the specified bike type
+    if bikecomponent not in biketype.bikecomponents:  # If not, raise exception
+        raise HTTPException(
+            status_code=404, detail=f"Bike component {bikecomponent.id} not found in bike type {biketype_id}"
+        )
+
+    # Update the bike component
+    bikecomponent.name = input.name  # Update other fields as necessary
+    session.commit()  # Commit the changes
+    log_print("update", obj_id=bikecomponent.id, obj_type=msg_object_type)
+    return bikecomponent  # Return the updated bike component
+
+
+# Delete a bike component by bike type
+
+def delete_bikecomponent_by_biketype(biketype_id: int, bikecomponent_id: int, session: SessionDependency) -> None:
+    # First check if biketype exists
+    biketype = session.get(BikeType, biketype_id)  # Get the bike type
+    if not biketype:  # If bike type does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("type", obj_id=biketype_id)
+        )
+
+    # Then get the bike component
+    bikecomponent = session.get(
+        BikeComponent, bikecomponent_id)  # Get the bike component
+    if not bikecomponent:  # If bike component does not exist, raise exception
+        raise HTTPException(
+            status_code=404, detail=log_exception("component", obj_id=bikecomponent_id)
+        )
+
+    # Verify that the bike component belongs to the specified bike type
+    if bikecomponent not in biketype.bikecomponents:  # If not, raise exception
+        raise HTTPException(
+            status_code=404, detail=f"Bike component {bikecomponent.id} not found in bike type {biketype_id}"
+        )
+
+    session.delete(bikecomponent)  # Delete the bike component
+    session.commit()  # Commit the changes
+    log_print("delete", obj_id=bikecomponent_id, obj_type=msg_object_type)

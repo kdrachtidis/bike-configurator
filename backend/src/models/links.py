@@ -1,28 +1,28 @@
 from sqlmodel import SQLModel, Field
 
 
-class GroupsToModules(SQLModel, table=True):
-    group_id: int | None = Field(
-        default=None, foreign_key="assemblygroup.id", primary_key=True
+class ComponentsToParts(SQLModel, table=True):
+    component_id: int | None = Field(
+        default=None, foreign_key="bikecomponent.id", primary_key=True
     )
-    modude_id: int | None = Field(
-        default=None, foreign_key="assemblygroupmodule.id", primary_key=True
+    part_id: int | None = Field(
+        default=None, foreign_key="bikepart.id", primary_key=True
     )
 
 
-class TypesToGroups(SQLModel, table=True):
+class TypesToComponents(SQLModel, table=True):
     type_id: int | None = Field(
         default=None, foreign_key="biketype.id", primary_key=True
     )
     group_id: int | None = Field(
-        default=None, foreign_key="assemblygroup.id", primary_key=True
-    )
-
-
-class ModulesToComponents(SQLModel, table=True):
-    module_id: int | None = Field(
-        default=None, foreign_key="assemblygroupmodule.id", primary_key=True
-    )
-    component_id: int | None = Field(
         default=None, foreign_key="bikecomponent.id", primary_key=True
+    )
+
+
+class PartsToProducts(SQLModel, table=True):
+    part_id: int | None = Field(
+        default=None, foreign_key="bikepart.id", primary_key=True
+    )
+    product_id: int | None = Field(
+        default=None, foreign_key="bikeproduct.id", primary_key=True
     )

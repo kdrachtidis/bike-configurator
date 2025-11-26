@@ -17,9 +17,9 @@ print("DATABASE_URL:", os.environ.get("DATABASE_URL"))
 from src.utils.database import create_db_and_tables
 from src.utils import web
 from src.views import biketype as biketype
-from src.views import assemblygroup as assemblygroup
-from src.views import assemblygroupmodule as assemblygroupmodule
 from src.views import bikecomponent as bikecomponent
+from src.views import bikepart as bikepart
+from src.views import bikeproduct as bikeproduct
 from src.views import user as auth
 
 origins = [
@@ -38,9 +38,9 @@ def get_app() -> FastAPI:
     app = FastAPI(lifespan=lifespan, title="Bike configurator")
     app.include_router(web.router)
     app.include_router(biketype.router, prefix="/api")
-    app.include_router(assemblygroup.router, prefix="/api")
-    app.include_router(assemblygroupmodule.router, prefix="/api")
     app.include_router(bikecomponent.router, prefix="/api")
+    app.include_router(bikepart.router, prefix="/api")
+    app.include_router(bikeproduct.router, prefix="/api")
     app.include_router(auth.router, prefix="/api")
 
     app.add_middleware(

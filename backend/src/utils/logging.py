@@ -27,12 +27,12 @@ def log_print(*args, **kwargs):
 def log_exception(*args, **kwargs):
     if (args) == ("type",):
         return f"No bike type with id = {kwargs.get('obj_id', '')}." 
-    elif (args) == ("group",):
-        return f"No assembly group with id = {kwargs.get('obj_id', '')}."
-    elif (args) == ("module",):
-        return f"No assembly group module with id = {kwargs.get('obj_id', '')}." 
     elif (args) == ("component",):
         return f"No bike component with id = {kwargs.get('obj_id', '')}."
+    elif (args) == ("part",):
+        return f"No bike part with id = {kwargs.get('obj_id', '')}."
+    elif (args) == ("product",):
+        return f"No bike product with id = {kwargs.get('obj_id', '')}."
     else:
         return "Unknown object type for exception message."
     
