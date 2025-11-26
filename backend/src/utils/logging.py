@@ -8,17 +8,17 @@ def get_timestamp():
 def log_print(*args, **kwargs):
     timestamp = get_timestamp()
     if (args) == ("read",):
-        print(f"[{timestamp}] {msg_init} Reading {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
+        print(f"[{timestamp}] {msg_init} Reading the {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
     elif (args) == ("read_by_group",):
-        print(f"[{timestamp}] {msg_init} Reading {kwargs.get('obj_type', '')}s under group with id = {kwargs.get('group_id', '')}.")
+        print(f"[{timestamp}] {msg_init} Reading the {kwargs.get('obj_type', '')}s under group with id = {kwargs.get('group_id', '')}.")
     elif (args) == ("read_all",):
         print(f"[{timestamp}] {msg_init} Reading all {kwargs.get('obj_type', '')}s.")
     elif (args) == ("create",):
-        print(f"[{timestamp}] {msg_init} Creating {kwargs.get('obj_type', '')}.")
+        print(f"[{timestamp}] {msg_init} Creating the {kwargs.get('obj_type', '')}.")
     elif (args) == ("update",):
-        print(f"[{timestamp}] {msg_init} Updating {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
+        print(f"[{timestamp}] {msg_init} Updating the {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
     elif (args) == ("delete",):
-        print(f"[{timestamp}] {msg_init} Deleting {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
+        print(f"[{timestamp}] {msg_init} Deleting the {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
     else:
         print(f"[{timestamp}]", *args, "is not recognized as argument.")
 

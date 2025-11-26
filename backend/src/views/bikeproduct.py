@@ -17,9 +17,9 @@ swagger_desc = BikeProductsMessages()
 # Create a bike product assigned to a bike part
 
 
-@router.post("/bikeparts/{id}/bikeproducts/", response_model=BikeProduct, tags=[swagger_desc.tags], description=swagger_desc.description_create, status_code=status.HTTP_201_CREATED)
-def create_a_bike_product(id: int, input: BikeProductInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeProduct:
-    return create_bikeproduct(id=id, input=input, session=session)
+@router.post("/bikeparts/{part_id}/bikeproducts/", response_model=BikeProduct, tags=[swagger_desc.tags], description=swagger_desc.description_create, status_code=status.HTTP_201_CREATED)
+def create_a_bike_product(part_id: int, input: BikeProductInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeProduct:
+    return create_bikeproduct(bikepart_id=part_id, input=input, session=session)
 
 # Read all bike products
 
@@ -31,21 +31,21 @@ def read_all_bike_products(source: str | None = None, group: str | None = None, 
 # Read a bike product
 
 
-@router.get("/bikeproducts/{id}", response_model=BikeProductOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read)
-def read_a_bike_product(id: int, session: SessionDependency) -> BikeProduct:
-    return read_bikeproduct(id=id, session=session)
+@router.get("/bikeproducts/{product_id}", response_model=BikeProductOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read)
+def read_a_bike_product(product_id: int, session: SessionDependency) -> BikeProduct:
+    return read_bikeproduct(bikeproduct_id=product_id, session=session)
 
 # Update a bike product
 
 
-@router.put("/bikeproducts/{id}", response_model=BikeProduct, tags=[swagger_desc.tags], description=swagger_desc.description_update)
-def update_a_bike_product(id: int, new_data: BikeProductInput,
+@router.put("/bikeproducts/{product_id}", response_model=BikeProduct, tags=[swagger_desc.tags], description=swagger_desc.description_update)
+def update_a_bike_product(product_id: int, new_data: BikeProductInput,
                           session: SessionDependency, user: User = Depends(get_current_user)) -> BikeProduct:
-    return update_bikeproduct(id=id, new_data=new_data, session=session)
+    return update_bikeproduct(bikeproduct_id=product_id, new_data=new_data, session=session)
 
 # Delete a bike product
 
 
-@router.delete("/bikeproducts/{id}", status_code=204, tags=[swagger_desc.tags], description=swagger_desc.description_delete)
-def delete_a_bike_product(id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
-    return delete_bikeproduct(id=id, session=session)
+@router.delete("/bikeproducts/{product_id}", status_code=204, tags=[swagger_desc.tags], description=swagger_desc.description_delete)
+def delete_a_bike_product(product_id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
+    return delete_bikeproduct(bikeproduct_id=product_id, session=session)

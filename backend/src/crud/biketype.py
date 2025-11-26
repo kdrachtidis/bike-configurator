@@ -38,38 +38,38 @@ def read_all_biketypes(session: SessionDependency) -> list:
     return session.exec(query).all()
 
 
-def read_biketype(id: int, session: SessionDependency) -> BikeType:
-    biketype = session.get(BikeType, id)
+def read_biketype(biketype_id: int, session: SessionDependency) -> BikeType:
+    biketype = session.get(BikeType, biketype_id)
     if biketype:
-        log_print("read", obj_id=id, obj_type=msg_object_type)
+        log_print("read", obj_id=biketype_id, obj_type=msg_object_type)
         return biketype
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=msg_no_item(biketype_id))
 
 # Update
 
 
-def update_biketype(id: int, input: BikeTypeInput, session: SessionDependency) -> BikeType:
-    biketype = session.get(BikeType, id)
+def update_biketype(biketype_id: int, input: BikeTypeInput, session: SessionDependency) -> BikeType:
+    biketype = session.get(BikeType, biketype_id)
     if biketype:
         biketype.name = input.name
         session.commit()
-        log_print("update", obj_id=id, obj_type=msg_object_type)
+        log_print("update", obj_id=biketype_id, obj_type=msg_object_type)
         return biketype
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=msg_no_item(biketype_id))
 
 # Delete
 
 
-def delete_biketype(id: int, session: SessionDependency) -> None:
-    biketype = session.get(BikeType, id)
+def delete_biketype(biketype_id: int, session: SessionDependency) -> None:
+    biketype = session.get(BikeType, biketype_id)
     if biketype:
         session.delete(biketype)
         session.commit()
-        log_print("delete", obj_id=id, obj_type=msg_object_type)
+        log_print("delete", obj_id=biketype_id, obj_type=msg_object_type)
     else:
         raise HTTPException(
-            status_code=404, detail=msg_no_item(id))
+            status_code=404, detail=msg_no_item(biketype_id))

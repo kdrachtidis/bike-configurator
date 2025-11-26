@@ -32,7 +32,7 @@ class TestBikeComponentCreate:
 
         input_data = BikeComponentInput(name="Test Bike Component")
         # Act
-        result = create_bikecomponent(id=1, input=input_data, session=mock_session)
+        result = create_bikecomponent(bikecomponent_id=1, input=input_data, session=mock_session)
 
         # Assert
         mock_session.get.assert_called_once_with(BikeType, 1)

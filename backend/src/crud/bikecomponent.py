@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import Depends, HTTPException
-from sqlmodel import Session, select
+from sqlmodel import Session
 
 from src.utils.database import get_session
 from src.utils.logging import log_print, log_exception
@@ -16,14 +16,15 @@ msg_object_type = "bike component"
 # Read an bike component by ID
 
 
-def read_bikecomponent(id: int, session: SessionDependency) -> BikeComponent:
-    bikecomponent = session.get(BikeComponent, id)
-    if bikecomponent:
-        log_print("read", obj_id=id, obj_type=msg_object_type)
+def read_bikecomponent(bikecomponent_id: int, session: SessionDependency) -> BikeComponent:
+    bikecomponent = session.get(BikeComponent, bikecomponent_id)  # Get the bike component
+    if bikecomponent:  # If bike component exists
+        # Log the read action
+        log_print("read", obj_id=bikecomponent_id, obj_type=msg_object_type)
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=log_exception("component", obj_id=id))
+            status_code=404, detail=log_exception("component", obj_id=bikecomponent_id))
 
 # Read all bike components under a bike type
 
@@ -43,8 +44,8 @@ def read_all_bikecomponents_by_biketype(biketype_id: int, session: SessionDepend
 # Create a bike component under a bike type
 
 
-def create_bikecomponent(id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
-    biketype = session.get(BikeType, id)  # Get the bike type
+def create_bikecomponent(bikecomponent_id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
+    biketype = session.get(BikeType, bikecomponent_id)  # Get the bike type
     if biketype:  # If bike type exists
         bikecomponent = BikeComponent.model_validate(
             input)  # Create bike component from input
@@ -56,7 +57,7 @@ def create_bikecomponent(id: int, input: BikeComponentInput, session: SessionDep
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=log_exception("type", obj_id=id)
+            status_code=404, detail=log_exception("type", obj_id=bikecomponent_id)
         )
 
 # Read an bike component by bike type
