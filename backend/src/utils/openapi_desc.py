@@ -24,7 +24,7 @@ class BikePartsMessages:
     description_create: str = "Create a new bike part within the hierarchy"
     description_read_all: str = "Get the list of all bike parts."
     description_read: str = "Get a specific bike part based on its ID."
-    description_get_group_id: str = "Read a specific bike part within the hierarchy"
+    description_get_component_id: str = "Read a specific bike part within the hierarchy"
     description_delete: str = "Delete a specific bike part within the hierarchy."
     description_update: str = "Update a specific bike part within the hierarchy."
 

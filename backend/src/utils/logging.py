@@ -9,8 +9,8 @@ def log_print(*args, **kwargs):
     timestamp = get_timestamp()
     if (args) == ("read",):
         print(f"[{timestamp}] {msg_init} Reading the {kwargs.get('obj_type', '')} with id = {kwargs.get('obj_id', '')}.")
-    elif (args) == ("read_by_group",):
-        print(f"[{timestamp}] {msg_init} Reading the {kwargs.get('obj_type', '')}s under group with id = {kwargs.get('group_id', '')}.")
+    elif (args) == ("read_by_component",):
+        print(f"[{timestamp}] {msg_init} Reading the {kwargs.get('obj_type', '')}s under component with id = {kwargs.get('obj_id', '')}.")
     elif (args) == ("read_all",):
         print(f"[{timestamp}] {msg_init} Reading all {kwargs.get('obj_type', '')}s.")
     elif (args) == ("create",):

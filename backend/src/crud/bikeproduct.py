@@ -36,19 +36,18 @@ def create_bikeproduct(bikepart_id: int, input: BikeProductInput, session: Sessi
 # Read
 
 
-def read_all_bikeproducts(source: str | None = None, group: str | None = None,
+def read_all_bikeproducts(source: str | None = None,
                           session: Session = Depends(get_session)) -> list:
     query = select(BikeProduct)
     if source:
         query = query.where(BikeProduct.source == source)
-    if group:
-        query = query.where(BikeProduct.group == group)
     log_print("read_all", obj_type=msg_object_type)
     return session.exec(query).all()
 
 
 def read_bikeproduct(bikeproduct_id: int, session: SessionDependency) -> None:
-    bikeproduct = session.get(BikeProduct, bikeproduct_id)  # Get bike product by ID
+    # Get bike product by ID
+    bikeproduct = session.get(BikeProduct, bikeproduct_id)
     if bikeproduct:  # If found
         log_print("read", obj_id=bikeproduct_id, obj_type=msg_object_type)
         return bikeproduct
@@ -65,7 +64,6 @@ def update_bikeproduct(bikeproduct_id: int, new_data: BikeProductInput, session:
         bikeproduct.name = new_data.name
         bikeproduct.source = new_data.source
         bikeproduct.price = new_data.price
-        bikeproduct.group = new_data.group
         session.commit()
         log_print("update", obj_id=bikeproduct_id, obj_type=msg_object_type)
         return bikeproduct

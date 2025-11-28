@@ -19,10 +19,10 @@ def home(request: Request, cookie: str | None = Cookie(None)):
 
 
 @router.post("/search", response_class=HTMLResponse)
-def search(*, source: str = Form(...), group: str = Form(...),
+def search(*, source: str = Form(...),
            request: Request,
            session: Session = Depends(get_session)):
     products = read_all_bike_products(
-        source=source, group=group, session=session)
+        source=source, session=session)
     return templates.TemplateResponse("search_results.html",
                                       {"request": request, "products": products})

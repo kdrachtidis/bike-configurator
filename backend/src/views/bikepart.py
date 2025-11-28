@@ -18,7 +18,7 @@ swagger_desc = BikePartsMessages()
 # Read a bike part
 
 
-@router.get("/bikeparts/{part_id}", response_model=BikePartOutput, tags=[swagger_desc.tags], description=swagger_desc.description_get_group_id)
+@router.get("/bikeparts/{part_id}", response_model=BikePartOutput, tags=[swagger_desc.tags], description=swagger_desc.description_get_component_id)
 def read_a_bike_part(part_id: int, session: SessionDependency) -> BikePart:
     return read_bikepart(bikepart_id=part_id, session=session)
 
@@ -41,7 +41,7 @@ def create_a_bike_part_by_hierarchy(type_id: int, component_id: int, input: Bike
 # Read a bike part by hierarchy
 
 
-@router.get("/biketypes/{type_id}/bikecomponents/{component_id}/bikeparts/{part_id}", response_model=BikePartOutput, tags=[swagger_desc.tags], description=swagger_desc.description_get_group_id, status_code=status.HTTP_200_OK)
+@router.get("/biketypes/{type_id}/bikecomponents/{component_id}/bikeparts/{part_id}", response_model=BikePartOutput, tags=[swagger_desc.tags], description=swagger_desc.description_get_component_id, status_code=status.HTTP_200_OK)
 def read_bike_part_by_hierarchy(type_id: int, component_id: int, part_id: int, session: SessionDependency) -> BikePart:
     return read_bikepart_by_hierarchy(biketype_id=type_id, bikecomponent_id=component_id, bikepart_id=part_id, session=session)
 

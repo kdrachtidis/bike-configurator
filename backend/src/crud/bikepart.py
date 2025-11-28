@@ -53,7 +53,7 @@ def read_bikeparts_by_hierarchy(biketype_id: int, bikecomponent_id: int, session
         )
 
     # Return bike parts for this bike component
-    log_print("read_by_hierarchy", group_id=bikecomponent_id,
+    log_print("read_by_hierarchy", obj_id=bikecomponent_id,
               obj_type=msg_object_type)
     return bikecomponent.bikeparts
 

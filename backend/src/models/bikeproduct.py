@@ -7,15 +7,13 @@ class BikeProductInput(SQLModel): # Input model for creating/updating bike produ
     name: str | None = "No bike product name"
     source: str | None = "Unknown"
     price: float | None = 0.00
-    group: str | None = "No group"
 
     model_config = {
         "json_schema_extra": {
             "examples": [{
                 "name": "SHIMANO 105 KURBELGARNITUR FC-R7000 HOLLOWTECH II",
                 "source": "bike-components.de",
-                "price": 100.00,
-                "group": "Drivetrain"
+                "price": 100.00
             }]
         }
     }

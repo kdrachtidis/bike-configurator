@@ -14,7 +14,7 @@ class TypesToComponents(SQLModel, table=True):
     type_id: int | None = Field(
         default=None, foreign_key="biketype.id", primary_key=True
     )
-    group_id: int | None = Field(
+    component_id: int | None = Field(
         default=None, foreign_key="bikecomponent.id", primary_key=True
     )
 

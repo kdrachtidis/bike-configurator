@@ -25,8 +25,8 @@ def create_a_bike_product(part_id: int, input: BikeProductInput, session: Sessio
 
 
 @router.get("/bikeproducts/", tags=[swagger_desc.tags], description=swagger_desc.description_read_all)
-def read_all_bike_products(source: str | None = None, group: str | None = None, session: Session = Depends(get_session)) -> list:
-    return read_all_bikeproducts(source=source, group=group, session=session)
+def read_all_bike_products(source: str | None = None, session: Session = Depends(get_session)) -> list:
+    return read_all_bikeproducts(source=source, session=session)
 
 # Read a bike product
 
