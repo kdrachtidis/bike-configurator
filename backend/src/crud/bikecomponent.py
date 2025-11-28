@@ -17,7 +17,8 @@ msg_object_type = "bike component"
 
 
 def read_bikecomponent(bikecomponent_id: int, session: SessionDependency) -> BikeComponent:
-    bikecomponent = session.get(BikeComponent, bikecomponent_id)  # Get the bike component
+    bikecomponent = session.get(
+        BikeComponent, bikecomponent_id)  # Get the bike component
     if bikecomponent:  # If bike component exists
         # Log the read action
         log_print("read", obj_id=bikecomponent_id, obj_type=msg_object_type)
@@ -44,8 +45,8 @@ def read_all_bikecomponents_by_biketype(biketype_id: int, session: SessionDepend
 # Create a bike component under a bike type
 
 
-def create_bikecomponent(bikecomponent_id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
-    biketype = session.get(BikeType, bikecomponent_id)  # Get the bike type
+def create_bikecomponent(biketype_id: int, input: BikeComponentInput, session: SessionDependency) -> BikeComponent:
+    biketype = session.get(BikeType, biketype_id)  # Get the bike type
     if biketype:  # If bike type exists
         bikecomponent = BikeComponent.model_validate(
             input)  # Create bike component from input
@@ -57,7 +58,7 @@ def create_bikecomponent(bikecomponent_id: int, input: BikeComponentInput, sessi
         return bikecomponent
     else:
         raise HTTPException(
-            status_code=404, detail=log_exception("type", obj_id=bikecomponent_id)
+            status_code=404, detail=log_exception("type", obj_id=biketype_id)
         )
 
 # Read an bike component by bike type
@@ -117,6 +118,7 @@ def update_bikecomponent_by_biketype(biketype_id: int, bikecomponent_id: int, in
     # Update the bike component
     bikecomponent.name = input.name  # Update other fields as necessary
     session.commit()  # Commit the changes
+    session.refresh(bikecomponent)  # Refresh the bike component instance
     log_print("update", obj_id=bikecomponent.id, obj_type=msg_object_type)
     return bikecomponent  # Return the updated bike component
 

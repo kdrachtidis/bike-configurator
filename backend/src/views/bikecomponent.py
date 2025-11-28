@@ -36,7 +36,7 @@ def read_all_bike_components_by_biketype(type_id: int, session: SessionDependenc
 
 @router.post("/biketypes/{type_id}/bikecomponents/", response_model=BikeComponent, tags=[swagger_desc.tags], description=swagger_desc.description_create, status_code=status.HTTP_201_CREATED)
 def create_a_bike_component(type_id: int, input: BikeComponentInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
-    return create_bikecomponent(bikecomponent_id=type_id, input=input, session=session)
+    return create_bikecomponent(biketype_id=type_id, input=input, session=session)
 
 
 # Read a bike component by hierarchy
