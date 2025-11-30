@@ -1,6 +1,6 @@
 <template>
   <div class="card-header d-flex justify-content-between bg-body-secondary">
-    <h4 class="card-title mb-0 fw-light">{{ assemblygroup.name || "Group Empty" }}
+    <h4 class="card-title mb-0 fw-light">{{ bikecomponent.name || "Group Empty" }}
     </h4>
     <div>
       <button type="button" class="btn btn-sm btn-outline-secondary me-2" :aria-label="$t('message.edit')"
@@ -16,25 +16,25 @@
 
 <script setup>
   import { ref, onMounted, nextTick } from 'vue'
-  import { useAssemblyGroupStore } from '@/stores/assemblygroups'
+  import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { Collapse } from 'bootstrap'
 
   const props = defineProps({
-    assemblygroup: { type: Object, required: true },
+    bikecomponent: { type: Object, required: true },
   })
 
-  const assemblyGroupStore = useAssemblyGroupStore() // Store instance
+  const bikeComponentStore = useBikeComponentStore() // Store instance
   const isCollapsed = ref(false) // Track collapse state
   let collapseInstance = null // Bootstrap Collapse instance
 
-  const editGroup = () => { // Function to set the group for editing
-    assemblyGroupStore.setEditGroup(props.assemblygroup) // Set the current group to be edited
+  const editComponent = () => { // Function to set the component for editing
+    bikeComponentStore.setEditComponent(props.bikecomponent) // Set the current component to be edited
   }
 
   const toggleCollapseManually = async () => { // Manually toggle collapse
     await nextTick() // Wait for DOM updates
 
-    const collapseElement = document.getElementById(`collapse-${props.assemblygroup.id}`) // Get the collapse element
+    const collapseElement = document.getElementById(`collapse-${props.bikecomponent.id}`) // Get the collapse element
     if (collapseElement) { // Check if collapse element exists
       // Get or create Bootstrap Collapse instance
       if (!collapseInstance) {
@@ -48,7 +48,7 @@
   onMounted(async () => {
     await nextTick() // Ensure DOM is ready
 
-    const collapseElement = document.getElementById(`collapse-${props.assemblygroup.id}`) // Get the collapse element
+    const collapseElement = document.getElementById(`collapse-${props.bikecomponent.id}`) // Get the collapse element
     if (collapseElement) { // Check if collapse element exists
       // Initialize Bootstrap Collapse
       collapseInstance = new Collapse(collapseElement, {

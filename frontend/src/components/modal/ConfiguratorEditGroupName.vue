@@ -40,7 +40,7 @@
 
 <script setup>
   import { ref, watch, computed } from 'vue'
-  import { useAssemblyGroupStore } from '@/stores/assemblygroups'
+  import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikeTypeStore } from '@/stores/biketype'
   import { Modal } from 'bootstrap'
 
@@ -56,11 +56,11 @@
   const errorMessage = ref('') // Error message display
 
   // Store
-  const assemblyGroupStore = useAssemblyGroupStore() // Store instance
+  const bikeComponentStore = useBikeComponentStore() // Store instance
   const bikeTypeStore = useBikeTypeStore() // Bike type store instance
 
   // Computed properties for current edit group
-  const currentGroup = computed(() => assemblyGroupStore.currentEditGroup) // Currently edited group
+  const currentGroup = computed(() => bikeComponentStore.currentEditGroup) // Currently edited group
   const groupId = computed(() => currentGroup.value?.id) // ID of the group being edited
 
   // Function to properly close modal and clean up backdrop
@@ -129,13 +129,13 @@
       }
 
       console.log('Updating group with ID:', groupId.value, 'for bike type:', bikeTypeStore.currentBikeType.id, 'New name:', groupName.value.trim())
-      const updatedGroup = await assemblyGroupStore.updateAssemblyGroupByBikeType(bikeTypeStore.currentBikeType.id, groupId.value, groupName.value.trim())
+      const updatedGroup = await bikeComponentStore.updateBikeComponentByBikeType(bikeTypeStore.currentBikeType.id, groupId.value, groupName.value.trim())
       console.log('Group updated successfully:', updatedGroup)
 
-      // Reload assembly groups for current bike type to ensure reactivity
-      console.log('Reloading assembly groups for current bike type...')
-      await assemblyGroupStore.getAssemblyGroupsByBikeType(bikeTypeStore.currentBikeType.id)
-      console.log('Assembly groups reloaded')
+      // Reload bike components for current bike type to ensure reactivity
+      console.log('Reloading bike components for current bike type...')
+      await bikeComponentStore.getBikeComponentsByBikeType(bikeTypeStore.currentBikeType.id)
+      console.log('Bike components reloaded')
 
       // Emit success event
       emit('groupUpdated', updatedGroup)
@@ -144,7 +144,7 @@
       await closeModal()
 
       // Clear edit group and reset form
-      assemblyGroupStore.clearEditGroup()
+      bikeComponentStore.clearEditGroup()
       groupName.value = ''
 
     } catch (error) {

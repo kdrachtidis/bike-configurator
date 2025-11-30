@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-between">
     <div class="fs-5 fw-light">
-      {{ assemblygroupmodule.name || 'Category Empty' }}
+      {{ bikepart.name || 'Category Empty' }}
     </div>
     <button type="button" class="btn btn-sm btn-outline-light" aria-label="Hinzufügen" data-bs-toggle="modal"
       data-bs-target="#AddBikeComponent">
@@ -12,6 +12,6 @@
 
 <script setup>
   defineProps({
-    assemblygroupmodule: { type: Object, required: true },
+    bikepart: { type: Object, required: true },
   })
 </script>

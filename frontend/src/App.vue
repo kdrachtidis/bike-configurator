@@ -1,7 +1,7 @@
 <template>
   <ConfiguratorComponent />
   <ConfiguratorEditGroupName />
-  <AddAssemblyGroup />
+  <AddBikeComponent />
   <LoginModal />
   <AppHeader />
   <main class="container-fluid">
@@ -25,5 +25,5 @@ import ConfiguratorProductList from './components/basket/List.vue';
 import ConfiguratorComponent from './components/modal/ConfiguratorComponent.vue';
 import ConfiguratorEditGroupName from './components/modal/ConfiguratorEditGroupName.vue';
 import LoginModal from './components/modal/LoginModal.vue';
-import AddAssemblyGroup from './components/modal/AddAssemblyGroup.vue';
+import AddBikeComponent from './components/modal/AddBikeComponent.vue';
 </script>

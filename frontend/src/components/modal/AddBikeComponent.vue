@@ -1,7 +1,7 @@
 <template>
   <!-- Für Entwicklung: Modal immer sichtbar mit persistentem Backdrop -->
   <div v-if="isDevelopment" class="dev-modal-backdrop"></div>
-  <div :class="['modal', isDevelopment ? 'show dev-modal' : 'fade']" id="AddAssemblyGroup" tabindex="-1"
+  <div :class="['modal', isDevelopment ? 'show dev-modal' : 'fade']" id="AddBikeComponent" tabindex="-1"
        aria-labelledby="exampleModalLabel" :aria-hidden="!isDevelopment"
        :style="isDevelopment ? 'display: block; position: fixed; z-index: 1055;' : ''">
     <div class="modal-dialog">
