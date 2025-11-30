@@ -23,7 +23,7 @@ import ConfiguratorHeader from './components/configuration/ConfigurationHeader.v
 import ConfiguratorList from './components/configuration/ConfigurationList.vue';
 import ConfiguratorProductList from './components/basket/List.vue';
 import ConfiguratorComponent from './components/modal/ConfiguratorComponent.vue';
-import ConfiguratorEditGroupName from './components/modal/ConfiguratorEditGroupName.vue';
+import ConfiguratorEditGroupName from './components/modal/EditBikeComponent.vue';
 import LoginModal from './components/modal/LoginModal.vue';
 import AddBikeComponent from './components/modal/AddBikeComponent.vue';
 </script>

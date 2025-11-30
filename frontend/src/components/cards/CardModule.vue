@@ -5,7 +5,7 @@
     <div class="collapse show" :id="'collapse-' + bikecomponent.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
         <!-- Loading State -->
-        <div v-if="isLoadingModules" class="alert alert-info m-2">
+        <div v-if="isLoadingParts" class="alert alert-info m-2">
           <div class="d-flex align-items-center">
             <div class="spinner-border spinner-border-sm me-2" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -22,11 +22,11 @@
           </small>
         </div>
 
-        <!-- No Modules Found -->
+        <!-- No Parts Found -->
         <div v-else-if="currentBikeParts.length === 0" class="alert alert-info m-2">
           <small>
             <i class="bi bi-info-circle me-1"></i>
-            Keine Module für {{ bikecomponent?.name }} verfügbar.
+            Keine Teile für {{ bikecomponent?.name }} verfügbar.
           </small>
         </div>
 
@@ -59,38 +59,38 @@
 
   const moduleState = true // true = Categories, false = Products
 
-  const props = defineProps({
-    bikecomponent: { type: Object, required: true },
+  const props = defineProps({ // Define props
+    bikecomponent: { type: Object, required: true }, // Bike component object
     ModuleSum: String
   })
 
-  // Loading state for modules
-  const isLoadingModules = ref(false)
+  // Loading state for parts
+  const isLoadingParts = ref(false)
 
-  // Computed property for the modules of this specific group
-  const currentBikeParts = computed(() => { // Compute modules for the current bike component
+  // Computed property for the parts of this specific group
+  const currentBikeParts = computed(() => { // Compute parts for the current bike component
     if (props.bikecomponent?.id) { // Check if bikecomponent and its id exist
-      return componentStore.getBikePartsForGroup(props.bikecomponent.id) // Get modules for the specific group
+      return componentStore.getBikePartsForComponent(props.bikecomponent.id) // Get parts for the specific group
     }
     return []
   })
 
-  // Load modules for the specific Bike Component
-  const loadModulesForGroup = async () => {
-    console.log('loadModulesForGroup called with bikecomponent:', props.bikecomponent)
-    console.log('bikecomponent.id:', props.bikecomponent?.id)
-    console.log('current biketype:', bikeTypeStore.currentBikeType?.id)
+  // Load parts for the specific Bike Component
+  const loadPartsForComponent = async () => {
+    console.log('loadPartsForComponent called with bikecomponent:', props.bikecomponent) // Debug log
+    console.log('bikecomponent.id:', props.bikecomponent?.id) // Log bikecomponent id
+    console.log('current biketype:', bikeTypeStore.currentBikeType?.id) // Log current bike type id
 
     if (props.bikecomponent?.id && bikeTypeStore.currentBikeType?.id) { // Check if both bikecomponent and biketype exist
-      console.log('Loading modules for bike type:', bikeTypeStore.currentBikeType.id, 'component ID:', props.bikecomponent.id)
-      isLoadingModules.value = true // Set loading state
+      console.log('Loading parts for bike type:', bikeTypeStore.currentBikeType.id, 'component ID:', props.bikecomponent.id) // Debug log
+      isLoadingParts.value = true // Set loading state
       try {
-        await componentStore.getBikePartsByGroup(bikeTypeStore.currentBikeType.id, props.bikecomponent.id) // Use hierarchical API
-        console.log('Modules loaded for group', props.bikecomponent.id, ':', currentBikeParts.value)
+        await componentStore.getBikePartsByComponent(bikeTypeStore.currentBikeType.id, props.bikecomponent.id) // Use hierarchical API
+        console.log('Parts loaded for group', props.bikecomponent.id, ':', currentBikeParts.value) // Log loaded parts
       } catch (error) {
-        console.error('Error in loadModulesForGroup:', error)
+        console.error('Error in loadPartsForComponent:', error)
       } finally {
-        isLoadingModules.value = false // Clear loading state
+        isLoadingParts.value = false // Clear loading state
       }
     } else {
       console.warn('Missing bikecomponent.id or biketype.id:', {
@@ -102,14 +102,14 @@
 
   // Load modules when component is mounted
   onMounted(() => {
-    loadModulesForGroup()
+    loadPartsForComponent()
   })
 
   // Reload modules when the bikecomponent changes
   watch(() => props.bikecomponent?.id, (newId, oldId) => { // Watch for changes in bikecomponent id
     console.log('BikeComponent ID changed from', oldId, 'to', newId)
     if (newId) { // If newId is valid
-      loadModulesForGroup() // Reload modules when bikecomponent changes
+      loadPartsForComponent() // Reload modules when bikecomponent changes
     }
   })
 
@@ -123,7 +123,7 @@
   watch(() => bikeTypeStore.currentBikeType?.id, (newBikeTypeId, oldBikeTypeId) => {
     console.log('CardModule: Bike type changed from', oldBikeTypeId, 'to', newBikeTypeId)
     if (newBikeTypeId && props.bikecomponent?.id) {
-      loadModulesForGroup() // Reload modules when bike type changes
+      loadPartsForComponent() // Reload modules when bike type changes
     }
   })
 </script>

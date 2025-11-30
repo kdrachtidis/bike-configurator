@@ -1,10 +1,11 @@
 <template>
   <div class="card-header d-flex justify-content-between bg-body-secondary">
-    <h4 class="card-title mb-0 fw-light">{{ bikecomponent.name || "Group Empty" }}
+    <h4 class="card-title mb-0 fw-light">{{ bikecomponent.name || "Component Name Empty" }}
     </h4>
     <div>
-      <button type="button" class="btn btn-sm btn-outline-secondary me-2" :aria-label="$t('message.edit')"
-        @click="editGroup" data-bs-toggle="modal" data-bs-target="#EditGroupName">
+      <button type="button" class="btn btn-sm btn-outline-secondary me-2" @click="editComponent" data-bs-toggle="modal"
+        data-bs-target="#EditBikeComponent" data-toggle="tooltip" data-placement="bottom" :title="$t('message.edit')"
+        :aria-label="$t('message.edit')">
         <i class="bi bi-pencil"></i>
       </button>
       <button type="button" class="btn btn-sm btn-outline-secondary" @click="toggleCollapseManually"
@@ -20,7 +21,7 @@
   import { Collapse } from 'bootstrap'
 
   const props = defineProps({
-    bikecomponent: { type: Object, required: true },
+    bikecomponent: { type: Object, required: true }, // Bike component object
   })
 
   const bikeComponentStore = useBikeComponentStore() // Store instance

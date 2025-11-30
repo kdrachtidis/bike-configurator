@@ -3,52 +3,52 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useBikePartStore = defineStore('bikeparts', () => { // Define the bike parts store
-  const bikeparts = ref([]); // All modules
-  const bikepartsByGroup = ref(new Map()); // Grouped modules by group_id
+  const bikeparts = ref([]); // All bike parts
+  const bikepartsByComponent = ref(new Map()); // Grouped bike parts by component_id
 
   async function getBikeParts() { // Fetch all modules
     try {
       const { data } = await axios.get('api/bikeparts'); // Fetch all modules
       bikeparts.value = data; // Store all modules
-    } catch (error) {
+    } catch (error) { // Handle errors
       console.error('Error fetching bike parts:', error);
     }
   };
 
-  async function getBikePartsByGroup(bikeTypeId, groupId) { // Fetch modules for a specific group using hierarchy
+  async function getBikePartsByComponent(bikeTypeId, componentId) { // Fetch modules for a specific group using hierarchy
     try {
-      console.log('Store: Fetching modules for bike type:', bikeTypeId, 'group ID:', groupId)
-      const url = `api/biketypes/${bikeTypeId}/bikecomponents/${groupId}/bikeparts` // Use hierarchical API
+      console.log('Store: Fetching modules for bike type:', bikeTypeId, 'component ID:', componentId) // Log fetch attempt
+      const url = `api/biketypes/${bikeTypeId}/bikecomponents/${componentId}/bikeparts` // Use hierarchical API
       console.log('Store: API URL:', url)
 
-      const { data } = await axios.get(url); // Fetch modules for the group
-      console.log('Store: API Response:', data)
-      console.log('Store: Number of modules received:', data?.length || 0)
+      const { data } = await axios.get(url); // Fetch modules for the component
+      console.log('Store: API Response:', data) // Log full response
+      console.log('Store: Number of parts received:', data?.length || 0) // Log number of parts
 
       // Store modules in the Map instead of overwriting global state
-      bikepartsByGroup.value.set(groupId, data); // Map groupId to its modules
-      console.log('Store: modulesByGroup updated for group', groupId, ':', data)
+      bikepartsByComponent.value.set(componentId, data); // Map componentId to its modules
+      console.log('Store: modulesByComponent updated for component', componentId, ':', data) // Log updated Map entry
 
       return data;
     } catch (error) {
-      console.error('Store: Error fetching bike parts by group:', error)
+      console.error('Store: Error fetching bike parts by component:', error)
       console.error('Store: Error details:', error.response?.data || error.message)
-      // Set empty array for this group on error
-      bikepartsByGroup.value.set(groupId, []); // Avoid stale data
+      // Set empty array for this component on error
+      bikepartsByComponent.value.set(componentId, []); // Avoid stale data
       return [];
     }
   };
 
-  // Function to get modules for a specific group
-  function getBikePartsForGroup(groupId) {
-    return bikepartsByGroup.value.get(groupId) || [];
+  // Function to get modules for a specific component
+  function getBikePartsForComponent(componentId) {
+    return bikepartsByComponent.value.get(componentId) || []; // Return modules for the component or empty array
   }
 
   return {
-    bikeparts: bikeparts,
-    bikepartsByGroup: bikepartsByGroup,
-    getBikeParts: getBikeParts,
-    getBikePartsByGroup: getBikePartsByGroup,
-    getBikePartsForGroup: getBikePartsForGroup
+    bikeparts: bikeparts, // All bike parts
+    bikepartsByComponent: bikepartsByComponent, // Bike parts grouped by component
+    getBikeParts: getBikeParts, // Get all bike parts
+    getBikePartsByComponent: getBikePartsByComponent, // Get bike parts for specific component
+    getBikePartsForComponent: getBikePartsForComponent // Get bike parts for a specific component
   };
 });

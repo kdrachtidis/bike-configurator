@@ -2,7 +2,7 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 
-export const useBikeTypeStore = defineStore('biketypes', () => {
+export const useBikeTypeStore = defineStore('biketypes', () => { // Define the bike types store
   const biketypes = ref([]); // All bike types
   const currentBikeType = ref(null); // Currently selected bike type
   const loading = ref(false); // Loading state
@@ -11,7 +11,7 @@ export const useBikeTypeStore = defineStore('biketypes', () => {
   async function getBikeTypes() { // Fetch all bike types
     loading.value = true; // Set loading state
     error.value = null; // Clear previous errors
-    try {
+    try { // Try to fetch bike types from API
       const { data } = await axios.get('api/biketypes'); // API call to get bike types
       biketypes.value = data; // Store bike types
       console.log('Store: Fetched bike types:', data);
@@ -19,8 +19,8 @@ export const useBikeTypeStore = defineStore('biketypes', () => {
     } catch (err) { // Handle errors
       console.error('Error fetching bike types:', err);
       error.value = err.response?.data?.message || err.message || 'Failed to fetch bike types'; // Set error message
-      biketypes.value = [];
-      return [];
+      biketypes.value = []; // Clear bike types on error
+      return []; // Return empty array on error
     } finally {
       loading.value = false; // Reset loading state
     }
@@ -36,7 +36,7 @@ export const useBikeTypeStore = defineStore('biketypes', () => {
     } catch (err) { // Handle errors
       console.error('Error fetching bike type by ID:', err);
       error.value = err.response?.data?.message || err.message || 'Failed to fetch bike type'; // Set error message
-      return null;
+      return null; // Return null on error
     } finally {
       loading.value = false; // Reset loading state
     }
@@ -53,12 +53,12 @@ export const useBikeTypeStore = defineStore('biketypes', () => {
   }
 
   function getBikeTypeByName(name) { // Get bike type by name
-    return biketypes.value.find(type => type.name === name) || null;
+    return biketypes.value.find(type => type.name === name) || null; // Find and return bike type by name
   }
 
   // Get bike type names for dropdowns/selectors
-  const bikeTypeNames = computed(() => {
-    return biketypes.value.map(type => type.name);
+  const bikeTypeNames = computed(() => { // Computed property for bike type names
+    return biketypes.value.map(type => type.name); // Map bike types to their names
   });
 
   return {

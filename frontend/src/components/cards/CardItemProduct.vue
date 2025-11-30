@@ -7,15 +7,15 @@
             class="bi bi-pencil"></i></button></div>
     </div>
     <div class="row">
-      <div class="col-8 text-body-tertiary">{{ bikepart.name || "Category empty" }}</div>
+      <div class="col-8 text-body-tertiary">{{ props.bikepart.name || "Bike part is empty" }}</div>
       <div class="col-4 text-end text-body-tertiary">150,00€</div>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
-  bikepart: { type: Object, required: true },
-  Category: String
-})
+  const props = defineProps({
+    bikepart: { type: Object, required: true },
+    Category: String
+  })
 </script>

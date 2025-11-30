@@ -7,15 +7,6 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
   const currentEditComponent = ref(null); // Currently editing component
   const currentBikeTypeId = ref(null); // Currently selected bike type ID
 
-  async function getBikeComponents() { // Fetch all bike components (deprecated - use getBikeComponentsByBikeType instead)
-    try {
-      const { data } = await axios.get('api/bikecomponents'); // Fetch all bike components
-      bikecomponents.value = data; // Store all bike components
-    } catch (error) {
-      console.error('Error fetching bike components:', error);
-    }
-  };
-
   async function getBikeComponentsByBikeType(bikeTypeId) { // Fetch bike components for specific bike type
     try {
       console.log('BikeComponentStore: Fetching components for bike type ID:', bikeTypeId);
@@ -34,51 +25,32 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
   async function getBikeComponentById(componentId) { // Fetch a specific bike component by ID
     try {
       const { data } = await axios.get(`api/bikecomponents/${componentId}`); // API call to get bike component by ID
-      return data;
+      return data; // Return the fetched component
     } catch (error) {
       console.error('Error fetching bike component by id:', error);
-      return null;
-    }
-  };
-
-  async function updateBikeComponent(componentId, newName) { // Update a bike component name (deprecated - use updateBikeComponentByBikeType)
-    try {
-      const { data } = await axios.put(`api/bikecomponents/${componentId}`, {
-        name: newName
-      }); // API call to update bike component
-
-      // Update the local store reactively
-      const index = bikecomponents.value.findIndex(component => component.id === componentId);
-      if (index !== -1) {
-        // Update properties instead of replacing the whole object to maintain reactivity
-        Object.assign(bikecomponents.value[index], data);
-      }
-
-      return data;
-    } catch (error) {
-      console.error('Error updating bike component:', error);
-      throw error;
+      return null; // Return null on error
     }
   };
 
   async function updateBikeComponentByBikeType(bikeTypeId, componentId, newName) { // Update a bike component name using hierarchical API
     try {
-      console.log('BikeComponentStore: Updating component', componentId, 'for bike type', bikeTypeId, 'with name:', newName);
-      const { data } = await axios.put(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}`, {
-        name: newName
-      }); // Use hierarchical API
+      console.log('BikeComponentStore: Updating component', componentId, 'for bike type', bikeTypeId, 'with name:', newName); // Log update attempt
+      const { data } = await axios.put(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}`, { // Use hierarchical API
+        name: newName // New name for the component
+      });
       console.log('BikeComponentStore: Component updated successfully:', data);
 
       // Update the local store reactively
-      const index = bikecomponents.value.findIndex(component => component.id === componentId);
-      if (index !== -1) {
+      const index = bikecomponents.value.findIndex(component => component.id === componentId); // Find index of updated component
+      if (index !== -1) { // If component exists in store
         // Update properties instead of replacing the whole object to maintain reactivity
-        Object.assign(bikecomponents.value[index], data);
+        Object.assign(bikecomponents.value[index], data); // Update the existing component's properties
+        console.log('BikeComponentStore: Local store updated for component index', index, ':', bikecomponents.value[index]); // Log updated component
       }
 
-      return data;
+      return data; // Return the updated component
     } catch (error) {
-      console.error('Error updating bike component by bike type:', error);
+      console.error('Error updating bike component by bike type:', error); // Log error
       throw error;
     }
   };
@@ -97,10 +69,8 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     bikecomponents,
     currentEditComponent,
     currentBikeTypeId,
-    getBikeComponents,
     getBikeComponentsByBikeType,
     getBikeComponentById,
-    updateBikeComponent,
     updateBikeComponentByBikeType,
     setEditComponent,
     clearEditComponent
