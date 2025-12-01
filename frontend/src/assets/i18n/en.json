@@ -2,8 +2,8 @@
   "message": {
     "expand": "Expand and Collapse",
     "edit": "Edit",
-    "items": "Products added",
-    "item": "Product added",
+    "items": "Parts added",
+    "item": "Part added",
     "partialsum": "Partial summary",
     "filter": "Filter",
     "productlist": "Product list",
@@ -19,7 +19,7 @@
     "header-logout": "Logout",
     "subheader-tab-components": "Components",
     "subheader-tab-accessories": "Accessories",
-    "subheader-add": "Add Assembly Group",
+    "subheader-add": "Add Bike Component",
     "modal-addbikecomponent-title": "Add Component",
     "modal-addbikecomponent-component": "Component",
     "modal-addbikecomponent-product-name-label": "Product Name",
@@ -30,9 +30,9 @@
     "modal-editcomponent-title": "Edit Component",
     "modal-editcomponent-name-label": "Component Name",
     "modal-editcomponent-name-placeholder": "Enter the component name here",
-    "modal-addgroup-title": "Add Assembly Group",
-    "modal-addgroup-name-label": "Group Name",
-    "modal-addgroup-name-placeholder": "Enter the group name here",
+    "modal-addcomponent-title": "Add Bike Component",
+    "modal-addcomponent-name-label": "Component Name",
+    "modal-addcomponent-name-placeholder": "Enter the component name here",
     "modal-close": "Close",
     "modal-save": "Save"
   }

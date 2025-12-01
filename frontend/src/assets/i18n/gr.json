@@ -19,7 +19,7 @@
     "header-logout": "Αποσύνδεση",
     "subheader-tab-components": "Συστατικά",
     "subheader-tab-accessories": "Αξεσουάρ",
-    "subheader-add": "Προσθήκη ομάδας συναρμολόγησης",
+    "subheader-add": "Προσθήκη Εξαρτήματος Ποδηλάτου",
     "modal-addbikecomponent-title": "Προσθήκη Εξαρτήματος",
     "modal-addbikecomponent-component": "Εξάρτημα",
     "modal-addbikecomponent-product-name-label": "Όνομα προϊόντος",
@@ -30,9 +30,9 @@
     "modal-editcomponent-title": "Επεξεργασία ονόματος εξαρτήματος",
     "modal-editcomponent-name-label": "Όνομα εξαρτήματος",
     "modal-editcomponent-name-placeholder": "Επεξεργαστείτε το όνομα του εξαρτήματος εδώ",
-    "modal-addgroup-title": "Προσθήκη ομάδας συναρμολόγησης",
-    "modal-addgroup-name-label": "Όνομα ομάδας",
-    "modal-addgroup-name-placeholder": "Εισάγετε το όνομα της ομάδας εδώ",
+    "modal-addcomponent-title": "Προσθήκη ομάδας συναρμολόγησης",
+    "modal-addcomponent-name-label": "Όνομα ομάδας",
+    "modal-addcomponent-name-placeholder": "Εισάγετε το όνομα της ομάδας εδώ",
     "modal-close": "Κλείσιμο",
     "modal-save": "Αποθήκευση"
   }
