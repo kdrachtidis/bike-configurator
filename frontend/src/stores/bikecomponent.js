@@ -32,6 +32,25 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     }
   };
 
+  async function createBikeComponent(bikeTypeId, name) { // Create a new bike component using hierarchical API
+    try {
+      console.log('BikeComponentStore: Creating component for bike type', bikeTypeId, 'with name:', name);
+      const { data } = await axios.post(`api/biketypes/${bikeTypeId}/bikecomponents/`, {
+        name: name // Name for the new component
+      });
+      console.log('BikeComponentStore: Component created successfully:', data);
+
+      // Add the new component to the local store
+      bikecomponents.value.push(data);
+      console.log('BikeComponentStore: Local store updated with new component');
+
+      return data; // Return the created component
+    } catch (error) {
+      console.error('Error creating bike component:', error);
+      throw error;
+    }
+  };
+
   async function updateBikeComponentByBikeType(bikeTypeId, componentId, newName) { // Update a bike component name using hierarchical API
     try {
       console.log('BikeComponentStore: Updating component', componentId, 'for bike type', bikeTypeId, 'with name:', newName); // Log update attempt
@@ -71,6 +90,7 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     currentBikeTypeId,
     getBikeComponentsByBikeType,
     getBikeComponentById,
+    createBikeComponent,
     updateBikeComponentByBikeType,
     setEditComponent,
     clearEditComponent

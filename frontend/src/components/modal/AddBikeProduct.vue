@@ -1,9 +1,5 @@
 <template>
-  <!-- Für Entwicklung: Modal immer sichtbar mit persistentem Backdrop -->
-  <div v-if="isDevelopment" class="dev-modal-backdrop"></div>
-  <div :class="['modal', isDevelopment ? 'show dev-modal' : 'fade']" id="AddBikeProduct" tabindex="-1"
-    aria-labelledby="exampleModalLabel" :aria-hidden="!isDevelopment"
-    :style="isDevelopment ? 'display: block; position: fixed; z-index: 1055;' : ''">
+  <div class="modal fade" id="AddBikeProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -16,7 +12,7 @@
             <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikepart.component-label")
             }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" :placeholder="$t('modal.addbikepart.component-label')"
+              <input type="text" class="form-control" :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
                 :aria-label="$t('modal.addbikepart.component-label')" aria-describedby="basic-addon1" disabled>
             </div>
 
@@ -64,29 +60,8 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { useBikeComponentStore } from '@/stores/bikecomponent'
 
-  // Development flag - set to false for production
-  const isDevelopment = ref(true) // Set to true to always show modal in development
+  // Store instance
+  const bikeComponentStore = useBikeComponentStore()
 </script>
-
-<style scoped>
-  .dev-modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
-    pointer-events: none;
-  }
-
-  .dev-modal {
-    pointer-events: auto;
-  }
-
-  .dev-modal .modal-dialog {
-    margin: 1.75rem auto;
-  }
-</style>

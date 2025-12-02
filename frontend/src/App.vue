@@ -21,7 +21,7 @@ import AppHeader from './components/ui/AppHeader.vue';
 import ConfiguratorHeader from './components/configuration/ConfigurationHeader.vue';
 import ConfiguratorList from './components/configuration/ConfigurationList.vue';
 import ConfiguratorProductList from './components/basket/List.vue';
-import ConfiguratorComponent from './components/modal/AddBikePart.vue';
+import ConfiguratorComponent from './components/modal/AddBikeProduct.vue';
 import LoginModal from './components/modal/LoginModal.vue';
 import AddBikeComponent from './components/modal/AddBikeComponent.vue';
 </script>
