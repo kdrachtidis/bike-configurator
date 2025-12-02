@@ -1,11 +1,6 @@
 {
   "message": {
-    "expand": "Erweitern und Zusammenbrechen",
-    "edit": "Bearbeiten",
-    "items": "Teile hinzugefügt",
-    "item": "Teil hinzugefügt",
     "partialsum": "Teilsumme",
-    "filter": "Filtern",
     "productlist": "Produktliste",
     "shop": "Shop",
     "header-title": "Fahrrad Konfigurator",
@@ -20,23 +15,27 @@
     "subheader-tab-components": "Komponenten",
     "subheader-tab-accessories": "Zubehör",
     "subheader-add": "Komponente hinzufügen",
-    "modal-addbikecomponent-title": "Komponente hinzufügen",
-    "modal-addbikecomponent-component": "Komponente",
-    "modal-addbikecomponent-product-name-label": "Produktname",
-    "modal-addbikecomponent-product-name-placeholder": "Geben Sie hier den Produktnamen ein",
-    "modal-addbikecomponent-product-price": "Preis",
-    "modal-addbikecomponent-product-source-label": "Quelle",
-    "modal-addbikecomponent-product-source-placeholder": "Kopieren Sie den Namen des E-Shops hierher",
-    "modal-editcomponent-title": "Komponente bearbeiten",
-    "modal-editcomponent-name-label": "Komponentenname",
-    "modal-editcomponent-name-placeholder": "Editieren Sie den Namen der Komponente hierher",
     "modal-addcomponent-title": "Komponente hinzufügen",
     "modal-addcomponent-name-label": "Komponentenname",
     "modal-addcomponent-name-placeholder": "Geben Sie den Namen der Komponente hier ein",
     "modal-close": "Schließen",
     "modal-save": "Speichern"
   },
-  "modal":{
+  "card": {
+    "header": {
+      "edit": "Bearbeiten",
+      "expand": "Erweitern und Zusammenbrechen"
+    },
+    "subheader": {
+      "items": "Teile hinzugefügt",
+      "item": "Teil hinzugefügt",
+      "filter": "Filtern"
+    },
+    "part":{
+      "tooltip-add": "Produkt hinzufügen"
+    }
+  },
+  "modal": {
     "addbikepart": {
       "title": "Produkt hinzufügen",
       "component-label": "Komponente",

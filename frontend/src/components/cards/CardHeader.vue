@@ -2,55 +2,33 @@
   <div class="card-header d-flex justify-content-between align-items-center bg-body-secondary">
     <!-- Show input when editing -->
     <div v-if="isEditing" class="flex-grow-1 me-2">
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        v-model="editedName"
-        @keyup.enter="saveName"
-        @keyup.esc="cancelEdit"
-        @blur="saveName"
-        ref="editInput"
-        :placeholder="$t('message.modal-editcomponent-name-placeholder')"
-      />
+      <input type="text" class="form-control form-control-sm" v-model="editedName" @keyup.enter="saveName"
+        @keyup.esc="cancelEdit" @blur="saveName" ref="editInput"
+        :placeholder="$t('message.modal-editcomponent-name-placeholder')" />
     </div>
     <!-- Show title when not editing -->
     <h4 v-else class="card-title mb-0 fw-light">{{ bikecomponent.name || "Component Name Empty" }}</h4>
 
     <div class="d-flex gap-2">
       <!-- Edit/Save/Cancel buttons -->
-      <button
-        v-if="!isEditing"
-        type="button"
-        class="btn btn-sm btn-outline-secondary"
-        @click="startEdit"
-        :title="$t('message.edit')"
-        :aria-label="$t('message.edit')">
-        <i class="bi bi-pencil"></i>
+      <button v-if="!isEditing" type="button" class="btn btn-sm btn-outline-secondary" @click="startEdit"
+        :title="$t('card.header.edit')" :aria-label="$t('card.header.edit')">
+        <i class="bi bi-pencil-fill"></i>
       </button>
-      <button
-        v-if="isEditing"
-        type="button"
-        class="btn btn-sm btn-outline-success"
-        @click="saveName"
-        :disabled="isLoading || !editedName.trim()"
-        title="Save"
-        aria-label="Save">
+      <button v-if="isEditing" type="button" class="btn btn-sm btn-outline-success" @click="saveName"
+        :disabled="isLoading || !editedName.trim()" title="Save" aria-label="Save">
         <span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <i v-else class="bi bi-check-lg"></i>
       </button>
-      <button
-        v-if="isEditing"
-        type="button"
-        class="btn btn-sm btn-outline-danger"
-        @click="cancelEdit"
-        title="Cancel"
+      <button v-if="isEditing" type="button" class="btn btn-sm btn-outline-danger" @click="cancelEdit" title="Cancel"
         aria-label="Cancel">
         <i class="bi bi-x-lg"></i>
       </button>
 
       <!-- Collapse button -->
       <button type="button" class="btn btn-sm btn-outline-secondary" @click="toggleCollapseManually"
-        :aria-label="$t('message.expand')">
+        data-toggle="tooltip" data-placement="bottom" :title="$t('card.header.expand')"
+        :aria-label="$t('card.header.expand')">
         <i :class="isCollapsed ? 'bi bi-chevron-down' : 'bi bi-chevron-up'"></i>
       </button>
     </div>
