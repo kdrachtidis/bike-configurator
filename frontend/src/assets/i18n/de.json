@@ -35,5 +35,29 @@
     "modal-addcomponent-name-placeholder": "Geben Sie den Namen der Komponente hier ein",
     "modal-close": "Schließen",
     "modal-save": "Speichern"
+  },
+  "modal":{
+    "addbikepart": {
+      "title": "Produkt hinzufügen",
+      "component-label": "Komponente",
+      "product-name-label": "Produktname",
+      "product-name-placeholder": "Geben Sie hier den Produktnamen ein",
+      "product-price-label": "Preis",
+      "product-price-currency": "€",
+      "product-source-label": "Quelle",
+      "product-source-placeholder": "Kopieren Sie den Namen des E-Shops hierher"
+    },
+    "editcomponent": {
+      "title": "Komponente bearbeiten",
+      "name-label": "Komponentenname",
+      "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
+    },
+    "addcomponent": {
+      "title": "Komponente hinzufügen",
+      "name-label": "Komponentenname",
+      "name-placeholder": "Geben Sie den Namen der Komponente hier ein"
+    },
+    "close": "Schließen",
+    "save": "Speichern"
   }
 }
