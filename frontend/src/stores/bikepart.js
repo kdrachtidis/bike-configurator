@@ -5,6 +5,7 @@ import { ref } from 'vue';
 export const useBikePartStore = defineStore('bikeparts', () => { // Define the bike parts store
   const bikeparts = ref([]); // All bike parts
   const bikepartsByComponent = ref(new Map()); // Grouped bike parts by component_id
+  const currentEditPart = ref(null); // Currently editing part
 
   async function getBikeParts() { // Fetch all modules
     try {
@@ -44,11 +45,24 @@ export const useBikePartStore = defineStore('bikeparts', () => { // Define the b
     return bikepartsByComponent.value.get(componentId) || []; // Return modules for the component or empty array
   }
 
+  // Function to set the part to edit
+  function setEditPart(part) {
+    currentEditPart.value = part;
+  }
+
+  // Function to clear the edit part
+  function clearEditPart() {
+    currentEditPart.value = null;
+  }
+
   return {
     bikeparts: bikeparts, // All bike parts
     bikepartsByComponent: bikepartsByComponent, // Bike parts grouped by component
+    currentEditPart: currentEditPart, // Currently editing part
     getBikeParts: getBikeParts, // Get all bike parts
     getBikePartsByComponent: getBikePartsByComponent, // Get bike parts for specific component
-    getBikePartsForComponent: getBikePartsForComponent // Get bike parts for a specific component
+    getBikePartsForComponent: getBikePartsForComponent, // Get bike parts for a specific component
+    setEditPart: setEditPart, // Set the part to edit
+    clearEditPart: clearEditPart // Clear the edit part
   };
 });

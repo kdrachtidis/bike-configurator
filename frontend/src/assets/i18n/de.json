@@ -40,6 +40,7 @@
     "addbikepart": {
       "title": "Produkt hinzufügen",
       "component-label": "Komponente",
+      "part-label": "Teil",
       "product-name-label": "Produktname",
       "product-name-placeholder": "Geben Sie hier den Produktnamen ein",
       "product-price-label": "Preis",

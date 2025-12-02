@@ -12,8 +12,18 @@
             <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikepart.component-label")
             }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
-                :aria-label="$t('modal.addbikepart.component-label')" aria-describedby="basic-addon1" disabled>
+              <input type="text" class="form-control-plaintext"
+                :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
+                :aria-label="$t('modal.addbikepart.component-label')" aria-describedby="basic-addon1" readonly>
+            </div>
+
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikepart.part-label")
+            }}:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext" :value="bikePartStore.currentEditPart?.name || 'No part selected'"
+                :aria-label="$t('modal.addbikepart.part-label')" aria-describedby="basic-addon1" readonly>
             </div>
 
           </div>
@@ -61,7 +71,9 @@
 
 <script setup>
   import { useBikeComponentStore } from '@/stores/bikecomponent'
+  import { useBikePartStore } from '@/stores/bikepart'
 
-  // Store instance
+  // Store instances
   const bikeComponentStore = useBikeComponentStore()
+  const bikePartStore = useBikePartStore()
 </script>
