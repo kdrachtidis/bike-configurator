@@ -41,8 +41,8 @@
         </ul>
       </div>
       <div class="col-md-6 text-end">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-          data-bs-target="#AddBikeComponent" data-toggle="tooltip" data-placement="bottom"
+        <button type="button" class="btn btn-sm btn-outline-secondary" @click="openAddBikeComponentModal"
+          data-toggle="tooltip" data-placement="bottom"
           :title="$t('message.subheader-add')" :aria-label="$t('message.subheader-add')">{{
             $t('message.subheader-add') }}</button>
       </div>
@@ -110,6 +110,11 @@
     } catch (error) { // Error handling
       console.error('Error setting bike type:', error);
     }
+  }
+
+  // Function to open the Add Bike Component modal
+  function openAddBikeComponentModal() {
+    window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'));
   }
 
 </script>

@@ -1,7 +1,7 @@
 <template>
   <section class="card border-secondary mb-3">
-    <ConfiguratorModuleHeader :bikecomponent="bikecomponent" />
-    <ConfiguratorModuleSubHeader :count="currentBikeParts.length" />
+    <BikeComponentHeader :bikecomponent="bikecomponent" />
+    <BikeComponentSubHeader :count="currentBikeParts.length" />
     <div class="collapse show" :id="'collapse-' + bikecomponent.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
         <!-- Loading State -->
@@ -23,33 +23,31 @@
         </div>
 
         <!-- No Parts Found -->
-        <div v-else-if="currentBikeParts.length === 0" class="alert alert-info m-2">
-          <small>
-            <i class="bi bi-info-circle me-1"></i>
-            Keine Teile für {{ bikecomponent?.name }} verfügbar.
-          </small>
+        <div v-else-if="currentBikeParts.length === 0">
+          <BikePartUnassigned :bikecomponent="bikecomponent" />
         </div>
 
         <ul class="list-group list-group-flush">
           <li v-for="bikepart in currentBikeParts" :key="bikepart.id"
             class="list-group-item bg-dark-subtle">
-            <ConfiguratorModuleItemCategory v-if="moduleState" :bikepart="bikepart" />
-            <ConfiguratorModuleItemProduct v-else :bikepart="bikepart" :Category="wtf" />
+            <BikePart v-if="moduleState" :bikepart="bikepart" :bikecomponent="bikecomponent" />
+            <BikeProduct v-else :bikepart="bikepart" :Category="wtf" />
           </li>
         </ul>
       </div>
     </div>
-    <ConfiguratorModuleFooter :Sum="ModuleSum" />
+    <BikeComponentFooter :Sum="ModuleSum" />
   </section>
 </template>
 
 <script setup>
   import { onMounted, watch, computed, ref } from 'vue'
-  import ConfiguratorModuleHeader from './CardHeader.vue'
-  import ConfiguratorModuleFooter from './CardFooter.vue'
-  import ConfiguratorModuleSubHeader from './CardSubHeader.vue'
-  import ConfiguratorModuleItemCategory from './CardItemCategory.vue'
-  import ConfiguratorModuleItemProduct from './CardItemProduct.vue'
+  import BikeComponentHeader from './CardHeader.vue'
+  import BikeComponentSubHeader from './CardSubHeader.vue'
+  import BikePart from './CardItemCategory.vue'
+  import BikeProduct from './CardItemProduct.vue'
+  import BikePartUnassigned from './CardItemEmpty.vue'
+  import BikeComponentFooter from './CardFooter.vue'
 
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeTypeStore } from '@/stores/biketype'
