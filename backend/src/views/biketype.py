@@ -24,27 +24,27 @@ def create_a_bike_type(input: BikeTypeInput, session: SessionDependency, user: U
 
 # Read all bike types
 
-@router.get("/", tags=[swagger_desc.tags], description=swagger_desc.description_read_all)
+@router.get("/", tags=[swagger_desc.tags], description=swagger_desc.description_read_all, status_code=status.HTTP_200_OK)
 def read_all_bike_types(session: SessionDependency) -> list:
     return read_all_biketypes(session=session)
 
 # Read a bike type
 
 
-@router.get("/{type_id}", response_model=BikeTypeOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read)
+@router.get("/{type_id}", response_model=BikeTypeOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read, status_code=status.HTTP_200_OK)
 def read_a_bike_type(type_id: int, session: SessionDependency) -> BikeType:
     return read_biketype(biketype_id=type_id, session=session)
 
 # Edit a biketype
 
 
-@router.put("/{type_id}", response_model=BikeType, tags=[swagger_desc.tags], description=swagger_desc.description_update)
+@router.put("/{type_id}", response_model=BikeType, tags=[swagger_desc.tags], description=swagger_desc.description_update, status_code=status.HTTP_200_OK)
 def update_a_bike_type(type_id: int, new_data: BikeTypeInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeType:
     return update_biketype(biketype_id=type_id, input=new_data, session=session)
 
 # Delete a bike type
 
 
-@router.delete("/{type_id}", status_code=204, tags=[swagger_desc.tags], description=swagger_desc.description_delete)
+@router.delete("/{type_id}", tags=[swagger_desc.tags], description=swagger_desc.description_delete, status_code=status.HTTP_204_NO_CONTENT)
 def delete_a_bike_type(type_id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
     return delete_biketype(biketype_id=type_id, session=session)
