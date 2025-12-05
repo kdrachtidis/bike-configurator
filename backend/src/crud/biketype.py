@@ -55,6 +55,7 @@ def update_biketype(biketype_id: int, input: BikeTypeInput, session: SessionDepe
     if biketype:
         biketype.name = input.name
         session.commit()
+        session.refresh(biketype)
         log_print("update", obj_id=biketype_id, obj_type=msg_object_type)
         return biketype
     else:

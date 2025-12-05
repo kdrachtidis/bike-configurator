@@ -171,6 +171,7 @@ def update_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepa
     # Update the bike part
     bikepart.name = input.name
     session.commit()
+    session.refresh(bikepart)
     log_print("update", obj_id=bikepart_id, obj_type=msg_object_type)
     return bikepart
 
