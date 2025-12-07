@@ -9,41 +9,47 @@ from src.models.biketype import BikeType
 
 client = TestClient(app)
 
-class TestBikePartRead:
-    def test_read_bikepart_with_mock_session(self):
-        from src.crud.bikepart import read_bikepart
+class TestBikePartReadAll:
+    def test_read_all_bikeparts_with_mock_session(self):
+        from src.crud.bikepart import read_all_bikeparts
         
         # Arrange
         mock_session = Mock()
-        mock_bikepart = BikePart(id=5, name="Test Bike Part")
-        mock_session.get.return_value = mock_bikepart
+        mock_result = Mock()
+        mock_bikepart1 = BikePart(id=1, name="Part 1")
+        mock_bikepart2 = BikePart(id=2, name="Part 2")
+        mock_result.all.return_value = [mock_bikepart1, mock_bikepart2]
+        mock_session.exec.return_value = mock_result
         
         # Act
-        result = read_bikepart(bikepart_id=5, session=mock_session)
+        result = read_all_bikeparts(session=mock_session)
         
         # Assert
-        mock_session.get.assert_called_once_with(BikePart, 5)
-        assert result == mock_bikepart
-        assert result.name == "Test Bike Part"
-        assert result.id == 5
+        assert isinstance(result, list)
+        assert len(result) == 2
+        assert result[0].name == "Part 1"
+        assert result[1].name == "Part 2"
+        mock_session.exec.assert_called_once()
     
-    def test_read_bikepart_not_found(self):
-        from src.crud.bikepart import read_bikepart
+    def test_read_all_bikeparts_empty(self):
+        from src.crud.bikepart import read_all_bikeparts
         
         # Arrange
         mock_session = Mock()
-        mock_session.get.return_value = None
+        mock_result = Mock()
+        mock_result.all.return_value = []
+        mock_session.exec.return_value = mock_result
         
-        # Act & Assert
-        try:
-            read_bikepart(bikepart_id=999, session=mock_session)
-            assert False, "Expected HTTPException to be raised"
-        except HTTPException as e:
-            assert e.status_code == 404
+        # Act
+        result = read_all_bikeparts(session=mock_session)
+        
+        # Assert
+        assert isinstance(result, list)
+        assert len(result) == 0
 
-class TestBikePartReadAll:
+class TestBikePartReadByHierarchy:
     def test_read_bikeparts_by_hierarchy_with_mock_session(self):
-        from src.crud.bikepart import read_bikeparts_by_hierarchy
+        from src.crud.bikepart import read_bikeparts
         
         # Arrange
         mock_session = Mock()
@@ -68,7 +74,7 @@ class TestBikePartReadAll:
         mock_session.get.side_effect = mock_get
         
         # Act
-        result = read_bikeparts_by_hierarchy(biketype_id=2, bikecomponent_id=3, session=mock_session)
+        result = read_bikeparts(biketype_id=2, bikecomponent_id=3, session=mock_session)
         
         # Assert
         assert isinstance(result, list)
@@ -77,8 +83,8 @@ class TestBikePartReadAll:
         assert mock_session.get.call_count == 2
 
 class TestBikePartCreate:
-    def test_create_bikepart_by_hierarchy_with_mock_session(self):
-        from src.crud.bikepart import create_bikepart_by_hierarchy
+    def test_create_bikepart_with_mock_session(self):
+        from src.crud.bikepart import create_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -102,7 +108,7 @@ class TestBikePartCreate:
         input_data = BikePartInput(name="New Bike Part")
         
         # Act
-        result = create_bikepart_by_hierarchy(biketype_id=2, bikecomponent_id=3, input=input_data, session=mock_session)
+        result = create_bikepart(biketype_id=2, bikecomponent_id=3, input=input_data, session=mock_session)
         
         # Assert
         assert isinstance(result, BikePart)
@@ -112,9 +118,9 @@ class TestBikePartCreate:
         assert mock_session.refresh.called
         assert mock_session.get.call_count == 2
 
-class TestBikePartReadByHierarchy:
-    def test_read_bikepart_by_hierarchy_with_mock_session(self):
-        from src.crud.bikepart import read_bikepart_by_hierarchy
+class TestBikePartReadSingle:
+    def test_read_bikepart_with_mock_session(self):
+        from src.crud.bikepart import read_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -140,7 +146,7 @@ class TestBikePartReadByHierarchy:
         mock_session.get.side_effect = mock_get
         
         # Act
-        result = read_bikepart_by_hierarchy(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
+        result = read_bikepart(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
         
         # Assert
         assert result == mock_bikepart
@@ -148,8 +154,8 @@ class TestBikePartReadByHierarchy:
         assert result.id == 1
         assert mock_session.get.call_count == 3
     
-    def test_read_bikepart_by_hierarchy_biketype_not_found(self):
-        from src.crud.bikepart import read_bikepart_by_hierarchy
+    def test_read_bikepart_biketype_not_found(self):
+        from src.crud.bikepart import read_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -157,13 +163,13 @@ class TestBikePartReadByHierarchy:
         
         # Act & Assert
         try:
-            read_bikepart_by_hierarchy(biketype_id=999, bikecomponent_id=3, bikepart_id=1, session=mock_session)
+            read_bikepart(biketype_id=999, bikecomponent_id=3, bikepart_id=1, session=mock_session)
             assert False, "Expected HTTPException to be raised"
         except HTTPException as e:
             assert e.status_code == 404
     
-    def test_read_bikepart_by_hierarchy_part_not_in_component(self):
-        from src.crud.bikepart import read_bikepart_by_hierarchy
+    def test_read_bikepart_part_not_in_component(self):
+        from src.crud.bikepart import read_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -189,15 +195,15 @@ class TestBikePartReadByHierarchy:
         
         # Act & Assert
         try:
-            read_bikepart_by_hierarchy(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
+            read_bikepart(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
             assert False, "Expected HTTPException to be raised"
         except HTTPException as e:
             assert e.status_code == 404
             assert "not found in bike component" in str(e.detail)
 
-class TestBikePartUpdateByHierarchy:
-    def test_update_bikepart_by_hierarchy_with_mock_session(self):
-        from src.crud.bikepart import update_bikepart_by_hierarchy
+class TestBikePartUpdate:
+    def test_update_bikepart_with_mock_session(self):
+        from src.crud.bikepart import update_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -226,16 +232,16 @@ class TestBikePartUpdateByHierarchy:
         new_data = BikePartInput(name="New Name")
         
         # Act
-        result = update_bikepart_by_hierarchy(biketype_id=2, bikecomponent_id=3, bikepart_id=1, input=new_data, session=mock_session)
+        result = update_bikepart(biketype_id=2, bikecomponent_id=3, bikepart_id=1, input=new_data, session=mock_session)
         
         # Assert
         assert result.name == "New Name"
         assert mock_session.commit.called
         assert mock_session.get.call_count == 3
 
-class TestBikePartDeleteByHierarchy:
-    def test_delete_bikepart_by_hierarchy_with_mock_session(self):
-        from src.crud.bikepart import delete_bikepart_by_hierarchy
+class TestBikePartDelete:
+    def test_delete_bikepart_with_mock_session(self):
+        from src.crud.bikepart import delete_bikepart
         
         # Arrange
         mock_session = Mock()
@@ -261,7 +267,7 @@ class TestBikePartDeleteByHierarchy:
         mock_session.get.side_effect = mock_get
         
         # Act
-        delete_bikepart_by_hierarchy(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
+        delete_bikepart(biketype_id=2, bikecomponent_id=3, bikepart_id=1, session=mock_session)
         
         # Assert
         mock_session.delete.assert_called_once_with(existing_part)

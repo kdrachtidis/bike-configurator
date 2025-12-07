@@ -14,23 +14,21 @@ SessionDependency = Annotated[Session, Depends(get_session)]
 # Logs
 msg_object_type = "bike part"
 
-# Read a bike part
+
+# Read all bike parts
 
 
-def read_bikepart(bikepart_id: int, session: SessionDependency) -> BikePart:
-    bikepart = session.get(BikePart, bikepart_id)  # Get bike part by ID
-    if bikepart:
-        log_print("read", obj_id=bikepart_id, obj_type=msg_object_type)
-        return bikepart
-    else:
-        raise HTTPException(
-            status_code=404, detail=log_exception("part", obj_id=bikepart_id))
+def read_all_bikeparts(session: SessionDependency) -> list[BikePart]:
+    statement = select(BikePart)
+    bikeparts = session.exec(statement).all()
+    log_print("read_all", obj_type=msg_object_type)
+    return list(bikeparts)
 
 
 # Read bike parts by hierarchy
 
 
-def read_bikeparts_by_hierarchy(biketype_id: int, bikecomponent_id: int, session: SessionDependency) -> list:
+def read_bikeparts(biketype_id: int, bikecomponent_id: int, session: SessionDependency) -> list:
     # First check if biketype exists
     biketype = session.get(BikeType, biketype_id)  # Get bike type by ID
     if not biketype:
@@ -61,7 +59,7 @@ def read_bikeparts_by_hierarchy(biketype_id: int, bikecomponent_id: int, session
 # Create a bike part by hierarchy
 
 
-def create_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, input: BikePartInput, session: SessionDependency) -> BikePart:
+def create_bikepart(biketype_id: int, bikecomponent_id: int, input: BikePartInput, session: SessionDependency) -> BikePart:
     # First check if biketype exists
     biketype = session.get(BikeType, biketype_id)  # Get bike type by ID
     if not biketype:  # If not found
@@ -70,7 +68,8 @@ def create_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, input:
         )
 
     # Then check if bike component exists
-    bikecomponent = session.get(BikeComponent, bikecomponent_id)  # Get bike component by ID
+    # Get bike component by ID
+    bikecomponent = session.get(BikeComponent, bikecomponent_id)
     if not bikecomponent:
         raise HTTPException(
             status_code=404, detail=log_exception("component", obj_id=bikecomponent_id)
@@ -94,7 +93,7 @@ def create_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, input:
 # Read an bike part by hierarchy
 
 
-def read_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepart_id: int, session: SessionDependency) -> BikePart:
+def read_bikepart(biketype_id: int, bikecomponent_id: int, bikepart_id: int, session: SessionDependency) -> BikePart:
     # First check if biketype exists
     biketype = session.get(BikeType, biketype_id)
     if not biketype:
@@ -134,7 +133,7 @@ def read_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepart
 # Update bike part by hierarchy
 
 
-def update_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepart_id: int, input: BikePartInput, session: SessionDependency) -> BikePart:
+def update_bikepart(biketype_id: int, bikecomponent_id: int, bikepart_id: int, input: BikePartInput, session: SessionDependency) -> BikePart:
     # First check if biketype exists
     biketype = session.get(BikeType, biketype_id)
     if not biketype:
@@ -178,7 +177,7 @@ def update_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepa
 # Delete bike part by hierarchy
 
 
-def delete_bikepart_by_hierarchy(biketype_id: int, bikecomponent_id: int, bikepart_id: int, session: SessionDependency) -> None:
+def delete_bikepart(biketype_id: int, bikecomponent_id: int, bikepart_id: int, session: SessionDependency) -> None:
     # First check if biketype exists
     biketype = session.get(BikeType, biketype_id)
     if not biketype:
