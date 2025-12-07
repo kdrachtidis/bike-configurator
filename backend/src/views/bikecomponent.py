@@ -35,7 +35,7 @@ def read_all_bike_components_by_biketype(type_id: int, session: SessionDependenc
 
 
 @router.post("/biketypes/{type_id}/bikecomponents/", response_model=BikeComponent, tags=[swagger_desc.tags], description=swagger_desc.description_create, status_code=status.HTTP_201_CREATED)
-def create_a_bike_component(type_id: int, input: BikeComponentInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
+def post_bike_component(type_id: int, input: BikeComponentInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
     return create_bikecomponent(biketype_id=type_id, input=input, session=session)
 
 
@@ -43,7 +43,7 @@ def create_a_bike_component(type_id: int, input: BikeComponentInput, session: Se
 
 
 @router.get("/biketypes/{type_id}/bikecomponents/{component_id}", response_model=BikeComponentOutput, tags=[swagger_desc.tags], description=swagger_desc.description_read, status_code=status.HTTP_200_OK)
-def read_bike_component_by_biketype(type_id: int, component_id: int, session: SessionDependency) -> BikeComponent:
+def get_bike_component(type_id: int, component_id: int, session: SessionDependency) -> BikeComponent:
     return read_bikecomponent_by_biketype(biketype_id=type_id, bikecomponent_id=component_id, session=session)
 
 
@@ -51,13 +51,13 @@ def read_bike_component_by_biketype(type_id: int, component_id: int, session: Se
 
 
 @router.put("/biketypes/{type_id}/bikecomponents/{component_id}", response_model=BikeComponent, tags=[swagger_desc.tags], description=swagger_desc.description_update, status_code=status.HTTP_200_OK)
-def update_bike_component_by_biketype(type_id: int, component_id: int, new_bikecomponent: BikeComponentInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
+def put_bike_component(type_id: int, component_id: int, new_bikecomponent: BikeComponentInput, session: SessionDependency, user: User = Depends(get_current_user)) -> BikeComponent:
     return update_bikecomponent_by_biketype(biketype_id=type_id, bikecomponent_id=component_id, input=new_bikecomponent, session=session)
 
 
 # Delete a bike component by hierarchy
 
 
-@router.delete("/biketypes/{type_id}/bikecomponents/{component_id}", tags=[swagger_desc.tags], description=swagger_desc.description_delete, status_code=status.HTTP_200_OK)
-def delete_bike_component_by_biketype(type_id: int, component_id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
+@router.delete("/biketypes/{type_id}/bikecomponents/{component_id}", tags=[swagger_desc.tags], description=swagger_desc.description_delete, status_code=status.HTTP_204_NO_CONTENT)
+def delete_bike_component(type_id: int, component_id: int, session: SessionDependency, user: User = Depends(get_current_user)) -> None:
     return delete_bikecomponent_by_biketype(biketype_id=type_id, bikecomponent_id=component_id, session=session)
