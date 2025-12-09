@@ -45,41 +45,88 @@ def read_all_bikeproducts(source: str | None = None,
     return session.exec(query).all()
 
 
-def read_bikeproduct(bikeproduct_id: int, session: SessionDependency) -> None:
-    # Get bike product by ID
-    bikeproduct = session.get(BikeProduct, bikeproduct_id)
-    if bikeproduct:  # If found
-        log_print("read", obj_id=bikeproduct_id, obj_type=msg_object_type)
-        return bikeproduct
-    else:
+def read_bikeproduct(part_id: int, product_id: int, session: SessionDependency) -> BikeProduct:
+    # First check if bike part exists
+    bikepart = session.get(BikePart, part_id)
+    if not bikepart:
         raise HTTPException(
-            status_code=404, detail=log_exception("product", obj_id=bikeproduct_id))
+            status_code=404, detail=log_exception("part", obj_id=part_id)
+        )
+    
+    # Then get the bike product
+    bikeproduct = session.get(BikeProduct, product_id)
+    if not bikeproduct:
+        raise HTTPException(
+            status_code=404, detail=log_exception("product", obj_id=product_id)
+        )
+    
+    # Verify that the bike product belongs to the specified bike part
+    if bikeproduct not in bikepart.bikeproducts:
+        raise HTTPException(
+            status_code=404, detail=f"Bike product {product_id} not found in bike part {part_id}"
+        )
+    
+    log_print("read", obj_id=product_id, obj_type=msg_object_type)
+    return bikeproduct
 
     # Update
 
 
-def update_bikeproduct(bikeproduct_id: int, new_data: BikeProductInput, session: SessionDependency) -> BikeProduct:
-    bikeproduct = session.get(BikeProduct, bikeproduct_id)
-    if bikeproduct:
-        bikeproduct.name = new_data.name
-        bikeproduct.source = new_data.source
-        bikeproduct.price = new_data.price
-        session.commit()
-        log_print("update", obj_id=bikeproduct_id, obj_type=msg_object_type)
-        return bikeproduct
-    else:
+def update_bikeproduct(part_id: int, product_id: int, new_data: BikeProductInput, session: SessionDependency) -> BikeProduct:
+    # First check if bike part exists
+    bikepart = session.get(BikePart, part_id)
+    if not bikepart:
         raise HTTPException(
-            status_code=404, detail=log_exception("product", obj_id=bikeproduct_id))
+            status_code=404, detail=log_exception("part", obj_id=part_id)
+        )
+    
+    # Then get the bike product
+    bikeproduct = session.get(BikeProduct, product_id)
+    if not bikeproduct:
+        raise HTTPException(
+            status_code=404, detail=log_exception("product", obj_id=product_id)
+        )
+    
+    # Verify that the bike product belongs to the specified bike part
+    if bikeproduct not in bikepart.bikeproducts:
+        raise HTTPException(
+            status_code=404, detail=f"Bike product {product_id} not found in bike part {part_id}"
+        )
+    
+    # Update the bike product
+    bikeproduct.name = new_data.name
+    bikeproduct.source = new_data.source
+    bikeproduct.price = new_data.price
+    session.commit()
+    session.refresh(bikeproduct)
+    log_print("update", obj_id=product_id, obj_type=msg_object_type)
+    return bikeproduct
 
 # Delete
 
 
-def delete_bikeproduct(bikeproduct_id: int, session: SessionDependency) -> None:
-    bikeproduct = session.get(BikeProduct, bikeproduct_id)
-    if bikeproduct:
-        session.delete(bikeproduct)
-        session.commit()
-        log_print("delete", obj_id=bikeproduct_id, obj_type=msg_object_type)
-    else:
+def delete_bikeproduct(part_id: int, product_id: int, session: SessionDependency) -> None:
+    # First check if bike part exists
+    bikepart = session.get(BikePart, part_id)
+    if not bikepart:
         raise HTTPException(
-            status_code=404, detail=log_exception("product", obj_id=bikeproduct_id))
+            status_code=404, detail=log_exception("part", obj_id=part_id)
+        )
+    
+    # Then get the bike product
+    bikeproduct = session.get(BikeProduct, product_id)
+    if not bikeproduct:
+        raise HTTPException(
+            status_code=404, detail=log_exception("product", obj_id=product_id)
+        )
+    
+    # Verify that the bike product belongs to the specified bike part
+    if bikeproduct not in bikepart.bikeproducts:
+        raise HTTPException(
+            status_code=404, detail=f"Bike product {product_id} not found in bike part {part_id}"
+        )
+    
+    # Delete the bike product
+    session.delete(bikeproduct)
+    session.commit()
+    log_print("delete", obj_id=product_id, obj_type=msg_object_type)

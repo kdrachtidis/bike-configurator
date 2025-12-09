@@ -4,7 +4,7 @@ from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from src.utils.database import get_session
-from src.views.bikeproduct import read_all_bike_products
+from src.views.bikeproduct import get_bike_products
 
 router = APIRouter()
 
@@ -22,7 +22,7 @@ def home(request: Request, cookie: str | None = Cookie(None)):
 def search(*, source: str = Form(...),
            request: Request,
            session: Session = Depends(get_session)):
-    products = read_all_bike_products(
+    products = get_bike_products(
         source=source, session=session)
     return templates.TemplateResponse("search_results.html",
                                       {"request": request, "products": products})
