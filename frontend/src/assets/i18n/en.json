@@ -1,11 +1,6 @@
 {
   "message": {
-    "expand": "Expand and Collapse",
-    "edit": "Edit",
-    "items": "Parts added",
-    "item": "Part added",
     "partialsum": "Partial summary",
-    "filter": "Filter",
     "productlist": "Product list",
     "shop": "Shop",
     "header-title": "Bike Configurator",
@@ -20,20 +15,49 @@
     "subheader-tab-components": "Components",
     "subheader-tab-accessories": "Accessories",
     "subheader-add": "Add Bike Component",
-    "modal-addbikecomponent-title": "Add Component",
-    "modal-addbikecomponent-component": "Component",
-    "modal-addbikecomponent-product-name-label": "Product Name",
-    "modal-addbikecomponent-product-name-placeholder": "Enter the product name here",
-    "modal-addbikecomponent-product-price": "Price",
-    "modal-addbikecomponent-product-source-label": "Source",
-    "modal-addbikecomponent-product-source-placeholder": "Copy the eshop's name here",
-    "modal-editcomponent-title": "Edit Component",
-    "modal-editcomponent-name-label": "Component Name",
-    "modal-editcomponent-name-placeholder": "Enter the component name here",
     "modal-addcomponent-title": "Add Bike Component",
     "modal-addcomponent-name-label": "Component Name",
     "modal-addcomponent-name-placeholder": "Enter the component name here",
     "modal-close": "Close",
     "modal-save": "Save"
+  },
+  "card": {
+    "header": {
+      "edit": "Edit",
+      "expand": "Expand and Collapse"
+    },
+    "subheader": {
+      "items": "Parts added",
+      "item": "Part added",
+      "filter": "Filter"
+    },
+    "part": {
+      "tooltip-add": "Add product"
+    }
+  },
+  "modal": {
+    "addbikepart": {
+      "title": "Add Product",
+      "component-label": "Component",
+      "part-label": "Part",
+      "product-name-label": "Product Name",
+      "product-name-placeholder": "Enter the product name here",
+      "product-price-label": "Price",
+      "product-price-currency": "€",
+      "product-source-label": "Source",
+      "product-source-placeholder": "Copy the eshop's name here"
+    },
+    "editcomponent": {
+      "title": "Edit Component",
+      "name-label": "Component Name",
+      "name-placeholder": "Edit the component name here"
+    },
+    "addcomponent": {
+      "title": "Add Bike Component",
+      "name-label": "Component Name",
+      "name-placeholder": "Enter the component name here"
+    },
+    "close": "Close",
+    "save": "Save"
   }
 }
