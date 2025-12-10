@@ -1,7 +1,7 @@
 <template>
   <div class="justify-content-between">
     <div class="row">
-      <div class="col-9"><a href="#" class="link-light link-underline-secondary link-offset-1">{{ Product ||
+      <div class="col-9"><a href="#" class="link-light link-underline-secondary link-offset-1">{{ props.bikeproduct.name ||
         "Product empty" }}</a></div>
       <div class="col-3 text-end"> <button type="button" class="btn btn-sm btn-outline-light" aria-label="Editieren"><i
             class="bi bi-pencil"></i></button></div>
@@ -15,7 +15,7 @@
 
 <script setup>
   const props = defineProps({
-    bikepart: { type: Object, required: true },
-    Category: String
+    bikeproduct: { type: Object, required: true },
+    bikepart: { type: Object, required: true }
   })
 </script>
