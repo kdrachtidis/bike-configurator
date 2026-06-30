@@ -31,11 +31,11 @@ RUN chown -R $USERNAME:$USERNAME /home/$USERNAME
 # switch to non-root user
 USER $USERNAME
 
-# Script ausführbar machen
+# Make the startup script executable
 RUN chmod +x /home/$USERNAME/startup.sh
 
-# Verwende absoluten Pfad ohne Variable
-CMD ["/home/appuser/startup.sh"]
+# Applying the CMD instruction to run the startup script
+CMD /home/$USERNAME/startup.sh
 
 # RUN python demo/create_content.py
 # CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
