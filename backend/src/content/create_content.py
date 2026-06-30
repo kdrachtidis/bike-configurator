@@ -16,14 +16,14 @@ if not DATABASE_URL:
 
 from sqlmodel import SQLModel, Session, create_engine
 from src.content.roadbike import set_roadbike
-from src.content.mountainbike import set_mtb
+from src.content.mountainbike import set_mountainbike
 
 engine = create_engine(DATABASE_URL, echo=True)
 
 
 def create_demo_content():
     session = Session(engine)
-    session_data = set_roadbike() + set_mtb()
+    session_data = set_roadbike() + set_mountainbike()
     session.add_all(session_data)
     session.commit()
     session.close()

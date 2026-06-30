@@ -3,7 +3,7 @@ from src.models.bikecomponent import BikeComponent
 from src.models.bikepart import BikePart
 
 
-def set_mtb():
+def set_mountainbike():
     MountainBike = BikeType(name="Mountainbike")
 
     def set_component_1():
