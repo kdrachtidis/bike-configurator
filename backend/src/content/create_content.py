@@ -15,6 +15,7 @@ if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL is not set!")
 
 from sqlmodel import SQLModel, Session, create_engine
+from src.models.bikeproduct import BikeProduct
 from src.content.roadbike import set_roadbike
 from src.content.mountainbike import set_mountainbike
 
