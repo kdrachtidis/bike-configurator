@@ -2,6 +2,19 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
+function sortBikeComponents(items) {
+  return [...items].sort((a, b) => {
+    const aOrder = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
+    const bOrder = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;
+
+    if (aOrder !== bOrder) {
+      return aOrder - bOrder;
+    }
+
+    return (a.id ?? Number.MAX_SAFE_INTEGER) - (b.id ?? Number.MAX_SAFE_INTEGER);
+  });
+}
+
 export const useBikeComponentStore = defineStore('bikecomponents', () => { // Define the bike components store
   const bikecomponents = ref([]); // All bike components
   const currentEditComponent = ref(null); // Currently editing component
@@ -11,10 +24,10 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     try {
       console.log('BikeComponentStore: Fetching components for bike type ID:', bikeTypeId);
       const { data } = await axios.get(`api/biketypes/${bikeTypeId}/bikecomponents`); // Use hierarchical API
-      bikecomponents.value = data; // Store bike components for this bike type
+      bikecomponents.value = sortBikeComponents(data); // Store bike components for this bike type in a stable order
       currentBikeTypeId.value = bikeTypeId; // Store the current bike type ID
-      console.log('BikeComponentStore: Components loaded:', data);
-      return data;
+      console.log('BikeComponentStore: Components loaded:', bikecomponents.value);
+      return bikecomponents.value;
     } catch (error) {
       console.error('Error fetching bike components by bike type:', error);
       bikecomponents.value = []; // Clear on error
@@ -40,8 +53,8 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
       });
       console.log('BikeComponentStore: Component created successfully:', data);
 
-      // Add the new component to the local store
-      bikecomponents.value.push(data);
+      // Add the new component to the local store while preserving order
+      bikecomponents.value = sortBikeComponents([...bikecomponents.value, data]);
       console.log('BikeComponentStore: Local store updated with new component');
 
       return data; // Return the created component
@@ -59,11 +72,12 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
       });
       console.log('BikeComponentStore: Component updated successfully:', data);
 
-      // Update the local store reactively
+      // Update the local store reactively without reordering the array
       const index = bikecomponents.value.findIndex(component => component.id === componentId); // Find index of updated component
       if (index !== -1) { // If component exists in store
         // Update properties instead of replacing the whole object to maintain reactivity
         Object.assign(bikecomponents.value[index], data); // Update the existing component's properties
+        bikecomponents.value = sortBikeComponents([...bikecomponents.value]);
         console.log('BikeComponentStore: Local store updated for component index', index, ':', bikecomponents.value[index]); // Log updated component
       }
 

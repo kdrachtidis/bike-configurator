@@ -94,10 +94,8 @@
         editedName.value.trim()
       )
 
-      // Reload bike components
-      await bikeComponentStore.getBikeComponentsByBikeType(bikeTypeStore.currentBikeType.id)
-
-      // Exit edit mode
+      // Do not reload the full list here; it would reorder the list and push the edited item to the end.
+      // Keep the current order stable and only update the edited item in place.
       isEditing.value = false
       editedName.value = ''
     } catch (error) {
