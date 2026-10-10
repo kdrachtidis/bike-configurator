@@ -35,7 +35,7 @@
     </div>
 
     <!-- Bike Components -->
-    <div v-else class="row mt-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
+    <div v-else class="row mt-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4">
       <div v-for="bikecomponent in bikeComponentStore.bikecomponents" :key="bikecomponent.id">
         <ConfiguratorModule :bikecomponent="bikecomponent" :ModuleSum="ModuleSum" />
       </div>

@@ -1,10 +1,11 @@
 <template>
   <div class="d-flex justify-content-between">
-    <div class="fs-5 fw-light">
+    <div class="fs-5 fw-light text-break">
       {{ props.bikepart.name || 'Category Empty' }}
     </div>
-    <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="Hinzufügen"
-      @click="openModal" data-bs-toggle="modal" data-bs-target="#AddBikeProduct" data-toggle="tooltip" data-placement="bottom" :title="$t('card.part.tooltip-add')">
+    <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="Hinzufügen" @click="openModal"
+      data-bs-toggle="modal" data-bs-target="#AddBikeProduct" data-toggle="tooltip" data-placement="bottom"
+      :title="$t('card.part.tooltip-add')">
       <i class="bi bi-plus-lg"></i>
     </button>
   </div>
