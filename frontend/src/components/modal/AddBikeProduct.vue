@@ -109,6 +109,7 @@
 
       // Call API via store
       await bikeProductStore.createBikeProduct(bikePartStore.currentEditPart.id, productData)
+      await bikeProductStore.getBikeProductsByPart(bikePartStore.currentEditPart.id)
 
       // Reset form
       resetForm()

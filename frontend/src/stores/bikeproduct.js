@@ -10,6 +10,9 @@ export const useBikeProductStore = defineStore('bikeproducts', () => {
   async function createBikeProduct(partId, productData) {
     try {
       const { data } = await axios.post(`api/bikeparts/${partId}/bikeproducts/`, productData);
+      const currentProducts = bikeproductsByPart.value.get(partId) || [];
+      bikeproductsByPart.value.set(partId, [...currentProducts, data]);
+      bikeproducts.value = [...bikeproducts.value, data];
       console.log('Store: Created bike product:', data);
       return data;
     } catch (error) {

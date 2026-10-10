@@ -45,6 +45,17 @@ def read_all_bikeproducts(source: str | None = None,
     return session.exec(query).all()
 
 
+def read_bikeproducts_for_part(part_id: int, session: SessionDependency) -> list[BikeProduct]:
+    bikepart = session.get(BikePart, part_id)
+    if not bikepart:
+        raise HTTPException(
+            status_code=404, detail=log_exception("part", obj_id=part_id)
+        )
+
+    log_print("read_by_part", obj_id=part_id, obj_type=msg_object_type)
+    return list(bikepart.bikeproducts)
+
+
 def read_bikeproduct(part_id: int, product_id: int, session: SessionDependency) -> BikeProduct:
     # First check if bike part exists
     bikepart = session.get(BikePart, part_id)

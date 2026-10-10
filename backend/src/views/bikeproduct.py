@@ -7,7 +7,7 @@ from src.views.user import get_current_user
 from src.utils.database import get_session
 from src.utils.openapi_desc import BikeProductsMessages
 from src.models.user import User
-from src.crud.bikeproduct import create_bikeproduct, read_all_bikeproducts, read_bikeproduct, update_bikeproduct, delete_bikeproduct
+from src.crud.bikeproduct import create_bikeproduct, read_all_bikeproducts, read_bikeproducts_for_part, read_bikeproduct, update_bikeproduct, delete_bikeproduct
 from src.models.bikeproduct import BikeProduct, BikeProductOutput, BikeProductInput
 
 router = APIRouter()
@@ -23,6 +23,11 @@ def get_bike_products(source: str | None = None, session: Session = Depends(get_
     return read_all_bikeproducts(source=source, session=session)
 
 # Create a bike product assigned to a bike part
+
+
+@router.get("/bikeparts/{part_id}/bikeproducts/", response_model=list[BikeProductOutput], tags=[swagger_desc.tags], description=swagger_desc.description_read_all, status_code=status.HTTP_200_OK)
+def get_bike_products_for_part(part_id: int, session: SessionDependency) -> list[BikeProduct]:
+    return read_bikeproducts_for_part(part_id=part_id, session=session)
 
 
 @router.post("/bikeparts/{part_id}/bikeproducts/", response_model=BikeProduct, tags=[swagger_desc.tags], description=swagger_desc.description_create, status_code=status.HTTP_201_CREATED)

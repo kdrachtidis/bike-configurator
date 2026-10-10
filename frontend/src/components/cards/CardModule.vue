@@ -1,7 +1,7 @@
 <template>
   <section class="card border-secondary mb-3">
     <BikeComponentHeader :bikecomponent="bikecomponent" />
-    <BikeComponentSubHeader :count="currentBikeParts.length" />
+    <BikeComponentSubHeader :count="partWithProductsCount" />
     <div class="collapse show" :id="'collapse-' + bikecomponent.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
         <!-- Loading State -->
@@ -28,10 +28,13 @@
         </div>
 
         <ul class="list-group list-group-flush">
-          <li v-for="bikepart in currentBikeParts" :key="bikepart.id"
+          <li v-for="bikepart in currentBikeParts" :key="`part-${bikepart.id}`"
             class="list-group-item bg-dark-subtle">
-            <BikePart v-if="moduleState" :bikepart="bikepart" :bikecomponent="bikecomponent" />
-            <BikeProduct v-else :bikepart="bikepart" :Category="wtf" />
+            <BikeProduct
+              v-if="getPrimaryProductForPart(bikepart.id)"
+              :bikeproduct="getPrimaryProductForPart(bikepart.id)"
+              :bikepart="bikepart" />
+            <BikePart v-else :bikepart="bikepart" :bikecomponent="bikecomponent" />
           </li>
         </ul>
       </div>
@@ -51,11 +54,11 @@
 
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeTypeStore } from '@/stores/biketype'
+  import { useBikeProductStore } from '@/stores/bikeproduct'
 
   const componentStore = useBikePartStore() // Store instance
   const bikeTypeStore = useBikeTypeStore() // Bike type store instance
-
-  const moduleState = true // true = Categories, false = Products
+  const bikeProductStore = useBikeProductStore()
 
   const props = defineProps({ // Define props
     bikecomponent: { type: Object, required: true }, // Bike component object
@@ -73,6 +76,19 @@
     return []
   })
 
+  const getPrimaryProductForPart = (partId) => {
+    const products = bikeProductStore.getBikeProductsForPart(partId)
+    return Array.isArray(products) && products.length > 0 ? products[0] : null
+  }
+
+  const partWithProductsCount = computed(() => {
+    if (!currentBikeParts.value?.length) return 0
+    return currentBikeParts.value.filter((bikepart) => {
+      const products = bikeProductStore.getBikeProductsForPart(bikepart.id)
+      return Array.isArray(products) && products.length > 0
+    }).length
+  })
+
   // Load parts for the specific Bike Component
   const loadPartsForComponent = async () => {
     console.log('loadPartsForComponent called with bikecomponent:', props.bikecomponent) // Debug log
@@ -84,6 +100,11 @@
       isLoadingParts.value = true // Set loading state
       try {
         await componentStore.getBikePartsByComponent(bikeTypeStore.currentBikeType.id, props.bikecomponent.id) // Use hierarchical API
+
+        if (currentBikeParts.value.length > 0) {
+          await Promise.all(currentBikeParts.value.map((bikepart) => bikeProductStore.getBikeProductsByPart(bikepart.id)))
+        }
+
         console.log('Parts loaded for group', props.bikecomponent.id, ':', currentBikeParts.value) // Log loaded parts
       } catch (error) {
         console.error('Error in loadPartsForComponent:', error)
