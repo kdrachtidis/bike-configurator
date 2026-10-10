@@ -9,7 +9,7 @@ sleep 5
 
 # Führe das Demo-Script aus
 echo "Creating demo content..."
-python demo/create_content.py
+python -m src.content.create_content
 
 # Starte die Anwendung
 echo "Starting uvicorn server..."
