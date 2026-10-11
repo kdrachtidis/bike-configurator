@@ -37,7 +37,7 @@
     <!-- Bike Components -->
     <div v-else class="row mt-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4">
       <div v-for="bikecomponent in bikeComponentStore.bikecomponents" :key="bikecomponent.id">
-        <ConfiguratorModule :bikecomponent="bikecomponent" :ModuleSum="ModuleSum" />
+        <ConfiguratorModule :bikecomponent="bikecomponent" />
       </div>
     </div>
   </div>
@@ -54,7 +54,6 @@
   const bikeComponentStore = useBikeComponentStore()
   const bikeTypeStore = useBikeTypeStore()
 
-  const ModuleSum = "150,00 €"
   const isLoadingBikeComponents = ref(false)
 
   // Function to load bike components for current bike type

@@ -1,7 +1,8 @@
 <template>
   <section class="card border-secondary mb-3">
     <BikeComponentHeader :bikecomponent="bikecomponent" />
-    <BikeComponentSubHeader :count="partWithProductsCount" />
+    <BikeComponentSubHeader :count="partWithProductsCount" :filter-active="showSelectedProductsOnly"
+      @toggle-filter="toggleSelectedProductFilter" />
     <div class="collapse show" :id="'collapse-' + bikecomponent.id">
       <div class="card-body p-0 overflow-auto" style="height: 300px;">
         <!-- Loading State -->
@@ -26,9 +27,12 @@
         <div v-else-if="currentBikeParts.length === 0">
           <BikePartUnassigned :bikecomponent="bikecomponent" />
         </div>
+        <div v-else-if="showSelectedProductsOnly && displayedBikeParts.length === 0" class="alert alert-secondary m-2">
+          <small>Keine ausgewählten Produkte in dieser Komponente.</small>
+        </div>
 
         <ul class="list-group list-group-flush">
-          <li v-for="bikepart in currentBikeParts" :key="`part-${bikepart.id}`"
+          <li v-for="bikepart in displayedBikeParts" :key="`part-${bikepart.id}`"
             class="list-group-item bg-dark-subtle">
             <BikeProduct
               v-if="getPrimaryProductForPart(bikepart.id)"
@@ -39,7 +43,7 @@
         </ul>
       </div>
     </div>
-    <BikeComponentFooter :Sum="ModuleSum" />
+    <BikeComponentFooter :Sum="moduleProductsSum" />
   </section>
 </template>
 
@@ -61,12 +65,12 @@
   const bikeProductStore = useBikeProductStore()
 
   const props = defineProps({ // Define props
-    bikecomponent: { type: Object, required: true }, // Bike component object
-    ModuleSum: String
+    bikecomponent: { type: Object, required: true } // Bike component object
   })
 
   // Loading state for parts
   const isLoadingParts = ref(false)
+  const showSelectedProductsOnly = ref(false)
 
   // Computed property for the parts of this specific group
   const currentBikeParts = computed(() => { // Compute parts for the current bike component
@@ -87,6 +91,29 @@
       const products = bikeProductStore.getBikeProductsForPart(bikepart.id)
       return Array.isArray(products) && products.length > 0
     }).length
+  })
+
+  const displayedBikeParts = computed(() => {
+    if (!showSelectedProductsOnly.value) {
+      return currentBikeParts.value
+    }
+
+    return currentBikeParts.value.filter((bikepart) => getPrimaryProductForPart(bikepart.id))
+  })
+
+  const toggleSelectedProductFilter = () => {
+    showSelectedProductsOnly.value = !showSelectedProductsOnly.value
+  }
+
+  const moduleProductsSum = computed(() => {
+    const total = currentBikeParts.value.reduce((sum, bikepart) => {
+      const primaryProduct = getPrimaryProductForPart(bikepart.id)
+      if (!primaryProduct) return sum
+      const price = Number(primaryProduct.price ?? 0)
+      return Number.isFinite(price) ? sum + price : sum
+    }, 0)
+
+    return `${total.toFixed(2).replace('.', ',')} €`
   })
 
   // Load parts for the specific Bike Component

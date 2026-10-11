@@ -10,7 +10,7 @@
               class="bi bi-box-arrow-up-right"></i></a></span>
       </div>
       <div class="col-3 text-end">
-        <button type="button" class="btn btn-sm btn-outline-light" aria-label="Editieren" data-toggle="tooltip"
+        <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="Editieren" data-toggle="tooltip"
           data-placement="bottom" :title="$t('card.product.tooltip-edit')" @click="openEditProductModal"
           data-bs-toggle="modal" data-bs-target="#EditBikeProduct">
           <i class="bi bi-pencil"></i>
