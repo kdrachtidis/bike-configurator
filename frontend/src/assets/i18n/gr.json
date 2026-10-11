@@ -1,11 +1,6 @@
 {
   "message": {
-    "expand": "Ελαχιστοποίηση και Μεγιστοποίηση",
-    "edit": "Επεξεργασία",
-    "items": "Προϊόντα που προστέθηκαν",
-    "item": "Προϊόν που προστέθηκε",
     "partialsum": "Μερικό σύνολο",
-    "filter": "Φίλτρο",
     "productlist": "Λίστα προϊόντων",
     "shop": "Κατάστημα",
     "header-title": "Διαμορφωτής ποδηλάτου",
@@ -19,21 +14,54 @@
     "header-logout": "Αποσύνδεση",
     "subheader-tab-components": "Συστατικά",
     "subheader-tab-accessories": "Αξεσουάρ",
-    "subheader-add": "Προσθήκη Εξαρτήματος Ποδηλάτου",
-    "modal-addbikecomponent-title": "Προσθήκη Εξαρτήματος",
-    "modal-addbikecomponent-component": "Εξάρτημα",
-    "modal-addbikecomponent-product-name-label": "Όνομα προϊόντος",
-    "modal-addbikecomponent-product-name-placeholder": "Εισάγετε το όνομα του προϊόντος εδώ",
-    "modal-addbikecomponent-product-price": "Τιμή",
-    "modal-addbikecomponent-product-source-label": "Πηγή",
-    "modal-addbikecomponent-product-source-placeholder": "Αντιγράψτε το όνομα του ηλεκτρονικού καταστήματος εδώ",
-    "modal-editcomponent-title": "Επεξεργασία ονόματος εξαρτήματος",
-    "modal-editcomponent-name-label": "Όνομα εξαρτήματος",
-    "modal-editcomponent-name-placeholder": "Επεξεργαστείτε το όνομα του εξαρτήματος εδώ",
-    "modal-addcomponent-title": "Προσθήκη ομάδας συναρμολόγησης",
-    "modal-addcomponent-name-label": "Όνομα ομάδας",
-    "modal-addcomponent-name-placeholder": "Εισάγετε το όνομα της ομάδας εδώ",
+    "subheader-add": "Προσθήκη εξαρτήματος ποδηλάτου",
+    "modal-addcomponent-title": "Προσθήκη εξαρτήματος",
+    "modal-addcomponent-name-label": "Όνομα εξαρτήματος",
+    "modal-addcomponent-name-placeholder": "Εισάγετε το όνομα του εξαρτήματος εδώ",
     "modal-close": "Κλείσιμο",
     "modal-save": "Αποθήκευση"
+  },
+  "card": {
+    "header": {
+      "edit": "Επεξεργασία",
+      "expand": "Ελαχιστοποίηση και μεγιστοποίηση"
+    },
+    "subheader": {
+      "items": "Μέρη που προστέθηκαν",
+      "item": "Μέρος που προστέθηκε",
+      "filter": "Φίλτρο"
+    },
+    "part": {
+      "tooltip-add": "Προσθήκη προϊόντος"
+    },
+    "product": {
+      "tooltip-link": "Επίσκεψη σελίδας",
+      "tooltip-edit": "Επεξεργασία"
+    }
+  },
+  "modal": {
+    "addbikepart": {
+      "title": "Προσθήκη προϊόντος",
+      "component-label": "Εξάρτημα",
+      "part-label": "Μέρος",
+      "product-name-label": "Όνομα προϊόντος",
+      "product-name-placeholder": "Εισάγετε το όνομα του προϊόντος εδώ",
+      "product-price-label": "Τιμή",
+      "product-price-currency": "€",
+      "product-source-label": "Πηγή",
+      "product-source-placeholder": "Αντιγράψτε το όνομα του ηλεκτρονικού καταστήματος εδώ"
+    },
+    "editcomponent": {
+      "title": "Επεξεργασία εξαρτήματος",
+      "name-label": "Όνομα εξαρτήματος",
+      "name-placeholder": "Επεξεργαστείτε το όνομα του εξαρτήματος εδώ"
+    },
+    "addcomponent": {
+      "title": "Προσθήκη εξαρτήματος",
+      "name-label": "Όνομα εξαρτήματος",
+      "name-placeholder": "Εισάγετε το όνομα του εξαρτήματος εδώ"
+    },
+    "close": "Κλείσιμο",
+    "save": "Αποθήκευση"
   }
 }

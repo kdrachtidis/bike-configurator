@@ -33,6 +33,10 @@
     },
     "part": {
       "tooltip-add": "Add product"
+    },
+    "product": {
+      "tooltip-link": "Visit page",
+      "tooltip-edit": "Edit"
     }
   },
   "modal": {

@@ -27,12 +27,16 @@
       "expand": "Erweitern und Zusammenbrechen"
     },
     "subheader": {
-      "items": "Teile hinzugefügt",
-      "item": "Teil hinzugefügt",
+      "items": "Produkte hinzugefügt",
+      "item": "Produkt hinzugefügt",
       "filter": "Filtern"
     },
     "part":{
       "tooltip-add": "Produkt hinzufügen"
+    },
+    "product": {
+      "tooltip-link": "Seite besuchen",
+      "tooltip-edit": "Bearbeiten"
     }
   },
   "modal": {

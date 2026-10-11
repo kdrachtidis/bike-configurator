@@ -1,18 +1,17 @@
 <template>
   <div class="justify-content-between">
     <div class="row align-items-center">
-      <div class="col-9">
-        <a
-          :href="getProductUrl(props.bikeproduct?.source)"
-          class="link-light link-underline-secondary link-offset-1"
-          :target="props.bikeproduct?.source ? '_blank' : undefined"
-          :rel="props.bikeproduct?.source ? 'noopener noreferrer' : undefined"
-        >
-          {{ props.bikeproduct?.name || 'Product empty' }}
-        </a>
+      <div class="col-9 text-body-secondary">
+        <span class="me-2">{{ props.bikeproduct?.name || 'Product empty' }}</span>
+        <span> <a :href="getProductUrl(props.bikeproduct?.source)"
+            class="link-light link-underline-secondary link-offset-1"
+            :target="props.bikeproduct?.source ? '_blank' : undefined"
+            :rel="props.bikeproduct?.source ? 'noopener noreferrer' : undefined"><i
+              class="bi bi-box-arrow-up-right"></i></a></span>
       </div>
       <div class="col-3 text-end">
-        <button type="button" class="btn btn-sm btn-outline-light" aria-label="Editieren">
+        <button type="button" class="btn btn-sm btn-outline-light" aria-label="Editieren" data-toggle="tooltip"
+          data-placement="bottom" :title="$t('card.product.tooltip-edit')">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -51,5 +50,12 @@
     }
 
     return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+  }
+
+  const openProductLink = () => {
+    const url = getProductUrl(props.bikeproduct?.source)
+    if (url !== '#') {
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
   }
 </script>
