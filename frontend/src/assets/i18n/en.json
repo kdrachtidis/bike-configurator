@@ -56,6 +56,9 @@
       "name-label": "Component Name",
       "name-placeholder": "Edit the component name here"
     },
+    "editbikeproduct": {
+      "title": "Edit Product"
+    },
     "addcomponent": {
       "title": "Add Bike Component",
       "name-label": "Component Name",

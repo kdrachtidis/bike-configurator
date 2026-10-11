@@ -11,7 +11,8 @@
       </div>
       <div class="col-3 text-end">
         <button type="button" class="btn btn-sm btn-outline-light" aria-label="Editieren" data-toggle="tooltip"
-          data-placement="bottom" :title="$t('card.product.tooltip-edit')">
+          data-placement="bottom" :title="$t('card.product.tooltip-edit')" @click="openEditProductModal"
+          data-bs-toggle="modal" data-bs-target="#EditBikeProduct">
           <i class="bi bi-pencil"></i>
         </button>
       </div>
@@ -26,10 +27,15 @@
 </template>
 
 <script setup>
+  import { useBikePartStore } from '@/stores/bikepart'
+  import { useBikeProductStore } from '@/stores/bikeproduct'
+
   const props = defineProps({
     bikeproduct: { type: Object, required: true },
     bikepart: { type: Object, required: true }
   })
+  const bikePartStore = useBikePartStore()
+  const bikeProductStore = useBikeProductStore()
 
   const formatPrice = (value) => {
     const numeric = Number(value ?? 0)
@@ -52,10 +58,8 @@
     return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
   }
 
-  const openProductLink = () => {
-    const url = getProductUrl(props.bikeproduct?.source)
-    if (url !== '#') {
-      window.open(url, '_blank', 'noopener,noreferrer')
-    }
+  const openEditProductModal = () => {
+    bikePartStore.setEditPart(props.bikepart)
+    bikeProductStore.setEditProduct(props.bikeproduct)
   }
 </script>

@@ -56,6 +56,9 @@
       "name-label": "Komponentenname",
       "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
     },
+    "editbikeproduct": {
+      "title": "Produkt bearbeiten"
+    },
     "addcomponent": {
       "title": "Komponente hinzufügen",
       "name-label": "Komponentenname",
