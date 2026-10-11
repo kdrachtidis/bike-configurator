@@ -17,9 +17,7 @@
     "subheader-add": "Komponente hinzufügen",
     "modal-addcomponent-title": "Komponente hinzufügen",
     "modal-addcomponent-name-label": "Komponentenname",
-    "modal-addcomponent-name-placeholder": "Geben Sie den Namen der Komponente hier ein",
-    "modal-close": "Schließen",
-    "modal-save": "Speichern"
+    "modal-addcomponent-name-placeholder": "Geben Sie den Namen der Komponente hier ein"
   },
   "card": {
     "header": {
@@ -36,7 +34,9 @@
     },
     "product": {
       "tooltip-link": "Seite besuchen",
-      "tooltip-edit": "Bearbeiten"
+      "tooltip-actions": "Aktionen",
+      "tooltip-edit": "Bearbeiten",
+      "tooltip-delete": "Löschen"
     }
   },
   "modal": {
@@ -65,6 +65,7 @@
       "name-placeholder": "Geben Sie den Namen der Komponente hier ein"
     },
     "close": "Schließen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "delete": "Löschen"
   }
 }

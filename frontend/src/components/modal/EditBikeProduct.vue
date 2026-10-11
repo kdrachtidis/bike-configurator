@@ -1,23 +1,27 @@
 <template>
-  <div class="modal fade" id="EditBikeProduct" tabindex="-1" aria-labelledby="editBikeProductModalLabel" aria-hidden="true">
+  <div class="modal fade" id="EditBikeProduct" tabindex="-1" aria-labelledby="editBikeProductModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="fs-5" id="editBikeProductModalLabel">{{ $t("modal.editbikeproduct.title") }}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" :aria-label="$t('message.modal-close')"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"
+            :aria-label="$t('message.modal-close')"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.part-label") }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control-plaintext" :value="bikePartStore.currentEditPart?.name || 'No part selected'" readonly>
+              <input type="text" class="form-control-plaintext"
+                :value="bikePartStore.currentEditPart?.name || 'No part selected'" readonly>
             </div>
           </div>
 
           <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.product-name-label") }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" v-model="productName" :placeholder="$t('modal.addbikepart.product-name-placeholder')">
+              <input type="text" class="form-control" v-model="productName"
+                :placeholder="$t('modal.addbikepart.product-name-placeholder')">
             </div>
           </div>
 
@@ -36,13 +40,19 @@
           <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.product-source-label") }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" v-model="productSource" :placeholder="$t('modal.addbikepart.product-source-placeholder')">
+              <input type="text" class="form-control" v-model="productSource"
+                :placeholder="$t('modal.addbikepart.product-source-placeholder')">
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $t("modal.close") }}</button>
-          <button type="button" class="btn btn-primary" @click="saveBikeProductChanges">{{ $t("modal.save") }}</button>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" @click="deleteBikeProduct">{{ $t("modal.delete") }}</button>
+          <div class="justify-content-end d-flex">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">{{ $t("modal.close")
+              }}</button>
+            <button type="button" class="btn btn-primary" @click="saveBikeProductChanges">{{ $t("modal.save")
+              }}</button>
+          </div>
         </div>
       </div>
     </div>
@@ -124,6 +134,35 @@
     } catch (error) {
       console.error('Error updating bike product:', error)
       alert('Fehler beim Speichern des Bike Products')
+    }
+  }
+
+  const deleteBikeProduct = async () => {
+    try {
+      const partId = bikePartStore.currentEditPart?.id
+      const productId = bikeProductStore.currentEditProduct?.id
+
+      if (!partId || !productId) {
+        alert('Bitte wähle zuerst ein Bike Product aus')
+        return
+      }
+
+      const confirmed = window.confirm('Soll dieses Produkt wirklich gelöscht werden?')
+      if (!confirmed) {
+        return
+      }
+
+      await bikeProductStore.deleteBikeProduct(partId, productId)
+      await bikeProductStore.getBikeProductsByPart(partId)
+
+      const modalElement = document.getElementById('EditBikeProduct')
+      const closeButton = modalElement?.querySelector('[data-bs-dismiss="modal"]')
+      if (closeButton) {
+        closeButton.click()
+      }
+    } catch (error) {
+      console.error('Error deleting bike product:', error)
+      alert('Fehler beim Löschen des Bike Products')
     }
   }
 </script>

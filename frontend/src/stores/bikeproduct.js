@@ -53,6 +53,24 @@ export const useBikeProductStore = defineStore('bikeproducts', () => {
     }
   }
 
+  async function deleteBikeProduct(partId, productId) {
+    try {
+      await axios.delete(`api/bikeparts/${partId}/bikeproducts/${productId}`);
+      const currentProducts = bikeproductsByPart.value.get(partId) || [];
+      bikeproductsByPart.value.set(
+        partId,
+        currentProducts.filter((product) => product.id !== productId)
+      );
+      bikeproducts.value = bikeproducts.value.filter((product) => product.id !== productId);
+      if (currentEditProduct.value?.id === productId) {
+        currentEditProduct.value = null;
+      }
+    } catch (error) {
+      console.error('Error deleting bike product:', error);
+      throw error;
+    }
+  }
+
   // Get products for a specific part from store
   function getBikeProductsForPart(partId) {
     return bikeproductsByPart.value.get(partId) || [];
@@ -73,6 +91,7 @@ export const useBikeProductStore = defineStore('bikeproducts', () => {
     createBikeProduct,
     getBikeProductsByPart,
     updateBikeProduct,
+    deleteBikeProduct,
     getBikeProductsForPart,
     setEditProduct,
     clearEditProduct

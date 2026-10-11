@@ -64,6 +64,7 @@
       "name-label": "Component Name",
       "name-placeholder": "Enter the component name here"
     },
+    "delete": "Delete",
     "close": "Close",
     "save": "Save"
   }
