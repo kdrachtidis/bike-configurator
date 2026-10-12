@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="fs-5" id="exampleModalLabel">{{ $t("modal.addbikeproduct.modal-title") }}</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $t("modal.addbikeproduct.modal-title") }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal"
             :aria-label="$t('modal.button.tooltip-close')" data-toggle="tooltip" data-placement="bottom"
             :title="$t('modal.button.tooltip-close')"></button>

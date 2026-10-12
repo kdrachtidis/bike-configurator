@@ -69,9 +69,9 @@
       "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
     },
     "addcomponent": {
-      "title": "Komponente hinzufügen",
-      "name-label": "Komponentenname",
-      "name-placeholder": "Geben Sie den Namen der Komponente hier ein"
+      "modal-title": "Komponente hinzufügen",
+      "label-component": "Komponentenname",
+      "placeholder-component": "Geben Sie den Namen der Komponente hier ein"
     },
     "button": {
       "close": "Schließen",

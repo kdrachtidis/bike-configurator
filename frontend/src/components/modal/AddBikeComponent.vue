@@ -1,20 +1,20 @@
 <template>
-  <dialog ref="dialogRef" id="AddBikeComponent" @close="handleClose" @click="handleBackdropClick">
-    <div class="modal-dialog">
+  <dialog class="modal fade" ref="dialogRef" id="AddBikeComponent" @close="handleClose" @click="handleBackdropClick">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content" @click.stop>
         <div class="modal-header">
-          <h1 class="modal-title fs-5">{{ $t("message.modal-addcomponent-title") }}</h1>
-          <button type="button" class="btn-close" @click="closeModal" :aria-label="$t('message.modal-close')"></button>
+          <h1 class="modal-title fs-5">{{ $t("modal.addcomponent.modal-title") }}</h1>
+          <button type="button" class="btn-close" @click="closeModal" :aria-label="$t('modal.button.close')"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3 row">
-              <label for="groupName" class="col-4 col-form-label">{{ $t("message.modal-addcomponent-name-label")
+              <label for="groupName" class="col-4 col-form-label">{{ $t("modal.addcomponent.label-component")
               }}:</label>
               <div class="col-8">
                 <input type="text" class="form-control" id="groupName" v-model="groupName"
-                  :placeholder="$t('message.modal-addcomponent-name-placeholder')"
-                  :aria-label="$t('message.modal-addcomponent-name-placeholder')" aria-describedby="basic-addon2"
+                  :placeholder="$t('modal.addcomponent.placeholder-component')"
+                  :aria-label="$t('modal.addcomponent.placeholder-component')" aria-describedby="basic-addon2"
                   :disabled="isLoading" @keyup.enter="handleSave" ref="inputRef">
               </div>
             </div>
@@ -24,12 +24,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="closeModal">{{ $t("message.modal-close")
+          <button type="button" class="btn btn-secondary" @click="closeModal">{{ $t("modal.button.close")
           }}</button>
           <button type="button" class="btn btn-primary" @click="handleSave" :disabled="isLoading || !groupName.trim()">
             <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"
               aria-hidden="true"></span>
-            {{ $t("message.modal-save") }}
+            {{ $t("modal.button.save") }}
           </button>
         </div>
       </div>
@@ -158,6 +158,14 @@
   dialog {
     border: none;
     border-radius: 8px;
+    padding: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: min(100vw - 2rem, 840px);
+    max-width: 840px;
+  }
+
+  .modal-dialog.modal-lg {
+    max-width: 800px;
+    margin: 1.75rem auto;
   }
 </style>
