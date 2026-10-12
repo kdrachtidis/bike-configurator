@@ -1,6 +1,5 @@
 {
   "message": {
-    "partialsum": "Partial summary",
     "productlist": "Product list",
     "shop": "Shop",
     "header-title": "Bike Configurator",
@@ -14,12 +13,7 @@
     "header-logout": "Logout",
     "subheader-tab-components": "Components",
     "subheader-tab-accessories": "Accessories",
-    "subheader-add": "Add Bike Component",
-    "modal-addcomponent-title": "Add Bike Component",
-    "modal-addcomponent-name-label": "Component Name",
-    "modal-addcomponent-name-placeholder": "Enter the component name here",
-    "modal-close": "Close",
-    "modal-save": "Save"
+    "subheader-add": "Add Component"
   },
   "card": {
     "header": {
@@ -27,8 +21,8 @@
       "expand": "Expand and Collapse"
     },
     "subheader": {
-      "items": "Parts added",
-      "item": "Part added",
+      "items": "Products added",
+      "item": "Product added",
       "filter": "Filter"
     },
     "part": {
@@ -36,36 +30,54 @@
     },
     "product": {
       "tooltip-link": "Visit page",
-      "tooltip-edit": "Edit"
+      "tooltip-edit": "Edit product"
+    },
+    "footer": {
+      "partialsum": "Subtotal",
+      "currency": "€"
     }
   },
   "modal": {
-    "addbikepart": {
-      "title": "Add Product",
-      "component-label": "Component",
-      "part-label": "Part",
-      "product-name-label": "Product Name",
-      "product-name-placeholder": "Enter the product name here",
-      "product-price-label": "Price",
-      "product-price-currency": "€",
-      "product-source-label": "Source",
-      "product-source-placeholder": "Copy the eshop's name here"
+    "addbikeproduct": {
+      "modal-title": "Add Product",
+      "label-component": "Component",
+      "label-part": "Part",
+      "label-product": "Product name",
+      "label-price": "Price",
+      "label-currency": "€",
+      "label-source": "Source",
+      "placeholder-name": "Enter the product name here",
+      "placeholder-source": "Enter the source here"
+    },
+    "editbikeproduct": {
+      "modal-title": "Edit Product",
+      "label-component": "Component",
+      "label-part": "Part",
+      "label-product": "Product name",
+      "label-price": "Price",
+      "label-currency": "€",
+      "label-source": "Source",
+      "placeholder-name": "Enter the product name here",
+      "placeholder-source": "Enter the source here"
     },
     "editcomponent": {
       "title": "Edit Component",
-      "name-label": "Component Name",
+      "name-label": "Component name",
       "name-placeholder": "Edit the component name here"
     },
-    "editbikeproduct": {
-      "title": "Edit Product"
+    "addbikecomponent": {
+      "modal-title": "Add Component",
+      "label-component": "Component name",
+      "label-parts": "Parts",
+      "placeholder-component": "Enter the component name here"
     },
-    "addcomponent": {
-      "title": "Add Bike Component",
-      "name-label": "Component Name",
-      "name-placeholder": "Enter the component name here"
-    },
-    "delete": "Delete",
-    "close": "Close",
-    "save": "Save"
+    "button": {
+      "close": "Close",
+      "save": "Save",
+      "delete": "Delete",
+      "tooltip-close": "Close",
+      "tooltip-save": "Save",
+      "tooltip-delete": "Delete"
+    }
   }
 }

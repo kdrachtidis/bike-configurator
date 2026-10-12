@@ -13,10 +13,7 @@
     "header-logout": "Abmelden",
     "subheader-tab-components": "Komponenten",
     "subheader-tab-accessories": "Zubehör",
-    "subheader-add": "Komponente hinzufügen",
-    "modal-addcomponent-title": "Komponente hinzufügen",
-    "modal-addcomponent-name-label": "Komponentenname",
-    "modal-addcomponent-name-placeholder": "Geben Sie den Namen der Komponente hier ein"
+    "subheader-add": "Komponente hinzufügen"
   },
   "card": {
     "header": {
@@ -68,9 +65,10 @@
       "name-label": "Komponentenname",
       "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
     },
-    "addcomponent": {
+    "addbikecomponent": {
       "modal-title": "Komponente hinzufügen",
       "label-component": "Komponentenname",
+      "label-parts": "Teile",
       "placeholder-component": "Geben Sie den Namen der Komponente hier ein"
     },
     "button": {

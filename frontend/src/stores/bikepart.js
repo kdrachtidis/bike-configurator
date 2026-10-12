@@ -40,6 +40,57 @@ export const useBikePartStore = defineStore('bikeparts', () => { // Define the b
     }
   };
 
+  async function createBikePartByComponent(bikeTypeId, componentId, name) {
+    try {
+      const { data } = await axios.post(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}/bikeparts/`, {
+        name
+      });
+
+      const currentParts = bikepartsByComponent.value.get(componentId) || [];
+      bikepartsByComponent.value.set(componentId, [...currentParts, data]);
+      bikeparts.value = [...bikeparts.value, data];
+      return data;
+    } catch (error) {
+      console.error('Error creating bike part by component:', error);
+      throw error;
+    }
+  }
+
+  async function updateBikePartByComponent(bikeTypeId, componentId, partId, name) {
+    try {
+      const { data } = await axios.put(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}/bikeparts/${partId}`, {
+        name
+      });
+
+      const currentParts = bikepartsByComponent.value.get(componentId) || [];
+      bikepartsByComponent.value.set(
+        componentId,
+        currentParts.map((part) => (part.id === partId ? data : part))
+      );
+      bikeparts.value = bikeparts.value.map((part) => (part.id === partId ? data : part));
+      return data;
+    } catch (error) {
+      console.error('Error updating bike part by component:', error);
+      throw error;
+    }
+  }
+
+  async function deleteBikePartByComponent(bikeTypeId, componentId, partId) {
+    try {
+      await axios.delete(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}/bikeparts/${partId}`);
+
+      const currentParts = bikepartsByComponent.value.get(componentId) || [];
+      bikepartsByComponent.value.set(
+        componentId,
+        currentParts.filter((part) => part.id !== partId)
+      );
+      bikeparts.value = bikeparts.value.filter((part) => part.id !== partId);
+    } catch (error) {
+      console.error('Error deleting bike part by component:', error);
+      throw error;
+    }
+  }
+
   // Function to get modules for a specific component
   function getBikePartsForComponent(componentId) {
     return bikepartsByComponent.value.get(componentId) || []; // Return modules for the component or empty array
@@ -61,6 +112,9 @@ export const useBikePartStore = defineStore('bikeparts', () => { // Define the b
     currentEditPart: currentEditPart, // Currently editing part
     getBikeParts: getBikeParts, // Get all bike parts
     getBikePartsByComponent: getBikePartsByComponent, // Get bike parts for specific component
+    createBikePartByComponent: createBikePartByComponent,
+    updateBikePartByComponent: updateBikePartByComponent,
+    deleteBikePartByComponent: deleteBikePartByComponent,
     getBikePartsForComponent: getBikePartsForComponent, // Get bike parts for a specific component
     setEditPart: setEditPart, // Set the part to edit
     clearEditPart: clearEditPart // Clear the edit part

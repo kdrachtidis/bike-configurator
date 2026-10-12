@@ -51,10 +51,12 @@
 </template>
 
 <script setup>
+  import { useBikeComponentStore } from '@/stores/bikecomponent';
   import { useBikeTypeStore } from '@/stores/biketype';
   import { onMounted, ref, onUnmounted } from 'vue';
 
   const bikeTypeStore = useBikeTypeStore(); // Store instance
+  const bikeComponentStore = useBikeComponentStore();
   const isDropdownOpen = ref(false); // Dropdown state
 
   // Close dropdown when clicking outside
@@ -114,6 +116,7 @@
 
   // Function to open the Add Bike Component modal
   function openAddBikeComponentModal() {
+    bikeComponentStore.clearEditComponent();
     window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'));
   }
 
