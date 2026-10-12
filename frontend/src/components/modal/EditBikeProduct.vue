@@ -4,54 +4,78 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="fs-5" id="editBikeProductModalLabel">{{ $t("modal.editbikeproduct.title") }}</h1>
+          <h1 class="fs-5" id="editBikeProductModalLabel">{{ $t("modal.editbikeproduct.modal-title") }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal"
-            :aria-label="$t('message.modal-close')"></button>
+            :aria-label="$t('modal.button.tooltip-close')" data-toggle="tooltip" data-placement="bottom"
+            :title="$t('modal.button.tooltip-close')"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.part-label") }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.editbikeproduct.label-component")
+              }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control-plaintext"
-                :value="bikePartStore.currentEditPart?.name || 'No part selected'" readonly>
+                :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
+                :aria-label="$t('modal.editbikeproduct.label-component')" aria-describedby="basic-addon1" readonly>
             </div>
           </div>
 
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.product-name-label") }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon2">{{ $t("modal.editbikeproduct.label-part")
+              }}:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext"
+                :value="bikePartStore.currentEditPart?.name || 'No part selected'"
+                :aria-label="$t('modal.editbikeproduct.label-part')" aria-describedby="basic-addon2" readonly>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" id="basic-addon3">{{ $t("modal.editbikeproduct.label-product")
+              }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" v-model="productName"
-                :placeholder="$t('modal.addbikepart.product-name-placeholder')">
+                :placeholder="$t('modal.editbikeproduct.placeholder-name')"
+                :aria-label="$t('modal.editbikeproduct.placeholder-name')" aria-describedby="basic-addon3">
             </div>
           </div>
 
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.product-price-label") }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon4">{{ $t("modal.editbikeproduct.label-price")
+              }}:</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" v-model="priceEuros">
+              <input type="text" class="form-control" v-model="priceEuros"
+                :aria-label="$t('modal.editbikeproduct.label-price')" aria-describedby="basic-addon4">
             </div>
             <span class="col-auto col-form-label">,</span>
             <div class="col-sm-2">
-              <input type="text" class="form-control col-sm-1" v-model="priceCents" placeholder="00">
+              <input type="text" class="form-control col-sm-1" v-model="priceCents" placeholder="00"
+                :aria-label="$t('modal.editbikeproduct.label-price')" aria-describedby="basic-addon4">
             </div>
-            <span class="col-auto col-form-label">{{ $t("modal.addbikepart.product-price-currency") }}</span>
+            <span class="col-auto col-form-label">{{ $t("modal.editbikeproduct.label-currency") }}</span>
           </div>
 
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">{{ $t("modal.addbikepart.product-source-label") }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon5">{{ $t("modal.editbikeproduct.label-source")
+              }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" v-model="productSource"
-                :placeholder="$t('modal.addbikepart.product-source-placeholder')">
+                :placeholder="$t('modal.editbikeproduct.placeholder-source')"
+                :aria-label="$t('modal.editbikeproduct.placeholder-source')" aria-describedby="basic-addon5">
             </div>
           </div>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-danger" @click="deleteBikeProduct">{{ $t("modal.delete") }}</button>
+          <button type="button" class="btn btn-danger" @click="deleteBikeProduct"
+            :aria-label="$t('modal.button.tooltip-delete')" data-toggle="tooltip" data-placement="bottom"
+            :title="$t('modal.button.tooltip-delete')">{{ $t("modal.button.delete") }}</button>
           <div class="justify-content-end d-flex">
-            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">{{ $t("modal.close")
-              }}</button>
-            <button type="button" class="btn btn-primary" @click="saveBikeProductChanges">{{ $t("modal.save")
-              }}</button>
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"
+              :aria-label="$t('modal.button.tooltip-close')" data-toggle="tooltip" data-placement="bottom"
+              :title="$t('modal.button.tooltip-close')">{{ $t("modal.button.close") }}</button>
+            <button type="button" class="btn btn-primary" @click="saveBikeProductChanges"
+              :aria-label="$t('modal.button.tooltip-save')" data-toggle="tooltip" data-placement="bottom"
+              :title="$t('modal.button.tooltip-save')">{{ $t("modal.button.save") }}</button>
           </div>
         </div>
       </div>
@@ -61,9 +85,11 @@
 
 <script setup>
   import { ref, watch } from 'vue'
+  import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeProductStore } from '@/stores/bikeproduct'
 
+  const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeProductStore = useBikeProductStore()
 

@@ -3,66 +3,73 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="fs-5" id="exampleModalLabel">{{ $t("modal.addbikepart.title") }}</h1>
+          <h1 class="fs-5" id="exampleModalLabel">{{ $t("modal.addbikeproduct.modal-title") }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal"
-            :aria-label="$t('message.modal-close')"></button>
+            :aria-label="$t('modal.button.tooltip-close')" data-toggle="tooltip" data-placement="bottom"
+            :title="$t('modal.button.tooltip-close')"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikepart.component-label")
-            }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikeproduct.label-component")
+              }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control-plaintext"
                 :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
-                :aria-label="$t('modal.addbikepart.component-label')" aria-describedby="basic-addon1" readonly>
+                :aria-label="$t('modal.addbikeproduct.label-component')" aria-describedby="basic-addon1" readonly>
             </div>
 
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikepart.part-label")
-            }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikeproduct.label-part")
+              }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control-plaintext" :value="bikePartStore.currentEditPart?.name || 'No part selected'"
-                :aria-label="$t('modal.addbikepart.part-label')" aria-describedby="basic-addon1" readonly>
+              <input type="text" class="form-control-plaintext"
+                :value="bikePartStore.currentEditPart?.name || 'No part selected'"
+                :aria-label="$t('modal.addbikeproduct.label-part')" aria-describedby="basic-addon1" readonly>
             </div>
 
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon2">{{ $t("modal.addbikepart.product-name-label")
-            }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon2">{{ $t("modal.addbikeproduct.label-product")
+              }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" v-model="productName" :placeholder="$t('modal.addbikepart.product-name-placeholder')"
-                :aria-label="$t('modal.addbikepart.product-name-placeholder')" aria-describedby="basic-addon2">
+              <input type="text" class="form-control" v-model="productName"
+                :placeholder="$t('modal.addbikeproduct.placeholder-name')"
+                :aria-label="$t('modal.addbikeproduct.placeholder-name')" aria-describedby="basic-addon2">
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon3">{{ $t("modal.addbikepart.product-price-label")
-            }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon3">{{ $t("modal.addbikeproduct.label-price")
+              }}:</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" v-model="priceEuros" :aria-label="$t('modal.addbikepart.product-price-label')"
-                aria-describedby="basic-addon3">
+              <input type="text" class="form-control" v-model="priceEuros"
+                :aria-label="$t('modal.addbikeproduct.label-price')" aria-describedby="basic-addon3">
             </div>
             <span class="col-auto col-form-label">,</span>
             <div class="col-sm-2">
               <input type="text" class="form-control col-sm-1" v-model="priceCents" placeholder="00"
-                :aria-label="$t('modal.addbikepart.product-price-label')" aria-describedby="basic-addon3">
+                :aria-label="$t('modal.addbikeproduct.label-price')" aria-describedby="basic-addon3">
             </div>
-            <span class="col-auto col-form-label">{{ $t("modal.addbikepart.product-price-currency")
-            }}</span>
+            <span class="col-auto col-form-label">{{ $t("modal.addbikeproduct.label-currency")
+              }}</span>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon4">{{ $t("modal.addbikepart.product-source-label")
-            }}:</label>
+            <label class="col-sm-2 col-form-label" id="basic-addon4">{{ $t("modal.addbikeproduct.label-source")
+              }}:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" v-model="productSource" :placeholder="$t('modal.addbikepart.product-source-placeholder')"
-                aria-label="$t('modal.addbikepart.product-source-placeholder')" aria-describedby="basic-addon4">
+              <input type="text" class="form-control" v-model="productSource"
+                :placeholder="$t('modal.addbikeproduct.placeholder-source')"
+                aria-label="$t('modal.addbikeproduct.placeholder-source')" aria-describedby="basic-addon4">
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $t("modal.close")
-          }}</button>
-          <button type="button" class="btn btn-primary" @click="saveBikeProduct">{{ $t("modal.save") }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            :aria-label="$t('modal.button.tooltip-close')" data-toggle="tooltip" data-placement="bottom"
+            :title="$t('modal.button.tooltip-close')">{{ $t("modal.button.close") }}</button>
+          <button type="button" class="btn btn-primary" @click="saveBikeProduct"
+            :aria-label="$t('modal.button.tooltip-save')" data-toggle="tooltip" data-placement="bottom"
+            :title="$t('modal.button.tooltip-save')">{{ $t("modal.button.save") }}</button>
         </div>
       </div>
     </div>

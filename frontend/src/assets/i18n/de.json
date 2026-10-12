@@ -1,6 +1,5 @@
 {
   "message": {
-    "partialsum": "Teilsumme",
     "productlist": "Produktliste",
     "shop": "Shop",
     "header-title": "Fahrrad Konfigurator",
@@ -29,43 +28,58 @@
       "item": "Produkt hinzugefügt",
       "filter": "Filtern"
     },
-    "part":{
+    "part": {
       "tooltip-add": "Produkt hinzufügen"
     },
     "product": {
       "tooltip-link": "Seite besuchen",
-      "tooltip-actions": "Aktionen",
-      "tooltip-edit": "Bearbeiten",
-      "tooltip-delete": "Löschen"
+      "tooltip-edit": "Produkt bearbeiten"
+    },
+    "footer": {
+      "partialsum": "Teilsumme",
+      "currency": "€"
     }
   },
   "modal": {
-    "addbikepart": {
-      "title": "Produkt hinzufügen",
-      "component-label": "Komponente",
-      "part-label": "Teil",
-      "product-name-label": "Produktname",
-      "product-name-placeholder": "Geben Sie hier den Produktnamen ein",
-      "product-price-label": "Preis",
-      "product-price-currency": "€",
-      "product-source-label": "Quelle",
-      "product-source-placeholder": "Kopieren Sie den Namen des E-Shops hierher"
+    "addbikeproduct": {
+      "modal-title": "Produkt hinzufügen",
+      "label-component": "Komponente",
+      "label-part": "Teil",
+      "label-product": "Produktname",
+      "label-price": "Preis",
+      "label-currency": "€",
+      "label-source":"Quelle",
+      "placeholder-name": "Geben Sie hier den Produktnamen ein",
+      "placeholder-source": "Geben Sie die Quelle hier ein"
+    },
+    "editbikeproduct": {
+      "modal-title": "Produkt bearbeiten",
+      "label-component": "Komponente",
+      "label-part": "Teil",
+      "label-product": "Produktname",
+      "label-price": "Preis",
+      "label-currency": "€",
+      "label-source": "Quelle",
+      "placeholder-name": "Geben Sie den Produktnamen hier ein",
+      "placeholder-source": "Geben Sie die Quelle hier ein"
     },
     "editcomponent": {
       "title": "Komponente bearbeiten",
       "name-label": "Komponentenname",
       "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
     },
-    "editbikeproduct": {
-      "title": "Produkt bearbeiten"
-    },
     "addcomponent": {
       "title": "Komponente hinzufügen",
       "name-label": "Komponentenname",
       "name-placeholder": "Geben Sie den Namen der Komponente hier ein"
     },
-    "close": "Schließen",
-    "save": "Speichern",
-    "delete": "Löschen"
+    "button": {
+      "close": "Schließen",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "tooltip-close": "Schließen",
+      "tooltip-save": "Speichern",
+      "tooltip-delete": "Löschen"
+    }
   }
 }

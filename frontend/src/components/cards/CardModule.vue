@@ -37,7 +37,8 @@
             <BikeProduct
               v-if="getPrimaryProductForPart(bikepart.id)"
               :bikeproduct="getPrimaryProductForPart(bikepart.id)"
-              :bikepart="bikepart" />
+              :bikepart="bikepart"
+              :bikecomponent="bikecomponent" />
             <BikePart v-else :bikepart="bikepart" :bikecomponent="bikecomponent" />
           </li>
         </ul>
@@ -113,7 +114,7 @@
       return Number.isFinite(price) ? sum + price : sum
     }, 0)
 
-    return `${total.toFixed(2).replace('.', ',')} €`
+    return `${total.toFixed(2).replace('.', ',')}`
   })
 
   // Load parts for the specific Bike Component

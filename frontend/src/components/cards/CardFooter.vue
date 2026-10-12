@@ -1,6 +1,6 @@
 <template>
   <div class="card-footer justify-content-between bg-body-tertiary text-end">
-    <div class="card-text text-body-secondary">{{ $t("message.partialsum") }}: {{ Sum || "Summary empty" }}</div>
+    <div class="card-text text-body-secondary">{{ $t("card.footer.partialsum") }}: {{ Sum || "Summary empty" }} {{ $t("card.footer.currency") }}</div>
   </div>
 </template>
 

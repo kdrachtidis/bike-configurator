@@ -27,13 +27,16 @@
 </template>
 
 <script setup>
+  import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeProductStore } from '@/stores/bikeproduct'
 
   const props = defineProps({
     bikeproduct: { type: Object, required: true },
-    bikepart: { type: Object, required: true }
+    bikepart: { type: Object, required: true },
+    bikecomponent: { type: Object, required: true }
   })
+  const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeProductStore = useBikeProductStore()
 
@@ -59,6 +62,7 @@
   }
 
   const openEditProductModal = () => {
+    bikeComponentStore.setEditComponent(props.bikecomponent)
     bikePartStore.setEditPart(props.bikepart)
     bikeProductStore.setEditProduct(props.bikeproduct)
   }
