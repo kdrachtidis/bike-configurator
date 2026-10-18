@@ -17,8 +17,7 @@
   },
   "card": {
     "header": {
-      "edit": "Edit",
-      "expand": "Expand and Collapse"
+      "edit": "Edit"
     },
     "subheader": {
       "items": "Products added",

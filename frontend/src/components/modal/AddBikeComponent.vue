@@ -24,7 +24,7 @@
             <div class="mb-3 row">
               <label class="col-4 col-form-label">{{ $t("modal.addbikecomponent.label-parts") }}:</label>
               <div class="col-8">
-                <ul class="list-group mb-2 parts-list-scroll">
+                <ul class="list-group mb-2 parts-list-scroll" ref="partsListRef">
                   <li v-for="part in partRows" :key="part.localId" class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center gap-2">
                       <div class="flex-grow-1">
@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-  import { computed, onMounted, onUnmounted, ref } from 'vue'
+  import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { Modal } from 'bootstrap'
   import { useBikeComponentStore } from '@/stores/bikecomponent'
@@ -94,6 +94,7 @@
 
   const modalRef = ref(null)
   const componentInputRef = ref(null)
+  const partsListRef = ref(null)
   const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeTypeStore = useBikeTypeStore()
@@ -147,8 +148,12 @@
     }
   }
 
-  const addPartRow = () => {
+  const addPartRow = async () => {
     partRows.value.push(buildPartRow())
+    await nextTick()
+    if (partsListRef.value) {
+      partsListRef.value.scrollTop = partsListRef.value.scrollHeight
+    }
   }
 
   const startPartEdit = (part) => {
@@ -298,5 +303,8 @@
   .parts-list-scroll {
     max-height: 240px;
     overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    padding-right: 2px;
   }
 </style>

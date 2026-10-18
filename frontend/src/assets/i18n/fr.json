@@ -1,0 +1,82 @@
+{
+  "message": {
+    "productlist": "Liste de produits",
+    "shop": "Boutique",
+    "header-title": "Configurateur de vélo",
+    "header-language": "Langue",
+    "header-theme": "Thème",
+    "header-dark": "Sombre",
+    "header-light": "Clair",
+    "header-export": "Exporter",
+    "header-load": "Charger",
+    "header-login": "Se connecter",
+    "header-logout": "Se déconnecter",
+    "subheader-tab-components": "Composants",
+    "subheader-tab-accessories": "Accessoires",
+    "subheader-add": "Ajouter un composant"
+  },
+  "card": {
+    "header": {
+      "edit": "Modifier"
+    },
+    "subheader": {
+      "items": "Produits ajoutés",
+      "item": "Produit ajouté",
+      "filter": "Filtrer"
+    },
+    "part": {
+      "tooltip-add": "Ajouter un produit"
+    },
+    "product": {
+      "tooltip-link": "Visiter la page",
+      "tooltip-edit": "Modifier le produit"
+    },
+    "footer": {
+      "partialsum": "Sous-total",
+      "currency": "€"
+    }
+  },
+  "modal": {
+    "addbikeproduct": {
+      "modal-title": "Ajouter un produit",
+      "label-component": "Composant",
+      "label-part": "Pièce",
+      "label-product": "Nom du produit",
+      "label-price": "Prix",
+      "label-currency": "€",
+      "label-source": "Source",
+      "placeholder-name": "Saisissez le nom du produit ici",
+      "placeholder-source": "Saisissez la source ici"
+    },
+    "editbikeproduct": {
+      "modal-title": "Modifier le produit",
+      "label-component": "Composant",
+      "label-part": "Pièce",
+      "label-product": "Nom du produit",
+      "label-price": "Prix",
+      "label-currency": "€",
+      "label-source": "Source",
+      "placeholder-name": "Saisissez le nom du produit ici",
+      "placeholder-source": "Saisissez la source ici"
+    },
+    "editcomponent": {
+      "title": "Modifier le composant",
+      "name-label": "Nom du composant",
+      "name-placeholder": "Modifiez le nom du composant ici"
+    },
+    "addbikecomponent": {
+      "modal-title": "Ajouter un composant",
+      "label-component": "Nom du composant",
+      "label-parts": "Pièces",
+      "placeholder-component": "Saisissez le nom du composant ici"
+    },
+    "button": {
+      "close": "Fermer",
+      "save": "Enregistrer",
+      "delete": "Supprimer",
+      "tooltip-close": "Fermer",
+      "tooltip-save": "Enregistrer",
+      "tooltip-delete": "Supprimer"
+    }
+  }
+}
