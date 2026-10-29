@@ -1,6 +1,7 @@
 fastapi[standard]==0.116.2
 uvicorn[standard]==0.35.0
-sqlmodel==0.0.24
+sqlalchemy>=2.0.14,<2.1.0
+sqlmodel==0.0.48
 psycopg2-binary==2.9.11
 passlib==1.7.4
 argon2-cffi==25.1.0
