@@ -1,5 +1,6 @@
 <template>
-  <div class="modal fade" id="AddBikeProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div ref="modalElement" class="modal fade" id="AddBikeProduct" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -77,7 +78,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { onBeforeUnmount, onMounted, ref } from 'vue'
   import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeProductStore } from '@/stores/bikeproduct'
@@ -86,6 +87,8 @@
   const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeProductStore = useBikeProductStore()
+
+  const modalElement = ref(null)
 
   // Form data
   const productName = ref('')
@@ -142,4 +145,14 @@
     priceCents.value = '00'
     productSource.value = ''
   }
+
+  onMounted(() => {
+    modalElement.value?.addEventListener('show.bs.modal', resetForm)
+    modalElement.value?.addEventListener('hidden.bs.modal', resetForm)
+  })
+
+  onBeforeUnmount(() => {
+    modalElement.value?.removeEventListener('show.bs.modal', resetForm)
+    modalElement.value?.removeEventListener('hidden.bs.modal', resetForm)
+  })
 </script>
