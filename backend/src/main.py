@@ -20,6 +20,7 @@ from src.views import biketype as biketype
 from src.views import bikecomponent as bikecomponent
 from src.views import bikepart as bikepart
 from src.views import bikeproduct as bikeproduct
+from src.views import accessory as accessory
 from src.views import user as auth
 
 origins = [
@@ -41,6 +42,7 @@ def get_app() -> FastAPI:
     app.include_router(bikecomponent.router, prefix="/api")
     app.include_router(bikepart.router, prefix="/api")
     app.include_router(bikeproduct.router, prefix="/api")
+    app.include_router(accessory.router, prefix="/api")
     app.include_router(auth.router, prefix="/api")
 
     app.add_middleware(

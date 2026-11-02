@@ -1,6 +1,9 @@
 {
   "message": {
     "productlist": "Λίστα προϊόντων",
+    "productlist-empty": "Δεν έχουν αντιστοιχιστεί ακόμη προϊόντα.",
+    "productlist-view-list": "Μετάβαση σε απλή λίστα",
+    "productlist-view-grouped": "Μετάβαση σε ομαδοποιημένη προβολή",
     "shop": "Κατάστημα",
     "header-title": "Διαμορφωτής ποδηλάτου",
     "header-language": "Γλώσσα",
@@ -13,7 +16,23 @@
     "header-logout": "Αποσύνδεση",
     "subheader-tab-components": "Συστατικά",
     "subheader-tab-accessories": "Αξεσουάρ",
+    "subheader-tab-basket": "Καλάθι",
     "subheader-add": "Προσθήκη εξαρτήματος"
+  },
+  "accessories": {
+    "add-category": "Προσθήκη κατηγορίας",
+    "category-placeholder": "Όνομα κατηγορίας αξεσουάρ",
+    "add-type": "Προσθήκη τύπου",
+    "type-placeholder": "Όνομα τύπου αξεσουάρ",
+    "assign-product": "Αντιστοίχιση προϊόντος",
+    "category": "Κατηγορία",
+    "type": "Τύπος",
+    "loading": "Φόρτωση αξεσουάρ...",
+    "empty": "Δεν υπάρχουν ακόμη κατηγορίες αξεσουάρ.",
+    "no-types": "Δεν υπάρχουν ακόμη τύποι σε αυτήν την κατηγορία.",
+    "no-products": "Δεν έχει αντιστοιχιστεί προϊόν.",
+    "load-error": "Δεν ήταν δυνατή η φόρτωση των αξεσουάρ.",
+    "save-error": "Δεν ήταν δυνατή η αποθήκευση των αλλαγών."
   },
   "card": {
     "header": {

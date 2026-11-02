@@ -11,21 +11,21 @@
         </div>
         <div class="modal-body">
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikeproduct.label-component")
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ accessoryStore.currentEditType ? $t('accessories.category') : $t("modal.addbikeproduct.label-component")
               }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control-plaintext"
-                :value="bikeComponentStore.currentEditComponent?.name || 'No component selected'"
+                :value="accessoryStore.currentEditType?.categoryName || bikeComponentStore.currentEditComponent?.name || 'No component selected'"
                 :aria-label="$t('modal.addbikeproduct.label-component')" aria-describedby="basic-addon1" readonly>
             </div>
 
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ $t("modal.addbikeproduct.label-part")
+            <label class="col-sm-2 col-form-label" id="basic-addon1">{{ accessoryStore.currentEditType ? $t('accessories.type') : $t("modal.addbikeproduct.label-part")
               }}:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control-plaintext"
-                :value="bikePartStore.currentEditPart?.name || 'No part selected'"
+                :value="accessoryStore.currentEditType?.name || bikePartStore.currentEditPart?.name || 'No part selected'"
                 :aria-label="$t('modal.addbikeproduct.label-part')" aria-describedby="basic-addon1" readonly>
             </div>
 
@@ -82,11 +82,13 @@
   import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikePartStore } from '@/stores/bikepart'
   import { useBikeProductStore } from '@/stores/bikeproduct'
+  import { useAccessoryStore } from '@/stores/accessory'
 
   // Store instances
   const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeProductStore = useBikeProductStore()
+  const accessoryStore = useAccessoryStore()
 
   const modalElement = ref(null)
 
@@ -99,9 +101,10 @@
   // Save bike product
   async function saveBikeProduct() {
     try {
-      // Validate that we have a part selected
-      if (!bikePartStore.currentEditPart?.id) {
-        alert('Bitte wähle zuerst ein Bike Part aus')
+      const accessoryType = accessoryStore.currentEditType
+      const part = bikePartStore.currentEditPart
+      if (!accessoryType?.id && !part?.id) {
+        alert('Please select a component part or accessory type first.')
         return
       }
 
@@ -117,9 +120,12 @@
         price: totalPrice
       }
 
-      // Call API via store
-      await bikeProductStore.createBikeProduct(bikePartStore.currentEditPart.id, productData)
-      await bikeProductStore.getBikeProductsByPart(bikePartStore.currentEditPart.id)
+      if (accessoryType?.id) {
+        await accessoryStore.createProduct(accessoryType.id, productData)
+      } else {
+        await bikeProductStore.createBikeProduct(part.id, productData)
+        await bikeProductStore.getBikeProductsByPart(part.id)
+      }
 
       // Reset form
       resetForm()
@@ -131,7 +137,7 @@
         closeButton.click()
       }
 
-      alert('Bike Product erfolgreich erstellt!')
+      alert('Product assigned successfully!')
     } catch (error) {
       console.error('Error saving bike product:', error)
       alert('Fehler beim Speichern des Bike Products')
@@ -146,13 +152,18 @@
     productSource.value = ''
   }
 
+  function handleHidden() {
+    resetForm()
+    accessoryStore.clearEditType()
+  }
+
   onMounted(() => {
     modalElement.value?.addEventListener('show.bs.modal', resetForm)
-    modalElement.value?.addEventListener('hidden.bs.modal', resetForm)
+    modalElement.value?.addEventListener('hidden.bs.modal', handleHidden)
   })
 
   onBeforeUnmount(() => {
     modalElement.value?.removeEventListener('show.bs.modal', resetForm)
-    modalElement.value?.removeEventListener('hidden.bs.modal', resetForm)
+    modalElement.value?.removeEventListener('hidden.bs.modal', handleHidden)
   })
 </script>

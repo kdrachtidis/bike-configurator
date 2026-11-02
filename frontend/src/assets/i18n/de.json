@@ -1,6 +1,9 @@
 {
   "message": {
     "productlist": "Produktliste",
+    "productlist-empty": "Noch keine Produkte zugewiesen.",
+    "productlist-view-list": "Zur einfachen Listenansicht wechseln",
+    "productlist-view-grouped": "Zur gruppierten Ansicht wechseln",
     "shop": "Shop",
     "header-title": "Fahrrad Konfigurator",
     "header-language": "Sprache",
@@ -13,7 +16,23 @@
     "header-logout": "Abmelden",
     "subheader-tab-components": "Komponenten",
     "subheader-tab-accessories": "Zubehör",
+    "subheader-tab-basket": "Warenkorb",
     "subheader-add": "Komponente hinzufügen"
+  },
+  "accessories": {
+    "add-category": "Kategorie hinzufügen",
+    "category-placeholder": "Name der Zubehörkategorie",
+    "add-type": "Typ hinzufügen",
+    "type-placeholder": "Name des Zubehörtyps",
+    "assign-product": "Produkt zuweisen",
+    "category": "Kategorie",
+    "type": "Typ",
+    "loading": "Zubehör wird geladen...",
+    "empty": "Noch keine Zubehörkategorien vorhanden.",
+    "no-types": "Noch keine Typen in dieser Kategorie.",
+    "no-products": "Kein Produkt zugewiesen.",
+    "load-error": "Zubehör konnte nicht geladen werden.",
+    "save-error": "Änderungen konnten nicht gespeichert werden."
   },
   "card": {
     "header": {

@@ -1,6 +1,9 @@
 {
   "message": {
     "productlist": "Liste de produits",
+    "productlist-empty": "Aucun produit n’est encore attribué.",
+    "productlist-view-list": "Passer à la liste simple",
+    "productlist-view-grouped": "Passer à la vue groupée",
     "shop": "Boutique",
     "header-title": "Configurateur de vélo",
     "header-language": "Langue",
@@ -13,7 +16,23 @@
     "header-logout": "Se déconnecter",
     "subheader-tab-components": "Composants",
     "subheader-tab-accessories": "Accessoires",
+    "subheader-tab-basket": "Panier",
     "subheader-add": "Ajouter un composant"
+  },
+  "accessories": {
+    "add-category": "Ajouter une catégorie",
+    "category-placeholder": "Nom de la catégorie d’accessoires",
+    "add-type": "Ajouter un type",
+    "type-placeholder": "Nom du type d’accessoire",
+    "assign-product": "Attribuer un produit",
+    "category": "Catégorie",
+    "type": "Type",
+    "loading": "Chargement des accessoires...",
+    "empty": "Aucune catégorie d’accessoires pour le moment.",
+    "no-types": "Aucun type dans cette catégorie pour le moment.",
+    "no-products": "Aucun produit attribué.",
+    "load-error": "Impossible de charger les accessoires.",
+    "save-error": "Impossible d’enregistrer les modifications."
   },
   "card": {
     "header": {

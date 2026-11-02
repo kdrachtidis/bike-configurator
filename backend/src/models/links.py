@@ -26,3 +26,12 @@ class PartsToProducts(SQLModel, table=True):
     product_id: int | None = Field(
         default=None, foreign_key="bikeproduct.id", primary_key=True
     )
+
+
+class AccessoryTypesToProducts(SQLModel, table=True):
+    accessory_type_id: int | None = Field(
+        default=None, foreign_key="accessorytype.id", primary_key=True
+    )
+    product_id: int | None = Field(
+        default=None, foreign_key="bikeproduct.id", primary_key=True
+    )

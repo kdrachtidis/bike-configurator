@@ -1,6 +1,9 @@
 {
   "message": {
     "productlist": "Product list",
+    "productlist-empty": "No products assigned yet.",
+    "productlist-view-list": "Switch to plain list view",
+    "productlist-view-grouped": "Switch to grouped view",
     "shop": "Shop",
     "header-title": "Bike Configurator",
     "header-language": "Language",
@@ -13,7 +16,23 @@
     "header-logout": "Logout",
     "subheader-tab-components": "Components",
     "subheader-tab-accessories": "Accessories",
+    "subheader-tab-basket": "Basket",
     "subheader-add": "Add Component"
+  },
+  "accessories": {
+    "add-category": "Add category",
+    "category-placeholder": "Accessory category name",
+    "add-type": "Add type",
+    "type-placeholder": "Accessory type name",
+    "assign-product": "Assign product",
+    "category": "Category",
+    "type": "Type",
+    "loading": "Loading accessories...",
+    "empty": "No accessory categories yet.",
+    "no-types": "No types in this category yet.",
+    "no-products": "No product assigned.",
+    "load-error": "Could not load accessories.",
+    "save-error": "Could not save changes."
   },
   "card": {
     "header": {

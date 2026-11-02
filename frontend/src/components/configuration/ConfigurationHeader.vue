@@ -30,20 +30,53 @@
         aria-controls="bikeType" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="bikeType">
+
         <ul class="navbar-nav me-auto">
+          <!--<li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="dropdown04"
+              role="button"
+              aria-haspopup="true"
+              :aria-expanded="isNavDropdownOpen"
+              @click.prevent="toggleNavDropdown"
+            >
+              {{ bikeTypeStore.currentBikeType?.name || "Type empty" }}
+            </a>
+            <div class="dropdown-menu" :class="{ show: isNavDropdownOpen }" aria-labelledby="dropdown04">
+              <span v-if="bikeTypeStore.loading" class="dropdown-item-text">Loading...</span>
+              <span v-if="bikeTypeStore.error" class="dropdown-item-text text-danger">
+                {{ bikeTypeStore.error }}
+              </span>
+              <span v-if="!bikeTypeStore.loading && bikeTypeStore.biketypes.length === 0" class="dropdown-item-text">
+                No bike types available
+              </span>
+              <button
+                v-for="bikeType in bikeTypeStore.biketypes"
+                :key="bikeType.id"
+                type="button"
+                class="dropdown-item"
+                :class="{ active: bikeTypeStore.currentBikeType?.id === bikeType.id }"
+                @click="selectBikeType(bikeType)"
+              >
+                {{ bikeType.name }}
+              </button>
+            </div>
+          </li>-->
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">{{ $t("message.subheader-tab-components") }}</a>
+            <a class="nav-link active" aria-current="page" href="#"></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">{{ $t("message.subheader-tab-accessories") }}</a>
-          </li>
+          
         </ul>
       </div>
+      
       <div class="col-md-6 text-end">
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="openAddBikeComponentModal"
-          data-toggle="tooltip" data-placement="bottom"
-          :title="$t('message.subheader-add')" :aria-label="$t('message.subheader-add')">{{
+          data-toggle="tooltip" data-placement="bottom" :title="$t('message.subheader-add')"
+          :aria-label="$t('message.subheader-add')">{{
             $t('message.subheader-add') }}</button>
       </div>
     </div>
@@ -51,73 +84,81 @@
 </template>
 
 <script setup>
-  import { useBikeComponentStore } from '@/stores/bikecomponent';
-  import { useBikeTypeStore } from '@/stores/biketype';
-  import { onMounted, ref, onUnmounted } from 'vue';
+import { useBikeComponentStore } from '@/stores/bikecomponent';
+import { useBikeTypeStore } from '@/stores/biketype';
+import { onMounted, ref, onUnmounted } from 'vue';
 
-  const bikeTypeStore = useBikeTypeStore(); // Store instance
-  const bikeComponentStore = useBikeComponentStore();
-  const isDropdownOpen = ref(false); // Dropdown state
+const bikeTypeStore = useBikeTypeStore(); // Store instance
+const bikeComponentStore = useBikeComponentStore();
+const isDropdownOpen = ref(false); // Dropdown state
+const isNavDropdownOpen = ref(false);
 
-  // Close dropdown when clicking outside
-  function handleClickOutside(event) {
-    const dropdown = event.target.closest('.dropdown'); // Check if click is inside dropdown
-    if (!dropdown) {
-      closeDropdown();
-    }
+// Close dropdown when clicking outside
+function handleClickOutside(event) {
+  const dropdown = event.target.closest('.dropdown'); // Check if click is inside dropdown
+  if (!dropdown) {
+    closeDropdown();
   }
+}
 
-  // Load bike types when component mounts
-  onMounted(async () => {
-    // Add click outside listener
-    document.addEventListener('click', handleClickOutside);
-    console.log('ConfigurationHeader: Loading bike types...');
-    await bikeTypeStore.getBikeTypes(); // Fetch bike types from API
-    console.log('ConfigurationHeader: Bike types loaded:', bikeTypeStore.biketypes);
-    console.log('ConfigurationHeader: Number of bike types:', bikeTypeStore.biketypes.length);
+// Load bike types when component mounts
+onMounted(async () => {
+  // Add click outside listener
+  document.addEventListener('click', handleClickOutside);
+  console.log('ConfigurationHeader: Loading bike types...');
+  await bikeTypeStore.getBikeTypes(); // Fetch bike types from API
+  console.log('ConfigurationHeader: Bike types loaded:', bikeTypeStore.biketypes);
+  console.log('ConfigurationHeader: Number of bike types:', bikeTypeStore.biketypes.length);
 
-    // If no bike type is selected and we have bike types, select the first one
-    if (!bikeTypeStore.currentBikeType && bikeTypeStore.biketypes.length > 0) {
-      console.log('ConfigurationHeader: Auto-selecting first bike type');
-      bikeTypeStore.setBikeType(bikeTypeStore.biketypes[0]); // Set first bike type
-    }
-  });
-
-  // Cleanup event listener
-  onUnmounted(() => {
-    document.removeEventListener('click', handleClickOutside); // Remove listener
-  });
-
-  // Dropdown control functions
-  function toggleDropdown() {
-    isDropdownOpen.value = !isDropdownOpen.value; // Toggle state
-    console.log('Dropdown toggled:', isDropdownOpen.value);
+  // If no bike type is selected and we have bike types, select the first one
+  if (!bikeTypeStore.currentBikeType && bikeTypeStore.biketypes.length > 0) {
+    console.log('ConfigurationHeader: Auto-selecting first bike type');
+    bikeTypeStore.setBikeType(bikeTypeStore.biketypes[0]); // Set first bike type
   }
+});
 
-  function closeDropdown() {
-    isDropdownOpen.value = false; // Close dropdown
+// Cleanup event listener
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside); // Remove listener
+});
+
+// Dropdown control functions
+function toggleDropdown() {
+  isDropdownOpen.value = !isDropdownOpen.value; // Toggle state
+  isNavDropdownOpen.value = false;
+  console.log('Dropdown toggled:', isDropdownOpen.value);
+}
+
+function toggleNavDropdown() {
+  isNavDropdownOpen.value = !isNavDropdownOpen.value;
+  isDropdownOpen.value = false;
+}
+
+function closeDropdown() {
+  isDropdownOpen.value = false; // Close dropdown
+  isNavDropdownOpen.value = false;
+}
+
+// Function to select a bike type
+function selectBikeType(bikeType) {
+  console.log('selectBikeType called with:', bikeType);
+
+  try { // Error handling
+    bikeTypeStore.setBikeType(bikeType); // Set selected bike type
+    console.log('Bike type set successfully in store');
+    console.log('Current bike type in store:', bikeTypeStore.currentBikeType);
+
+    // Close dropdown after selection
+    closeDropdown();
+  } catch (error) { // Error handling
+    console.error('Error setting bike type:', error);
   }
+}
 
-  // Function to select a bike type
-  function selectBikeType(bikeType) {
-    console.log('selectBikeType called with:', bikeType);
-
-    try { // Error handling
-      bikeTypeStore.setBikeType(bikeType); // Set selected bike type
-      console.log('Bike type set successfully in store');
-      console.log('Current bike type in store:', bikeTypeStore.currentBikeType);
-
-      // Close dropdown after selection
-      closeDropdown();
-    } catch (error) { // Error handling
-      console.error('Error setting bike type:', error);
-    }
-  }
-
-  // Function to open the Add Bike Component modal
-  function openAddBikeComponentModal() {
-    bikeComponentStore.clearEditComponent();
-    window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'));
-  }
+// Function to open the Add Bike Component modal
+function openAddBikeComponentModal() {
+  bikeComponentStore.clearEditComponent();
+  window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'));
+}
 
 </script>

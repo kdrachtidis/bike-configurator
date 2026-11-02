@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 
-from src.models.links import PartsToProducts
+from src.models.links import AccessoryTypesToProducts, PartsToProducts
 
 
 class BikeProductInput(SQLModel): # Input model for creating/updating bike products
@@ -23,6 +23,9 @@ class BikeProduct(BikeProductInput, table=True): # Database model for bike produ
     id: int | None = Field(default=None, primary_key=True)
     bikeparts: list["BikePart"] = Relationship(
         back_populates="bikeproducts", link_model=PartsToProducts
+    )
+    accessory_types: list["AccessoryType"] = Relationship(
+        back_populates="bikeproducts", link_model=AccessoryTypesToProducts
     )
 
 
