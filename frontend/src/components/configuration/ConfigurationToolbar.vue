@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-md bg-light-subtle rounded">
+  <nav class="navbar bs-dark-bg-subtle rounded">
     <div class="container-fluid">
       <div class="dropdown" :class="{ show: isDropdownOpen }">
-        <button class="btn btn-secondary dropdown-toggle" type="button" @click="toggleDropdown"
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" @click="toggleDropdown"
           :aria-expanded="isDropdownOpen">
           {{ bikeTypeStore.currentBikeType?.name || "Type empty" }}
         </button>
@@ -26,10 +26,7 @@
         </ul>
       </div>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bikeType"
-        aria-controls="bikeType" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      
 
       <div class="collapse navbar-collapse" id="bikeType">
 
@@ -69,10 +66,10 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#"></a>
           </li>
-          
+
         </ul>
       </div>
-      
+
       <div class="col-md-6 text-end">
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="openAddBikeComponentModal"
           data-toggle="tooltip" data-placement="bottom" :title="$t('message.subheader-add')"
