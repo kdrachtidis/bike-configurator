@@ -62,7 +62,7 @@
 
                 <button type="button" class="btn btn-sm btn-outline-secondary" @click="addPartRow" :disabled="isLoading">
                   <i class="bi bi-plus-lg me-1"></i>
-                  {{ $t("card.part.tooltip-add") }}
+                  {{ $t("modal.addbikecomponent.action-add-part") }}
                 </button>
               </div>
             </div>

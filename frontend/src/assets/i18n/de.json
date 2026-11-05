@@ -36,7 +36,8 @@
     "tab-basket": "Warenkorb"
   },
   "toolbar":{
-    "addcomponent": "Komponente hinzufügen"
+    "addcomponent": "Komponente hinzufügen",
+    "resetproducts": "Produkte zurücksetzen"
   },
   "list":{
     "empty-biketype": "Bitte wählen Sie einen Fahrradtyp aus dem Dropdown-Menü oben aus.",
@@ -100,7 +101,8 @@
       "modal-title": "Komponente hinzufügen",
       "label-component": "Komponentenname",
       "label-parts": "Teile",
-      "placeholder-component": "Geben Sie den Namen der Komponente hier ein"
+      "placeholder-component": "Geben Sie den Namen der Komponente hier ein",
+      "action-add-part": "Teil hinzufügen"
     },
     "button": {
       "close": "Schließen",
