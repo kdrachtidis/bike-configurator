@@ -88,6 +88,19 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     }
   };
 
+  async function deleteBikeComponentByBikeType(bikeTypeId, componentId) {
+    try {
+      await axios.delete(`api/biketypes/${bikeTypeId}/bikecomponents/${componentId}`);
+      bikecomponents.value = bikecomponents.value.filter((component) => component.id !== componentId);
+      if (currentEditComponent.value?.id === componentId) {
+        currentEditComponent.value = null;
+      }
+    } catch (error) {
+      console.error('Error deleting bike component by bike type:', error);
+      throw error;
+    }
+  }
+
   // Function to set the component to edit
   function setEditComponent(component) {
     currentEditComponent.value = component;
@@ -106,6 +119,7 @@ export const useBikeComponentStore = defineStore('bikecomponents', () => { // De
     getBikeComponentById,
     createBikeComponent,
     updateBikeComponentByBikeType,
+    deleteBikeComponentByBikeType,
     setEditComponent,
     clearEditComponent
   };

@@ -13,11 +13,7 @@
     "header-export": "Εξαγωγή",
     "header-load": "Φόρτωση",
     "header-login": "Σύνδεση",
-    "header-logout": "Αποσύνδεση",
-    "subheader-tab-components": "Συστατικά",
-    "subheader-tab-accessories": "Αξεσουάρ",
-    "subheader-tab-basket": "Καλάθι",
-    "subheader-add": "Προσθήκη εξαρτήματος"
+    "header-logout": "Αποσύνδεση"
   },
   "accessories": {
     "add-category": "Προσθήκη κατηγορίας",
@@ -34,6 +30,19 @@
     "load-error": "Δεν ήταν δυνατή η φόρτωση των αξεσουάρ.",
     "save-error": "Δεν ήταν δυνατή η αποθήκευση των αλλαγών."
   },
+  "tabs": {
+    "tab-components": "Συστατικά",
+    "tab-accessories": "Αξεσουάρ",
+    "tab-basket": "Καλάθι"
+  },
+  "toolbar": {
+    "addcomponent": "Προσθήκη εξαρτήματος"
+  },
+  "list": {
+    "empty-biketype": "Επιλέξτε έναν τύπο ποδηλάτου από το αναπτυσσόμενο μενού παραπάνω.",
+    "empty-bikecomponents-start": "Δεν βρέθηκαν εξαρτήματα ποδηλάτου για",
+    "empty-bikecomponents-end": "."
+  },
   "card": {
     "header": {
       "edit": "Επεξεργασία"
@@ -42,6 +51,10 @@
       "items": "Προϊόντα που προστέθηκαν",
       "item": "Προϊόν που προστέθηκε",
       "filter": "Φίλτρο"
+    },
+    "list": {
+      "empty-parts": "Δεν υπάρχουν διαθέσιμα μέρη για",
+      "empty-products": "Δεν έχουν επιλεγεί προϊόντα σε αυτό το εξάρτημα."
     },
     "part": {
       "tooltip-add": "Προσθήκη προϊόντος"
@@ -79,7 +92,7 @@
       "placeholder-source": "Εισάγετε εδώ την πηγή"
     },
     "editcomponent": {
-      "title": "Επεξεργασία εξαρτήματος",
+      "title": "Επεξεργασία εξαρτήματος ποδηλάτου",
       "name-label": "Όνομα εξαρτήματος",
       "name-placeholder": "Επεξεργαστείτε εδώ το όνομα του εξαρτήματος"
     },

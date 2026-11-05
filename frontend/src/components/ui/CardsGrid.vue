@@ -19,7 +19,7 @@
       <div class="col-12 text-center">
         <div class="alert alert-warning">
           <i class="bi bi-exclamation-triangle me-2"></i>
-          Bitte wählen Sie einen Fahrradtyp aus dem Dropdown-Menü oben aus.
+          {{ $t('list.empty-biketype') }}
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="col-12 text-center">
         <div class="alert alert-info">
           <i class="bi bi-info-circle me-2"></i>
-          Keine Bike Components für {{ bikeTypeStore.currentBikeType?.name }} gefunden.
+          {{ $t('list.empty-bikecomponents-start') }} {{ bikeTypeStore.currentBikeType?.name }} {{ $t('list.empty-bikecomponents-end') }}
         </div>
       </div>
     </div>

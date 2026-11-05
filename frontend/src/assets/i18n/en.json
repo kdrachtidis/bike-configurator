@@ -13,11 +13,7 @@
     "header-export": "Export",
     "header-load": "Load",
     "header-login": "Login",
-    "header-logout": "Logout",
-    "subheader-tab-components": "Components",
-    "subheader-tab-accessories": "Accessories",
-    "subheader-tab-basket": "Basket",
-    "subheader-add": "Add Component"
+    "header-logout": "Logout"
   },
   "accessories": {
     "add-category": "Add category",
@@ -34,6 +30,19 @@
     "load-error": "Could not load accessories.",
     "save-error": "Could not save changes."
   },
+  "tabs": {
+    "tab-components": "Components",
+    "tab-accessories": "Accessories",
+    "tab-basket": "Basket"
+  },
+  "toolbar": {
+    "addcomponent": "Add Component"
+  },
+  "list": {
+    "empty-biketype": "Please select a bike type from the dropdown above.",
+    "empty-bikecomponents-start": "No bike components found for",
+    "empty-bikecomponents-end": "."
+  },
   "card": {
     "header": {
       "edit": "Edit"
@@ -42,6 +51,10 @@
       "items": "Products added",
       "item": "Product added",
       "filter": "Filter"
+    },
+    "list": {
+      "empty-parts": "No parts available for",
+      "empty-products": "No products selected in this component."
     },
     "part": {
       "tooltip-add": "Add product"
@@ -79,7 +92,7 @@
       "placeholder-source": "Enter the source here"
     },
     "editcomponent": {
-      "title": "Edit Component",
+      "title": "Edit Bike Component",
       "name-label": "Component name",
       "name-placeholder": "Edit the component name here"
     },

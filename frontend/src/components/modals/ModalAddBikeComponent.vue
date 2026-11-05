@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addBikeComponentModalLabel">{{ modalTitle }}</h1>
+          <h1 class="modal-title fs-5" id="addBikeComponentModalLabel">{{ $t("modal.addbikecomponent.modal-title") }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal"
             :aria-label="$t('modal.button.close')"></button>
         </div>
@@ -85,8 +85,7 @@
 </template>
 
 <script setup>
-  import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
-  import { useI18n } from 'vue-i18n'
+  import { nextTick, onMounted, onUnmounted, ref } from 'vue'
   import { Modal } from 'bootstrap'
   import { useBikeComponentStore } from '@/stores/bikecomponent'
   import { useBikePartStore } from '@/stores/bikepart'
@@ -98,20 +97,12 @@
   const bikeComponentStore = useBikeComponentStore()
   const bikePartStore = useBikePartStore()
   const bikeTypeStore = useBikeTypeStore()
-  const { t } = useI18n()
   const componentName = ref('')
   const partRows = ref([])
   const deletedPartIds = ref([])
   const isLoading = ref(false)
   const errorMessage = ref('')
   const nextLocalId = ref(1)
-
-  const isEditMode = computed(() => Boolean(bikeComponentStore.currentEditComponent?.id))
-  const modalTitle = computed(() => {
-    return isEditMode.value
-      ? `${bikeComponentStore.currentEditComponent?.name ?? ''} (${String(t("card.header.edit"))})`
-      : t("modal.addbikecomponent.modal-title")
-  })
 
   const buildPartRow = (part = null) => ({
     localId: nextLocalId.value++,
@@ -129,23 +120,6 @@
     deletedPartIds.value = []
     errorMessage.value = ''
     isLoading.value = false
-  }
-
-  const preloadForCurrentMode = async () => {
-    resetForm()
-
-    if (isEditMode.value) {
-      const selectedComponent = bikeComponentStore.currentEditComponent
-      componentName.value = selectedComponent.name ?? ''
-
-      const bikeTypeId = bikeTypeStore.currentBikeType?.id
-      if (bikeTypeId && selectedComponent?.id) {
-        const parts = await bikePartStore.getBikePartsByComponent(bikeTypeId, selectedComponent.id)
-        partRows.value = parts.map((part) => buildPartRow(part))
-      }
-    } else {
-      partRows.value = []
-    }
   }
 
   const addPartRow = async () => {
@@ -188,7 +162,7 @@
   const openModal = async () => {
     if (!modalRef.value) return
     const modal = Modal.getOrCreateInstance(modalRef.value)
-    await preloadForCurrentMode()
+    resetForm()
     modal.show()
   }
 
@@ -214,23 +188,11 @@
 
     try {
       const bikeTypeId = bikeTypeStore.currentBikeType.id
-      let componentId = bikeComponentStore.currentEditComponent?.id
-
-      if (isEditMode.value) {
-        if (componentName.value.trim() !== bikeComponentStore.currentEditComponent.name) {
-          await bikeComponentStore.updateBikeComponentByBikeType(
-            bikeTypeId,
-            componentId,
-            componentName.value.trim()
-          )
-        }
-      } else {
-        const createdComponent = await bikeComponentStore.createBikeComponent(
-          bikeTypeId,
-          componentName.value.trim()
-        )
-        componentId = createdComponent.id
-      }
+      const createdComponent = await bikeComponentStore.createBikeComponent(
+        bikeTypeId,
+        componentName.value.trim()
+      )
+      const componentId = createdComponent.id
 
       if (!componentId) {
         throw new Error('Component ID is missing after save.')

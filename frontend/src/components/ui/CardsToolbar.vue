@@ -26,7 +26,7 @@
         </ul>
       </div>
 
-      
+
 
       <div class="collapse navbar-collapse" id="bikeType">
 
@@ -71,10 +71,10 @@
       </div>
 
       <div class="col-md-6 text-end">
-        <button type="button" class="btn btn-sm btn-outline-secondary" @click="openAddBikeComponentModal"
-          data-toggle="tooltip" data-placement="bottom" :title="$t('message.subheader-add')"
-          :aria-label="$t('message.subheader-add')">{{
-            $t('message.subheader-add') }}</button>
+        <button type="button" class="btn btn-md btn-outline-secondary" @click="openAddBikeComponentModal"
+          data-toggle="tooltip" data-placement="bottom" :title="$t('toolbar.addcomponent')"
+          :aria-label="$t('toolbar.addcomponent')">{{
+            $t('toolbar.addcomponent') }}</button>
       </div>
     </div>
   </nav>

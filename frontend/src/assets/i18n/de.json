@@ -13,11 +13,7 @@
     "header-export": "Exportieren",
     "header-load": "Laden",
     "header-login": "Anmelden",
-    "header-logout": "Abmelden",
-    "subheader-tab-components": "Komponenten",
-    "subheader-tab-accessories": "Zubehör",
-    "subheader-tab-basket": "Warenkorb",
-    "subheader-add": "Komponente hinzufügen"
+    "header-logout": "Abmelden"
   },
   "accessories": {
     "add-category": "Kategorie hinzufügen",
@@ -34,6 +30,19 @@
     "load-error": "Zubehör konnte nicht geladen werden.",
     "save-error": "Änderungen konnten nicht gespeichert werden."
   },
+  "tabs":{
+    "tab-components": "Komponenten",
+    "tab-accessories": "Zubehör",
+    "tab-basket": "Warenkorb"
+  },
+  "toolbar":{
+    "addcomponent": "Komponente hinzufügen"
+  },
+  "list":{
+    "empty-biketype": "Bitte wählen Sie einen Fahrradtyp aus dem Dropdown-Menü oben aus.",
+    "empty-bikecomponents-start": "Keine Bike Components für",
+    "empty-bikecomponents-end": "gefunden."
+  },
   "card": {
     "header": {
       "edit": "Bearbeiten"
@@ -42,6 +51,10 @@
       "items": "Produkte hinzugefügt",
       "item": "Produkt hinzugefügt",
       "filter": "Filtern"
+    },
+    "list":{
+      "empty-parts":"Keine Teile verfügbar für",
+      "empty-products":"Keine ausgewählten Produkte in dieser Komponente."
     },
     "part": {
       "tooltip-add": "Produkt hinzufügen"
@@ -79,7 +92,7 @@
       "placeholder-source": "Geben Sie die Quelle hier ein"
     },
     "editcomponent": {
-      "title": "Komponente bearbeiten",
+      "title": "Fahrradkomponente bearbeiten",
       "name-label": "Komponentenname",
       "name-placeholder": "Editieren Sie den Namen der Komponente hierher"
     },

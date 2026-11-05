@@ -22,6 +22,6 @@
 
   const openEditComponentModal = () => {
     bikeComponentStore.setEditComponent(props.bikecomponent)
-    window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'))
+    window.dispatchEvent(new CustomEvent('open-edit-bike-component-modal'))
   }
 </script>

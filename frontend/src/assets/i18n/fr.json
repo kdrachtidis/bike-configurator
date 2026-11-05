@@ -13,11 +13,7 @@
     "header-export": "Exporter",
     "header-load": "Charger",
     "header-login": "Se connecter",
-    "header-logout": "Se déconnecter",
-    "subheader-tab-components": "Composants",
-    "subheader-tab-accessories": "Accessoires",
-    "subheader-tab-basket": "Panier",
-    "subheader-add": "Ajouter un composant"
+    "header-logout": "Se déconnecter"
   },
   "accessories": {
     "add-category": "Ajouter une catégorie",
@@ -34,6 +30,19 @@
     "load-error": "Impossible de charger les accessoires.",
     "save-error": "Impossible d’enregistrer les modifications."
   },
+  "tabs": {
+    "tab-components": "Composants",
+    "tab-accessories": "Accessoires",
+    "tab-basket": "Panier"
+  },
+  "toolbar": {
+    "addcomponent": "Ajouter un composant"
+  },
+  "list": {
+    "empty-biketype": "Veuillez sélectionner un type de vélo dans le menu déroulant ci-dessus.",
+    "empty-bikecomponents-start": "Aucun composant de vélo trouvé pour",
+    "empty-bikecomponents-end": "."
+  },
   "card": {
     "header": {
       "edit": "Modifier"
@@ -42,6 +51,10 @@
       "items": "Produits ajoutés",
       "item": "Produit ajouté",
       "filter": "Filtrer"
+    },
+    "list": {
+      "empty-parts": "Aucune pièce disponible pour",
+      "empty-products": "Aucun produit sélectionné dans ce composant."
     },
     "part": {
       "tooltip-add": "Ajouter un produit"
@@ -79,7 +92,7 @@
       "placeholder-source": "Saisissez la source ici"
     },
     "editcomponent": {
-      "title": "Modifier le composant",
+      "title": "Modifier le composant du vélo",
       "name-label": "Nom du composant",
       "name-placeholder": "Modifiez le nom du composant ici"
     },

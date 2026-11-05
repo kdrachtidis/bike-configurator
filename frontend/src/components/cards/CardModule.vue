@@ -28,7 +28,7 @@
           <BikePartUnassigned :bikecomponent="bikecomponent" />
         </div>
         <div v-else-if="showSelectedProductsOnly && displayedBikeParts.length === 0" class="alert alert-secondary m-2">
-          <small>Keine ausgewählten Produkte in dieser Komponente.</small>
+          <small>{{ $t('card.list.empty-products') }}</small>
         </div>
 
         <ul class="list-group list-group-flush">
