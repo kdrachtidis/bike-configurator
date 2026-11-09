@@ -5,15 +5,8 @@
     "productlist-view-list": "Passer à la liste simple",
     "productlist-view-grouped": "Passer à la vue groupée",
     "shop": "Boutique",
-    "header-title": "Configurateur de vélo",
-    "header-language": "Langue",
-    "header-theme": "Thème",
-    "header-dark": "Sombre",
-    "header-light": "Clair",
     "header-export": "Exporter",
-    "header-load": "Charger",
-    "header-login": "Se connecter",
-    "header-logout": "Se déconnecter"
+    "header-load": "Charger"
   },
   "accessories": {
     "add-category": "Ajouter une catégorie",
@@ -30,13 +23,25 @@
     "load-error": "Impossible de charger les accessoires.",
     "save-error": "Impossible d’enregistrer les modifications."
   },
+  "appheader": {
+    "title": "Configurateur de vélo",
+    "language": "Langue",
+    "theme": "Thème",
+    "dark": "Sombre",
+    "light": "Clair",
+    "login": "Se connecter",
+    "logout": "Se déconnecter"
+  },
   "tabs": {
     "tab-components": "Composants",
     "tab-accessories": "Accessoires",
     "tab-basket": "Panier"
   },
   "toolbar": {
-    "addcomponent": "Ajouter un composant"
+    "addcomponent": "Ajouter un composant",
+    "resetproducts": "Réinitialiser les produits",
+    "resetproducts-confirm": "Supprimer définitivement tous les enregistrements de produits attribués à ce type de vélo, y compris leurs autres attributions ? Cette action est irréversible.",
+    "resetproducts-error": "Impossible de réinitialiser les produits. Certains ont peut-être déjà été supprimés. Actualisez la page et réessayez."
   },
   "list": {
     "empty-biketype": "Veuillez sélectionner un type de vélo dans le menu déroulant ci-dessus.",
@@ -100,6 +105,7 @@
       "modal-title": "Ajouter un composant",
       "label-component": "Nom du composant",
       "label-parts": "Pièces",
+      "action-add-part": "Ajouter une pièce",
       "placeholder-component": "Saisissez le nom du composant ici"
     },
     "button": {

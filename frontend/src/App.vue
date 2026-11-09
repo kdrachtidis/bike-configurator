@@ -6,6 +6,7 @@
   <ModalLoginUser />
   <header>
     <AppHeader />
+    <ConfigurationHeader />
   </header>  
   <main class="mb-3 container-fluid">
     <ConfigurationTabs v-model="activeConfigurationTab" />
@@ -36,7 +37,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import AppHeader from './components/ui/AppHeader.vue'
+import AppHeader from './components/header/AppHeader.vue'
+import ConfigurationHeader from './components/header/ConfigurationHeader.vue'
 import CardsToolbar from './components/ui/CardsToolbar.vue'
 import CardsGrid from './components/ui/CardsGrid.vue'
 import ConfigurationTabs from './components/ui/ConfigurationTabs.vue'

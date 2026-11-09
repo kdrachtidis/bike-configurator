@@ -162,6 +162,9 @@ cython_debug/
 #.idea/
 
 .vscode/
+!.vscode/
+.vscode/*
+!.vscode/settings.json
 data/
 .idea
 .bruno

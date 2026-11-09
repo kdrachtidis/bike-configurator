@@ -5,15 +5,8 @@
     "productlist-view-list": "Zur einfachen Listenansicht wechseln",
     "productlist-view-grouped": "Zur gruppierten Ansicht wechseln",
     "shop": "Shop",
-    "header-title": "Fahrrad Konfigurator",
-    "header-language": "Sprache",
-    "header-theme": "Motiv",
-    "header-dark": "Dunkel",
-    "header-light": "Hell",
     "header-export": "Exportieren",
-    "header-load": "Laden",
-    "header-login": "Anmelden",
-    "header-logout": "Abmelden"
+    "header-load": "Laden"
   },
   "accessories": {
     "add-category": "Kategorie hinzufügen",
@@ -30,6 +23,15 @@
     "load-error": "Zubehör konnte nicht geladen werden.",
     "save-error": "Änderungen konnten nicht gespeichert werden."
   },
+  "appheader":{
+    "title": "Willkommen beim Fahrrad Konfigurator",
+    "language": "Sprache",
+    "theme": "Motiv",
+    "dark": "Dunkel",
+    "light": "Hell",
+    "login": "Anmelden",
+    "logout": "Abmelden"
+  },
   "tabs":{
     "tab-components": "Komponenten",
     "tab-accessories": "Zubehör",
@@ -37,7 +39,9 @@
   },
   "toolbar":{
     "addcomponent": "Komponente hinzufügen",
-    "resetproducts": "Produkte zurücksetzen"
+    "resetproducts": "Produkte zurücksetzen",
+    "resetproducts-confirm": "Alle diesem Fahrradtyp zugewiesenen Produktdatensätze dauerhaft löschen, einschließlich aller weiteren Zuweisungen dieser Produkte? Dieser Vorgang kann nicht rückgängig gemacht werden.",
+    "resetproducts-error": "Produkte konnten nicht zurückgesetzt werden. Einige Produkte wurden möglicherweise bereits gelöscht. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."
   },
   "list":{
     "empty-biketype": "Bitte wählen Sie einen Fahrradtyp aus dem Dropdown-Menü oben aus.",

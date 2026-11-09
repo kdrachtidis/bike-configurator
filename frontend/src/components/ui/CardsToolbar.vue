@@ -1,129 +1,76 @@
 <template>
-  <nav class="navbar bs-dark-bg-subtle rounded">
+  <nav class="navbar navbar-expand-lg bs-dark-bg-subtle rounded">
     <div class="container-fluid">
-      <div class="dropdown" :class="{ show: isDropdownOpen }">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" @click="toggleDropdown"
-          :aria-expanded="isDropdownOpen">
-          {{ bikeTypeStore.currentBikeType?.name || 'Type empty' }}
+      <a class="navbar-brand" href="#">{{ $t('appheader.title') }}</a>
+      <SelectBikeType />
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="dropdown-menu" :class="{ show: isDropdownOpen }">
-          <li v-if="bikeTypeStore.loading">
-            <span class="dropdown-item-text">Loading...</span>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav flex-row flex-wrap">
+          <li class="nav-item">
+            <button type="button" class="btn btn-md btn-outline-secondary" @click="openAddBikeComponentModal"
+              data-toggle="tooltip" data-placement="bottom" :title="$t('toolbar.addcomponent')"
+              :aria-label="$t('toolbar.addcomponent')">
+              {{ $t('toolbar.addcomponent') }}
+            </button>
           </li>
-          <li v-if="bikeTypeStore.error">
-            <span class="dropdown-item-text text-danger">{{ bikeTypeStore.error }}</span>
-          </li>
-          <li v-if="!bikeTypeStore.loading && bikeTypeStore.biketypes.length === 0">
-            <span class="dropdown-item-text">No bike types available</span>
-          </li>
-          <li v-for="bikeType in bikeTypeStore.biketypes" :key="bikeType.id">
-            <button type="button" class="dropdown-item"
-              :class="{ active: bikeTypeStore.currentBikeType?.id === bikeType.id }" @click="selectBikeType(bikeType)"
-              @mousedown.prevent>
-              {{ bikeType.name }}
+          <li class="nav-item">
+            <button type="button" class="btn btn-md btn-outline-secondary" data-toggle="tooltip" data-placement="bottom"
+              :title="$t('toolbar.resetproducts')" :aria-label="$t('toolbar.resetproducts')" @click="resetProducts"
+              :disabled="isResettingProducts || !bikeTypeStore.currentBikeType?.id">
+              <span v-if="isResettingProducts" class="spinner-border spinner-border-sm me-2" role="status"
+                aria-hidden="true"></span>
+              {{ $t('toolbar.resetproducts') }}
             </button>
           </li>
         </ul>
-      </div>
-      <div class="collapse navbar-collapse" id="bikeType">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"></a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-6 text-end">
-        <button type="button" class="btn btn-md btn-outline-secondary" @click="openAddBikeComponentModal"
-          data-toggle="tooltip" data-placement="bottom" :title="$t('toolbar.addcomponent')"
-          :aria-label="$t('toolbar.addcomponent')">
-          {{ $t('toolbar.addcomponent') }}
-        </button>
-        <button type="button" class="btn btn-md btn-outline-secondary"
-          data-toggle="tooltip" data-placement="bottom" :title="$t('toolbar.resetproducts')" :aria-label="$t('toolbar.resetproducts')">
-          {{ $t('toolbar.resetproducts') }}
-        </button>
-      </div>
+      </div>    
+      
+    </div>
+    <div v-if="resetProductsError" class="alert alert-danger mt-2 mb-0" role="alert">
+      {{ resetProductsError }}
     </div>
   </nav>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
 import { useBikeComponentStore } from '@/stores/bikecomponent'
+import { useBikeProductStore } from '@/stores/bikeproduct'
 import { useBikeTypeStore } from '@/stores/biketype'
-import { onMounted, ref, onUnmounted } from 'vue'
+import SelectBikeType from './SelectBikeType.vue'
+import { ref } from 'vue'
 
-const bikeTypeStore = useBikeTypeStore() // Store instance
+const bikeTypeStore = useBikeTypeStore()
 const bikeComponentStore = useBikeComponentStore()
-const isDropdownOpen = ref(false) // Dropdown state
-const isNavDropdownOpen = ref(false)
-
-// Close dropdown when clicking outside
-function handleClickOutside(event) {
-  const dropdown = event.target.closest('.dropdown') // Check if click is inside dropdown
-  if (!dropdown) {
-    closeDropdown()
-  }
-}
-
-// Load bike types when component mounts
-onMounted(async () => {
-  // Add click outside listener
-  document.addEventListener('click', handleClickOutside)
-  console.log('ConfigurationHeader: Loading bike types...')
-  await bikeTypeStore.getBikeTypes() // Fetch bike types from API
-  console.log('ConfigurationHeader: Bike types loaded:', bikeTypeStore.biketypes)
-  console.log('ConfigurationHeader: Number of bike types:', bikeTypeStore.biketypes.length)
-
-  // If no bike type is selected and we have bike types, select the first one
-  if (!bikeTypeStore.currentBikeType && bikeTypeStore.biketypes.length > 0) {
-    console.log('ConfigurationHeader: Auto-selecting first bike type')
-    bikeTypeStore.setBikeType(bikeTypeStore.biketypes[0]) // Set first bike type
-  }
-})
-
-// Cleanup event listener
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside) // Remove listener
-})
-
-// Dropdown control functions
-function toggleDropdown() {
-  isDropdownOpen.value = !isDropdownOpen.value // Toggle state
-  isNavDropdownOpen.value = false
-  console.log('Dropdown toggled:', isDropdownOpen.value)
-}
-
-function toggleNavDropdown() {
-  isNavDropdownOpen.value = !isNavDropdownOpen.value
-  isDropdownOpen.value = false
-}
-
-function closeDropdown() {
-  isDropdownOpen.value = false // Close dropdown
-  isNavDropdownOpen.value = false
-}
-
-// Function to select a bike type
-function selectBikeType(bikeType) {
-  console.log('selectBikeType called with:', bikeType)
-
-  try {
-    // Error handling
-    bikeTypeStore.setBikeType(bikeType) // Set selected bike type
-    console.log('Bike type set successfully in store')
-    console.log('Current bike type in store:', bikeTypeStore.currentBikeType)
-
-    // Close dropdown after selection
-    closeDropdown()
-  } catch (error) {
-    // Error handling
-    console.error('Error setting bike type:', error)
-  }
-}
+const bikeProductStore = useBikeProductStore()
+const { t } = useI18n()
+const isResettingProducts = ref(false)
+const resetProductsError = ref('')
 
 // Function to open the Add Bike Component modal
 function openAddBikeComponentModal() {
   bikeComponentStore.clearEditComponent()
   window.dispatchEvent(new CustomEvent('open-add-bike-component-modal'))
+}
+
+async function resetProducts() {
+  const bikeTypeId = bikeTypeStore.currentBikeType?.id
+  if (!bikeTypeId || isResettingProducts.value) return
+
+  if (!window.confirm(t('toolbar.resetproducts-confirm'))) return
+
+  isResettingProducts.value = true
+  resetProductsError.value = ''
+  try {
+    await bikeProductStore.resetProductsForBikeType(bikeTypeId)
+  } catch (error) {
+    console.error('Failed to reset assigned products:', error)
+    resetProductsError.value = t('toolbar.resetproducts-error')
+  } finally {
+    isResettingProducts.value = false
+  }
 }
 </script>

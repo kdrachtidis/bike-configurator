@@ -5,15 +5,8 @@
     "productlist-view-list": "Switch to plain list view",
     "productlist-view-grouped": "Switch to grouped view",
     "shop": "Shop",
-    "header-title": "Bike Configurator",
-    "header-language": "Language",
-    "header-theme": "Theme",
-    "header-dark": "Dark",
-    "header-light": "Light",
     "header-export": "Export",
-    "header-load": "Load",
-    "header-login": "Login",
-    "header-logout": "Logout"
+    "header-load": "Load"
   },
   "accessories": {
     "add-category": "Add category",
@@ -30,13 +23,25 @@
     "load-error": "Could not load accessories.",
     "save-error": "Could not save changes."
   },
+  "appheader": {
+    "title": "Bike Configurator",
+    "language": "Language",
+    "theme": "Theme",
+    "dark": "Dark",
+    "light": "Light",
+    "login": "Login",
+    "logout": "Logout"
+  },
   "tabs": {
     "tab-components": "Components",
     "tab-accessories": "Accessories",
     "tab-basket": "Basket"
   },
   "toolbar": {
-    "addcomponent": "Add Component"
+    "addcomponent": "Add Component",
+    "resetproducts": "Reset products",
+    "resetproducts-confirm": "Permanently delete all product records assigned to this bike type, including any other assignments to those products? This cannot be undone.",
+    "resetproducts-error": "Could not reset products. Some products may already have been deleted. Please refresh and try again."
   },
   "list": {
     "empty-biketype": "Please select a bike type from the dropdown above.",
@@ -100,6 +105,7 @@
       "modal-title": "Add Component",
       "label-component": "Component name",
       "label-parts": "Parts",
+      "action-add-part": "Add part",
       "placeholder-component": "Enter the component name here"
     },
     "button": {

@@ -56,17 +56,59 @@ export const useBikeProductStore = defineStore('bikeproducts', () => {
   async function deleteBikeProduct(partId, productId) {
     try {
       await axios.delete(`api/bikeparts/${partId}/bikeproducts/${productId}`);
-      const currentProducts = bikeproductsByPart.value.get(partId) || [];
-      bikeproductsByPart.value.set(
-        partId,
-        currentProducts.filter((product) => product.id !== productId)
-      );
+      for (const [bikePartId, products] of bikeproductsByPart.value) {
+        bikeproductsByPart.value.set(
+          bikePartId,
+          products.filter((product) => product.id !== productId)
+        );
+      }
       bikeproducts.value = bikeproducts.value.filter((product) => product.id !== productId);
       if (currentEditProduct.value?.id === productId) {
         currentEditProduct.value = null;
       }
     } catch (error) {
       console.error('Error deleting bike product:', error);
+      throw error;
+    }
+  }
+
+  async function resetProductsForBikeType(bikeTypeId) {
+    try {
+      const { data: components } = await axios.get(`api/biketypes/${bikeTypeId}/bikecomponents`);
+      if (!Array.isArray(components)) {
+        throw new Error('Bike component response was not a list.');
+      }
+
+      const productAssignments = new Map();
+      for (const component of components) {
+        const { data: parts } = await axios.get(
+          `api/biketypes/${bikeTypeId}/bikecomponents/${component.id}/bikeparts`
+        );
+        if (!Array.isArray(parts)) {
+          throw new Error(`Bike part response for component ${component.id} was not a list.`);
+        }
+
+        for (const part of parts) {
+          const { data: products } = await axios.get(`api/bikeparts/${part.id}/bikeproducts/`);
+          if (!Array.isArray(products)) {
+            throw new Error(`Bike product response for part ${part.id} was not a list.`);
+          }
+
+          for (const product of products) {
+            if (!productAssignments.has(product.id)) {
+              productAssignments.set(product.id, part.id);
+            }
+          }
+        }
+      }
+
+      for (const [productId, partId] of productAssignments) {
+        await deleteBikeProduct(partId, productId);
+      }
+
+      return productAssignments.size;
+    } catch (error) {
+      console.error('Error resetting products for bike type:', error);
       throw error;
     }
   }
@@ -92,6 +134,7 @@ export const useBikeProductStore = defineStore('bikeproducts', () => {
     getBikeProductsByPart,
     updateBikeProduct,
     deleteBikeProduct,
+    resetProductsForBikeType,
     getBikeProductsForPart,
     setEditProduct,
     clearEditProduct
