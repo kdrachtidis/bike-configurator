@@ -4,9 +4,7 @@
     "productlist-empty": "No products assigned yet.",
     "productlist-view-list": "Switch to plain list view",
     "productlist-view-grouped": "Switch to grouped view",
-    "shop": "Shop",
-    "header-export": "Export",
-    "header-load": "Load"
+    "shop": "Shop"
   },
   "accessories": {
     "add-category": "Add category",
@@ -31,6 +29,11 @@
     "light": "Light",
     "login": "Login",
     "logout": "Logout"
+  },
+  "configurationheader": {
+    "title": "Your configuration",
+    "export": "Export",
+    "load": "Load"
   },
   "tabs": {
     "tab-components": "Components",

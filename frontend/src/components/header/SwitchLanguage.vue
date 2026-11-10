@@ -1,6 +1,7 @@
 <template>
     <div ref="dropdown" class="dropdown" :class="{ show: isDropdownOpen }">
-        <small>{{ $t('appheader.language') }}: </small><button id="languageDropdown" class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+        <span class="navbar-text me-2"><small>{{ $t('appheader.language') }}:</small></span>
+        <button id="languageDropdown" class="btn btn-sm btn-dark dropdown-toggle" type="button"
             aria-controls="languageMenu" :aria-expanded="isDropdownOpen" :aria-label="$t('appheader-language')"
             :title="$t('appheader.language')" @click="isDropdownOpen = !isDropdownOpen">
             {{ $i18n.locale }}

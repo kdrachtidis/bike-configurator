@@ -1,40 +1,43 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-right ">
+    <nav class="navbar navbar-expand-lg navbar-right bg-body">
         <div class="container-fluid">
             <span class="navbar-text">
                 {{ $t('appheader.title') }}!
             </span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item me-4">
-                        <SwitchLanguage />
-                    </li>
+            <ul class="nav">
+                <li class="nav-item me-2">
+                    <SwitchLanguage />
+                </li>
 
-                    <li class="nav-item me-4">
-                        <SwitchTheme />
-                    </li>
+                <li class="nav-item vr me-2 text-white">
+                    <hr class="d-lg-none my-2 text-white-50" />
+                </li>
 
-                    <li class="nav-item" v-if="!authStore.isAuthenticated">
-                        <button type="button" class="btn btn-sm btn-dark" @click="showLoginModal" data-toggle="tooltip"
-                            data-placement="bottom" :title="$t('appheader.login')"
-                            :aria-label="$t('appheader.login')">
-                            <i class="bi bi-person-circle me-1"></i>{{ $t('appheader.login') }}
-                        </button>
-                    </li>
-                    <li class="nav-item" v-else>
-                        <button type="button" class="btn btn-sm btn-dark" @click="logout" data-toggle="tooltip"
-                            data-placement="bottom" :title="$t('appheader.logout')"
-                            :aria-label="$t('appheader.logout')">
-                            <i class="bi bi-box-arrow-right me-1"></i>{{ $t('appheader.logout') }}
-                        </button>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-item me-2">
+                    <SwitchTheme />
+                </li>
+
+                <li class="nav-item vr me-2 text-white">
+                    <hr class="d-lg-none my-2 text-white-50" />
+                </li>
+
+                <li class="nav-item">
+                    <button type="button" class="btn btn-sm btn-dark">{{$t('appheader.register')}}</button>
+                </li>
+
+                <li class="nav-item" v-if="!authStore.isAuthenticated">
+                    <button type="button" class="btn btn-sm btn-dark" @click="showLoginModal" data-toggle="tooltip"
+                        data-placement="bottom" :title="$t('appheader.login')" :aria-label="$t('appheader.login')">{{
+                            $t('appheader.login') }}
+                    </button>
+                </li>
+                <li class="nav-item" v-else>
+                    <button type="button" class="btn btn-sm btn-dark" @click="logout" data-toggle="tooltip"
+                        data-placement="bottom" :title="$t('appheader.logout')" :aria-label="$t('appheader.logout')">{{
+                            $t('appheader.logout') }}
+                    </button>
+                </li>
+            </ul>
         </div>
     </nav>
 </template>

@@ -4,9 +4,7 @@
     "productlist-empty": "Noch keine Produkte zugewiesen.",
     "productlist-view-list": "Zur einfachen Listenansicht wechseln",
     "productlist-view-grouped": "Zur gruppierten Ansicht wechseln",
-    "shop": "Shop",
-    "header-export": "Exportieren",
-    "header-load": "Laden"
+    "shop": "Shop"
   },
   "accessories": {
     "add-category": "Kategorie hinzufügen",
@@ -29,8 +27,14 @@
     "theme": "Motiv",
     "dark": "Dunkel",
     "light": "Hell",
+    "register": "Registrieren",
     "login": "Anmelden",
     "logout": "Abmelden"
+  },
+  "configurationheader": {
+    "title": "Deine Konfiguration",
+    "export": "Exportieren",
+    "load": "Laden"
   },
   "tabs":{
     "tab-components": "Komponenten",

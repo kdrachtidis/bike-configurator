@@ -4,11 +4,11 @@
   <ModalAddBikeComponent />
   <ModalEditBikeComponent />
   <ModalLoginUser />
-  <header>
+  <header class="bg-black">
     <AppHeader />
     <ConfigurationHeader />
   </header>  
-  <main class="mb-3 container-fluid">
+  <main class="mb-3 container-fluid bg-black">
     <ConfigurationTabs v-model="activeConfigurationTab" />
     <div class="tab-content bg-body border-bottom border-start border-end rounded-bottom">
       <div id="configuration-panel-components" class="tab-pane" :class="{

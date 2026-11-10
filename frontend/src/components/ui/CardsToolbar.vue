@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg bs-dark-bg-subtle rounded">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">{{ $t('appheader.title') }}</a>
-      <SelectBikeType />
+      
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,6 @@ import { useI18n } from 'vue-i18n'
 import { useBikeComponentStore } from '@/stores/bikecomponent'
 import { useBikeProductStore } from '@/stores/bikeproduct'
 import { useBikeTypeStore } from '@/stores/biketype'
-import SelectBikeType from './SelectBikeType.vue'
 import { ref } from 'vue'
 
 const bikeTypeStore = useBikeTypeStore()

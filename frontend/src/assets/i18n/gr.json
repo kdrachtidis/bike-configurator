@@ -4,9 +4,7 @@
     "productlist-empty": "Δεν έχουν αντιστοιχιστεί ακόμη προϊόντα.",
     "productlist-view-list": "Μετάβαση σε απλή λίστα",
     "productlist-view-grouped": "Μετάβαση σε ομαδοποιημένη προβολή",
-    "shop": "Κατάστημα",
-    "header-export": "Εξαγωγή",
-    "header-load": "Φόρτωση"
+    "shop": "Κατάστημα"
   },
   "accessories": {
     "add-category": "Προσθήκη κατηγορίας",
@@ -31,6 +29,11 @@
     "light": "Φωτεινό",
     "login": "Σύνδεση",
     "logout": "Αποσύνδεση"
+  },
+  "configurationheader": {
+    "title": "Η διαμόρφωσή σας",
+    "export": "Εξαγωγή",
+    "load": "Φόρτωση"
   },
   "tabs": {
     "tab-components": "Συστατικά",
