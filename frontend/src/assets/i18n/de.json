@@ -33,6 +33,9 @@
   },
   "configurationheader": {
     "title": "Deine Konfiguration",
+    "duplicate": "Duplizieren",
+    "save": "Speichern",
+    "delete": "Löschen",
     "export": "Exportieren",
     "load": "Laden"
   },

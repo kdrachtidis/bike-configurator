@@ -11,8 +11,8 @@
             {{ $t('tabs.tab-accessories') }}
         </button>
         <button id="configuration-tab-basket" class="nav-link" :class="{ active: modelValue === 'basket' }"
-            type="button" role="tab" aria-controls="configuration-panel-basket"
-            :aria-selected="modelValue === 'basket'" @click="$emit('update:modelValue', 'basket')">
+            type="button" role="tab" aria-controls="configuration-panel-basket" :aria-selected="modelValue === 'basket'"
+            @click="$emit('update:modelValue', 'basket')">
             {{ $t('tabs.tab-basket') }}
         </button>
     </div>

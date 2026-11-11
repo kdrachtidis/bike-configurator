@@ -1,23 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand-lg bs-dark-bg-subtle rounded">
+  <nav class="navbar bs-dark-bg-subtle rounded">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">{{ $t('appheader.title') }}</a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav flex-row flex-wrap">
-          <li class="nav-item">
-            <button type="button" class="btn btn-md btn-outline-secondary" @click="openAddBikeComponentModal"
+        <ul class="nav">
+          <li class="nav-item me-2">
+            <button type="button" class="btn btn-md btn-dark" @click="openAddBikeComponentModal"
               data-toggle="tooltip" data-placement="bottom" :title="$t('toolbar.addcomponent')"
               :aria-label="$t('toolbar.addcomponent')">
               {{ $t('toolbar.addcomponent') }}
             </button>
           </li>
           <li class="nav-item">
-            <button type="button" class="btn btn-md btn-outline-secondary" data-toggle="tooltip" data-placement="bottom"
+            <button type="button" class="btn btn-md btn-dark" data-toggle="tooltip" data-placement="bottom"
               :title="$t('toolbar.resetproducts')" :aria-label="$t('toolbar.resetproducts')" @click="resetProducts"
               :disabled="isResettingProducts || !bikeTypeStore.currentBikeType?.id">
               <span v-if="isResettingProducts" class="spinner-border spinner-border-sm me-2" role="status"
@@ -26,8 +19,6 @@
             </button>
           </li>
         </ul>
-      </div>    
-      
     </div>
     <div v-if="resetProductsError" class="alert alert-danger mt-2 mb-0" role="alert">
       {{ resetProductsError }}

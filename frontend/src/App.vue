@@ -8,7 +8,7 @@
     <AppHeader />
     <ConfigurationHeader />
   </header>  
-  <main class="mb-3 container-fluid bg-black">
+  <main class="pt-3 mb-3 container-fluid bg-black">
     <ConfigurationTabs v-model="activeConfigurationTab" />
     <div class="tab-content bg-body border-bottom border-start border-end rounded-bottom">
       <div id="configuration-panel-components" class="tab-pane" :class="{
@@ -39,9 +39,9 @@
 import { ref } from 'vue'
 import AppHeader from './components/header/AppHeader.vue'
 import ConfigurationHeader from './components/header/ConfigurationHeader.vue'
-import CardsToolbar from './components/ui/CardsToolbar.vue'
-import CardsGrid from './components/ui/CardsGrid.vue'
-import ConfigurationTabs from './components/ui/ConfigurationTabs.vue'
+import CardsToolbar from './components/configuration/CardsToolbar.vue'
+import CardsGrid from './components/configuration/CardsGrid.vue'
+import ConfigurationTabs from './components/configuration/ConfigurationTabs.vue'
 import ConfiguratorAccessories from './components/accessories/AccessoryList.vue'
 import ConfiguratorProductList from './components/basket/List.vue'
 import ModalAddBikeProduct from './components/modals/ModalAddBikeProduct.vue'

@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown" :class="{ show: isDropdownOpen }">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" @click="toggleDropdown"
+        <button class="btn btn-secondary dropdown-toggle" type="button" @click="toggleDropdown"
             :aria-expanded="isDropdownOpen">
             {{ bikeTypeStore.currentBikeType?.name || 'Type empty' }}
         </button>

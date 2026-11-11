@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-right bg-body">
+    <nav class="navbar bg-body">
         <div class="container-fluid">
             <span class="navbar-text">
                 {{ $t('appheader.title') }}!
