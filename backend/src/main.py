@@ -22,6 +22,7 @@ from src.views import bikepart as bikepart
 from src.views import bikeproduct as bikeproduct
 from src.views import accessory as accessory
 from src.views import user as auth
+from src.content.create_content import create_demo_content
 
 origins = [
     "http://localhost:8000",
@@ -32,6 +33,7 @@ origins = [
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db_and_tables()
+    create_demo_content()
     yield
 
 

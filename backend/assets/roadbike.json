@@ -1,0 +1,61 @@
+{
+  "bike_types": [
+    {
+      "name": "Rennrad",
+      "components": [
+        {
+          "name": "Antrieb",
+          "parts": [
+            "Adapter-Kits",
+            "Cleats & Schuhplatten",
+            "Fahrradkassetten",
+            "Fahrradketten",
+            "Fahrradkurbeln",
+            "Innenlager",
+            "Kettenblätter",
+            "Kettenführungen",
+            "Bashguard",
+            "Kleinteile",
+            "Nabenschaltung",
+            "Pedale",
+            "Riemen",
+            "Riemenscheiben",
+            "Verschleißsets"
+          ]
+        },
+        {
+          "name": "Bremsen",
+          "parts": [
+            "Adapter",
+            "Aussenhüllen",
+            "Bremsflüssigkeit",
+            "Bremsgriffe",
+            "Bremsleitungen",
+            "Bremsscheiben",
+            "Entlüftungskits",
+            "Felgenbremsbeläge",
+            "Felgenbremsen",
+            "Innenzüge",
+            "Scheibenbremsbeläge",
+            "Scheibenbremsen"
+          ]
+        },{
+            
+          "name": "Laufräder",
+          "parts": [
+            "Felgen",
+            "Felgenbänder",
+            "Freiläufe",
+            "Naben",
+            "Schnellspanner",
+            "Speichen",
+            "Speichennippel",
+            "Steckachsen",
+            "Tubeless-Kits",
+            "Kleinteile"
+            ]
+        }
+      ]
+    }
+  ]
+}
